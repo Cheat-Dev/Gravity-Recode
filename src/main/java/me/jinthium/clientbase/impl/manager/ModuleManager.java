@@ -1,0 +1,53 @@
+package me.jinthium.clientbase.impl.manager;
+
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import me.jinthium.clientbase.Client;
+import me.jinthium.clientbase.api.eventBus.EventHandler;
+import me.jinthium.clientbase.api.eventBus.Listener;
+import me.jinthium.clientbase.api.manager.Manager;
+import me.jinthium.clientbase.api.moduleBase.Module;
+import me.jinthium.clientbase.api.moduleBase.ModuleInfo;
+import me.jinthium.clientbase.impl.event.keyboard.KeyboardPressEvent;
+import me.jinthium.clientbase.impl.module.movement.Sprint;
+import net.minecraft.client.Minecraft;
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Stream;
+
+public class ModuleManager extends Manager<Module> {
+
+    public void init() {
+        Client.INSTANCE.getPubSubEventBus().subscribe(this);
+        Stream.of(new Sprint()).sorted((o1, o2) -> {
+            Class<?> c1 = o1.getClass();
+            Class<?> c2 = o2.getClass();
+            ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);
+            ModuleInfo a2 = c2.getDeclaredAnnotation(ModuleInfo.class);
+            return a1.moduleName().compareTo(a2.moduleName());
+        }).forEach(this::add);
+    }
+
+    @EventHandler
+    public void onKeyboardPress(KeyboardPressEvent event) {
+        getModules().forEach(module -> {
+            if(module.getKeyBind() == event.getKeyCode()){
+                module.toggle();
+            }
+        });
+    }
+
+    public List<Module> getModules() {
+        return new ArrayList<>(this.getObjects().values());
+    }
+
+    public <T extends Module> T getModule(Class<? extends Module> clazz) {
+        return (T) getModules().stream().filter(object -> object.getClass().equals(clazz)).findFirst().orElse(null);
+    }
+
+    public <T extends Module> T getModule(String moduleName) {
+        return (T) getModules().stream().filter(object -> object.getModuleInfo().moduleName().equalsIgnoreCase(moduleName)).findFirst().orElse(null);
+    }
+}
