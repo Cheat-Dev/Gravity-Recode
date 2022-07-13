@@ -1,7 +1,7 @@
 package net.minecraft.client.entity;
 
-import me.jinthium.clientbase.Client;
-import me.jinthium.clientbase.impl.event.player.PlayerMotionEvent;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -26,9 +26,6 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
