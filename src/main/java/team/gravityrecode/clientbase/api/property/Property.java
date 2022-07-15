@@ -13,15 +13,16 @@ public class Property<T> {
 
     private final IToggleable owner;
     private final String name;
-    private T value;
+    protected T value;
     private BooleanSupplier visible;
 
-    protected Property(IToggleable owner, String name, T value) {
+    protected Property(IToggleable owner, String name, T value, BooleanSupplier visible) {
         this.owner = owner;
         this.name = name;
         this.value = value;
-        this.visible = () -> true;
+        this.visible = visible;
         Client.INSTANCE.getPropertyManager().add(this);
     }
 
+    public T getValue() { return value;}
 }

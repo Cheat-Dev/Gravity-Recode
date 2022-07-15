@@ -30,6 +30,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
 import viamcp.ViaMCP;
 import viamcp.handler.CommonTransformer;
 import viamcp.handler.MCPDecodeHandler;
@@ -144,10 +146,16 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         if (this.channel.isOpen())
         {
             try {
+                PacketEvent packetEvent = new PacketEvent(PacketEvent.PacketType.RECEIVING, p_channelRead0_2_);
+                Client.INSTANCE.getPubSubEventBus().publish(packetEvent);
                 if (p_channelRead0_2_ instanceof S32PacketConfirmTransaction && Minecraft.getMinecraft().currentScreen instanceof GuiContainer) {
                     ((GuiContainer) Minecraft.getMinecraft().currentScreen).onServerTransaction((S32PacketConfirmTransaction) p_channelRead0_2_);
                 }
-                p_channelRead0_2_.processPacket(this.packetListener);
+
+                if(packetEvent.isCancelled())
+                    return;
+
+                packetEvent.getPacket().processPacket(this.packetListener);
             } catch (ThreadQuickExitException var4) {
                // var4.printStackTrace();
             }
@@ -166,15 +174,20 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
     }
 
     public void sendPacket(Packet packetIn) {
-        if (this.isChannelOpen()) {
+        PacketEvent packetEvent = new PacketEvent(PacketEvent.PacketType.SENDING, packetIn);
+        Client.INSTANCE.getPubSubEventBus().publish(packetEvent);
 
+        if(packetEvent.isCancelled())
+            return;
+
+        if (this.isChannelOpen()) {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, null);
+            this.dispatchPacket(packetEvent.getPacket(), null);
         } else {
             this.readWriteLock.writeLock().lock();
 
             try {
-                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener[]) null));
+                this.outboundPacketsQueue.add(new InboundHandlerTuplePacketListener(packetEvent.getPacket(), (GenericFutureListener[]) null));
             } finally {
                 this.readWriteLock.writeLock().unlock();
             }

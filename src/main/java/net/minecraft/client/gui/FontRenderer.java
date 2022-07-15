@@ -52,6 +52,9 @@ public class FontRenderer implements IResourceManagerReloadListener
     private boolean blend = false;
     private final GlBlendState oldBlendState = new GlBlendState();
 
+    public int getHeight(){
+        return FONT_HEIGHT;
+    }
     public FontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode)
     {
         this.gameSettings = gameSettingsIn;

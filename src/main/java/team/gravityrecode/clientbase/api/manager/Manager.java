@@ -1,10 +1,12 @@
 package team.gravityrecode.clientbase.api.manager;
 
+import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Manager<T> {
+public class Manager<T> implements MinecraftUtil {
     private final LinkedHashMap<Class<?>, T> objects = new LinkedHashMap<>();
 
     public void add(T object) {

@@ -1,6 +1,7 @@
 package team.gravityrecode.clientbase.impl.manager;
 
 import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.manager.Manager;
@@ -16,6 +17,7 @@ import team.gravityrecode.clientbase.impl.module.visual.TabGui;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ModuleManager extends Manager<Module> {
@@ -33,6 +35,10 @@ public class ModuleManager extends Manager<Module> {
 
     @EventHandler
     public void onKeyboardPress(KeyboardPressEvent event) {
+        if(event.getKeyCode() == Keyboard.KEY_RSHIFT){
+            mc.displayGuiScreen(Client.INSTANCE.getMainCGUI());
+        }
+
         getModules().forEach(module -> {
             if (module.getKeyBind() == event.getKeyCode()) {
                 module.toggle();
@@ -44,14 +50,8 @@ public class ModuleManager extends Manager<Module> {
         return new ArrayList<>(this.getObjects().values());
     }
 
-    public List<Module> getModulesInCategory(Module.ModuleCategory category) {
-        List<Module> module = new ArrayList<>();
-        for (Module mod : getModules()) {
-            if (mod.getModuleCategory() == category) {
-                module.add(mod);
-            }
-        }
-        return module;
+    public List<Module> getModulesInCategory(Module.ModuleCategory c) {
+        return getModules().stream().filter(m -> m.getModuleCategory() == c).collect(Collectors.toList());
     }
 
     public <T extends Module> T getModule(Class<? extends Module> clazz) {

@@ -5,15 +5,20 @@ import team.gravityrecode.clientbase.api.property.Property;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
-public class MultipleBoolSetting extends Property<List<BooleanSetting>> {
+public class MultipleBoolSetting extends Property<List<MultiBoolean>> {
 
-    protected MultipleBoolSetting(IToggleable owner, String name, BooleanSetting... values) {
-        super(owner, name, Arrays.asList(values));
+    public MultipleBoolSetting(IToggleable owner, String name, BooleanSupplier visible, MultiBoolean... values) {
+        super(owner, name, Arrays.asList(values), visible);
+    }
+
+    public MultipleBoolSetting(IToggleable owner, String name, MultiBoolean... values){
+        this(owner, name, () -> true, values);
     }
 
     public boolean isSelected(final String name) {
-        final BooleanSetting selection = this.getValue().stream().filter(s -> s.getName().equals(name)).findAny().orElse(null);
+        final MultiBoolean selection = this.getValue().stream().filter(s -> s.getName().equals(name)).findAny().orElse(null);
         if (selection == null)
             return false;
         return selection.getValue();

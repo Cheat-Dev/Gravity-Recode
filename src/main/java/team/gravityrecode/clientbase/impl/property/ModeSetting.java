@@ -7,18 +7,23 @@ import team.gravityrecode.clientbase.impl.property.mode.Mode;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @Getter
 public class ModeSetting extends Property<Mode> {
 
     private final List<Mode> modeList;
 
-    public ModeSetting(IToggleable owner, String name, Mode... modes) {
-        super(owner, name, modes[0]);
+    public ModeSetting(IToggleable owner, String name, BooleanSupplier visible, Mode... modes) {
+        super(owner, name, modes[0], visible);
         this.modeList = Arrays.asList(modes);
         for(Mode mode : modes) {
             mode.setProperty(this);
         }
+    }
+
+    public ModeSetting(IToggleable owner, String name, Mode... modes) {
+        this(owner, name, () -> true, modes[0]);
     }
 
     public void setValue(String value) {

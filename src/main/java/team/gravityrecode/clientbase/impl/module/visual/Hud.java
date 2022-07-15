@@ -8,6 +8,7 @@ import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
+import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
 import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
 
@@ -23,6 +24,8 @@ public class Hud extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
 //        if(Client.INSTANCE)
+
+        Fonts.INSTANCE.getSourceSansPro().drawString("Test", 5, 5, -1);
         Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 2, (int) draggable.getY() - 2, 62, 14, 8, 95);
         mc.fontRendererObj.drawStringWithShadow(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3,
                 Client.INSTANCE.getModuleManager().getModule("TabGui").isEnabled() ? draggable.getY() + 3 : draggable.getY() + 1, -1);

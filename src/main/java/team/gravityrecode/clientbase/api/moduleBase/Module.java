@@ -2,12 +2,13 @@ package team.gravityrecode.clientbase.api.moduleBase;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.client.IToggleable;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
-@Getter
+@Getter@Setter
 public class Module implements MinecraftUtil, IToggleable {
     private final ModuleInfo moduleInfo;
     private int keyBind;

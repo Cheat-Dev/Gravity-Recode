@@ -6,15 +6,20 @@ import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @Getter
 public class EnumSetting<T extends INameable> extends Property<T> {
     private final List<T> enumList;
 
     @SafeVarargs
-    public EnumSetting(IToggleable owner, String name, T... modes) {
-        super(owner, name, modes[0]);
+    public EnumSetting(IToggleable owner, String name, BooleanSupplier visible, T... modes) {
+        super(owner, name, modes[0], visible);
         this.enumList = Arrays.asList(modes);
+    }
+
+    public EnumSetting(IToggleable owner, String name, T... modes) {
+        this(owner, name, () -> true, modes[0]);
     }
 
     public void setValue(String value) {

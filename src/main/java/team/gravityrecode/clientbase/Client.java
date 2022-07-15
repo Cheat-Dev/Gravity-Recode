@@ -1,6 +1,7 @@
 package team.gravityrecode.clientbase;
 
 import lombok.Getter;
+import me.jinthium.clickgui.MainCGUI;
 import me.jinthium.shader.ShaderManager;
 import team.gravityrecode.clientbase.api.client.ClientInfo;
 import team.gravityrecode.clientbase.api.client.Event;
@@ -10,6 +11,7 @@ import team.gravityrecode.clientbase.impl.manager.ModuleManager;
 import org.lwjgl.opengl.Display;
 import team.gravityrecode.clientbase.impl.manager.PropertyManager;
 import team.gravityrecode.clientbase.impl.util.util.Blurrer;
+import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
 import team.gravityrecode.clientbase.impl.util.util.render.shaders.BlurUtil;
 import viamcp.ViaMCP;
@@ -28,6 +30,7 @@ public enum Client implements MinecraftUtil {
     public final Path clientDir = Paths.get(mc.mcDataDir.getAbsolutePath(), "Gravity");
     public final Path clientDirConfigs = Paths.get(String.valueOf(clientDir), "configs");
     private Blurrer blurrer;
+    private MainCGUI mainCGUI;
     private BlurUtil blurUtil;
     private final ShaderManager shaderManager = new ShaderManager();
     private DraggablesManager draggablesManager;
@@ -44,10 +47,12 @@ public enum Client implements MinecraftUtil {
             System.out.println(clientDirConfigs);
             clientDirConfigs.toFile().mkdir();
         }
+        Fonts.INSTANCE.initFonts();
         draggablesManager = new DraggablesManager();
         shaderManager.init();
         propertyManager.init();
         moduleManager.init();
+        mainCGUI = new MainCGUI();
         Display.setTitle(clientInfo.getMinecraftTitle());
         blurrer = new Blurrer(false);
         blurUtil = new BlurUtil();

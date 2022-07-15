@@ -28,6 +28,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -944,6 +946,14 @@ public abstract class Entity implements ICommandSender
     public void moveFlying(float strafe, float forward, float friction)
     {
         float yaw = rotationYaw;
+        if (this instanceof EntityPlayerSP) {
+            PlayerStrafeEvent eventStrafe = new PlayerStrafeEvent(strafe, forward, friction, rotationYaw);
+            Client.INSTANCE.getPubSubEventBus().publish(eventStrafe);
+            strafe = eventStrafe.getStrafe();
+            forward= eventStrafe.getForward();
+            friction = eventStrafe.getFriction();
+            yaw = eventStrafe.getYaw();
+        }
 
         float f = strafe * strafe + forward * forward;
 
