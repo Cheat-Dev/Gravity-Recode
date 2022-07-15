@@ -7,6 +7,7 @@ import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
+import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
 import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @ModuleInfo(moduleName = "Hud", moduleCategory = Module.ModuleCategory.VISUAL, moduleKeyBind = Keyboard.KEY_U)
 public class Hud extends Module {
 
-    private final Draggable draggable = Client.INSTANCE.getDraggablesManager().createNewDraggable(this, "test", 4, 4);
+    public Draggable draggable = Client.INSTANCE.getDraggablesManager().createNewDraggable(this, "test", 4, 4, mc.fontRendererObj.getStringWidth("Gravity"), mc.fontRendererObj.FONT_HEIGHT);
     public List<Module> modules;
 
     @EventHandler
@@ -24,7 +25,6 @@ public class Hud extends Module {
 //        if(Client.INSTANCE)
         Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 3, (int) draggable.getY() - 3, 42, 14, 8, 150);
         mc.fontRendererObj.drawStringWithShadow(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX(), draggable.getY(), -1);
-
         int y = 0;
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);

@@ -34,13 +34,15 @@ public class Draggable implements MinecraftUtil {
 
     public IToggleable module;
 
-    public Draggable(IToggleable module, String name, float initialX, float initialY) {
+    public Draggable(IToggleable module, String name, float initialX, float initialY, float width, float height) {
         this.module = module;
         this.name = name;
         this.x = initialX;
         this.y = initialY;
         this.initialX = initialX;
         this.initialY = initialY;
+        this.width = width;
+        this.height = height;
     }
 
 

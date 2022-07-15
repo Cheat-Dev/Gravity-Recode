@@ -51,8 +51,9 @@ public enum Client implements MinecraftUtil {
         Display.setTitle(clientInfo.getMinecraftTitle());
         blurrer = new Blurrer(false);
         blurUtil = new BlurUtil();
-        if (!draggablesManager.getDraggables().values().isEmpty())
-            draggablesManager.loadDraggableData();
+//        if (!draggablesManager.getDraggables().values().isEmpty())
+//            draggablesManager.loadDraggableData();
+        draggablesManager.loadDraggableData();
     };
 
     private final Runnable stopGame = () -> {

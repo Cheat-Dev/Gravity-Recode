@@ -719,6 +719,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public void shutdownMinecraftApplet() {
         try {
+            Client.INSTANCE.getStopGame().run();
             logger.info("Stopping!");
 
             try {
@@ -735,8 +736,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 System.exit(0);
             }
         }
-
-        Client.INSTANCE.getStopGame().run();
         System.gc();
     }
 

@@ -55,8 +55,12 @@ public class DraggablesManager {
     }
 
 
-    public Draggable createNewDraggable(IToggleable module, String name, float x, float y) {
-        draggables.put(name, new Draggable(module, name, x, y));
+    public Draggable createNewDraggable(IToggleable module, String name, float x, float y, float width, float height) {
+        try {
+            draggables.put(name, new Draggable(module, name, x, y, width, height));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
         return draggables.get(name);
     }
 
