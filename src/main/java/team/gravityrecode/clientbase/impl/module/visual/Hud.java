@@ -24,21 +24,19 @@ public class Hud extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
 //        if(Client.INSTANCE)
-
-        Fonts.INSTANCE.getSourceSansPro().drawString("Test", 5, 5, -1);
-        Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 2, (int) draggable.getY() - 2, 62, 14, 8, 95);
-        mc.fontRendererObj.drawStringWithShadow(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3,
+        Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 2, (int) draggable.getY() - 2, 62, 20, 8, 95);
+        Fonts.INSTANCE.getUbuntu_light().drawString(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3,
                 Client.INSTANCE.getModuleManager().getModule("TabGui").isEnabled() ? draggable.getY() + 3 : draggable.getY() + 1, -1);
         int y = 0;
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);
         for (Module module : modules) {
-            int stringWidth = mc.fontRendererObj.getStringWidth(module.getModuleName());
+            int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             if (module.isEnabled()) {
                 int xVal = event.getScaledResolution().getScaledWidth() - stringWidth - 4;
                 Client.INSTANCE.getBlurrer().bloom(xVal - 8, y - mc.fontRendererObj.FONT_HEIGHT + 11, stringWidth + 12, 16,
                         10, 95);
-                mc.fontRendererObj.drawStringWithShadow(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 6, -1);
+                Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 6, -1);
                 y += 11;
             }
         }
