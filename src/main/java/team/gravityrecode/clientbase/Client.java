@@ -10,6 +10,7 @@ import team.gravityrecode.clientbase.impl.manager.ModuleManager;
 import org.lwjgl.opengl.Display;
 import team.gravityrecode.clientbase.impl.manager.PropertyManager;
 import team.gravityrecode.clientbase.impl.util.util.Blurrer;
+import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
 import team.gravityrecode.clientbase.impl.util.util.render.shaders.BlurUtil;
 import viamcp.ViaMCP;
 
@@ -29,6 +30,7 @@ public enum Client implements MinecraftUtil{
     private Blurrer blurrer;
     private BlurUtil blurUtil;
     private final ShaderManager shaderManager = new ShaderManager();
+    private final DraggablesManager draggablesManager = new DraggablesManager();
 
     private final Runnable startGame = () -> {
         ViaMCP.getInstance().start();
@@ -48,5 +50,8 @@ public enum Client implements MinecraftUtil{
         Display.setTitle(clientInfo.getMinecraftTitle());
         blurrer = new Blurrer(false);
         blurUtil = new BlurUtil();
+        draggablesManager.loadDraggableData();
     };
+
+    private final Runnable stopGame = draggablesManager::saveDraggableData;
 }

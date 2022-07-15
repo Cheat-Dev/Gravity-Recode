@@ -8,6 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
+import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,11 +38,11 @@ public class GuiChat extends GuiScreen
 
     public void initGui()
     {
-//        for (Draggable draggable : Pulsive.INSTANCE.getDraggablesManager().getDraggables().values()) {
-//            if (!draggable.hoverAnimation.getDirection().equals(Direction.BACKWARDS)) {
-//                draggable.hoverAnimation.setDirection(Direction.BACKWARDS);
-//            }
-//        }
+        for (Draggable draggable : Client.INSTANCE.getDraggablesManager().getDraggables().values()) {
+            if (!draggable.hoverAnimation.getDirection().equals(Direction.BACKWARDS)) {
+                draggable.hoverAnimation.setDirection(Direction.BACKWARDS);
+            }
+        }
 
         Keyboard.enableRepeatEvents(true);
         this.sentHistoryCursor = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
@@ -144,7 +147,7 @@ public class GuiChat extends GuiScreen
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-//        Pulsive.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onClick(mouseX, mouseY, mouseButton));
+       Client.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onClick(mouseX, mouseY, mouseButton));
         
         if (mouseButton == 0)
         {
@@ -163,7 +166,7 @@ public class GuiChat extends GuiScreen
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
-//        Pulsive.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onRelease(state));
+        Client.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onRelease(state));
     }
 
     protected void setText(String newChatText, boolean shouldOverwrite)
@@ -275,7 +278,7 @@ public class GuiChat extends GuiScreen
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-//        Pulsive.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onDraw(mouseX, mouseY));
+        Client.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onDraw(mouseX, mouseY));
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
         IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());

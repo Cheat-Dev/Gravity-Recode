@@ -736,6 +736,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             }
         }
 
+        Client.INSTANCE.getStopGame().run();
         System.gc();
     }
 
