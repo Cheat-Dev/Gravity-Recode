@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.event.player.SendSprintStateEvent;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
@@ -96,7 +97,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
     @Override
     public void moveEntity(double x, double y, double z) {
-        super.moveEntity(x, y, z);
+        PlayerMoveEvent playerMoveEvent = new PlayerMoveEvent(x, y, z);
+        Client.INSTANCE.getPubSubEventBus().publish(playerMoveEvent);
+        if (playerMoveEvent.isCancelled())
+            return;
+        super.moveEntity(playerMoveEvent.getX(), playerMoveEvent.getY(), playerMoveEvent.getZ());
     }
 
     public void mountEntity(Entity entityIn) {

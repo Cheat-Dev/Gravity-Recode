@@ -7,8 +7,8 @@ import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
 
-@ModuleInfo(moduleName = "Speed", moduleCategory = Module.ModuleCategory.MOVEMENT, moduleKeyBind = Keyboard.KEY_F)
-public class Speed extends Module {
+@ModuleInfo(moduleName = "Flight", moduleKeyBind = Keyboard.KEY_G, moduleCategory = Module.ModuleCategory.MOVEMENT)
+public class Flight extends Module {
 
     private double moveSpeed;
     private boolean doSlow;
@@ -16,18 +16,19 @@ public class Speed extends Module {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (MovementUtil.isMovingOnGround()) {
-            moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.8;
+            moveSpeed = MovementUtil.getBaseMoveSpeed() * 2.1;
             event.setY(mc.thePlayer.motionY = 0.42F);
             doSlow = true;
         } else {
             if (doSlow) {
-                moveSpeed -= 0.72 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
+                moveSpeed += 0.26 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
                 doSlow = false;
             } else {
                 moveSpeed -= moveSpeed / 159;
             }
         }
         MovementUtil.setSpeed(event, moveSpeed);
+        event.setY(mc.thePlayer.motionY = mc.thePlayer.ticksExisted % 2 == 0 ? 0.0001 : -0.0001);
     }
 
     @Override

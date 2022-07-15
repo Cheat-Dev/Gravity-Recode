@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockHopper;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -12,6 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import org.apache.commons.lang3.RandomUtils;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.util.util.math.MathUtil;
 import team.gravityrecode.clientbase.impl.util.util.network.PacketUtil;
 import me.jinthium.optimization.ApacheMath;
@@ -22,7 +24,7 @@ import java.security.SecureRandom;
 public class MovementUtil implements MinecraftUtil {
 
     public void damage() {
-        for(int i = 0; i < 50; i++) {
+        for (int i = 0; i < 50; i++) {
             PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 0.0625, mc.thePlayer.posZ, false));
             PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, false));
         }
@@ -38,7 +40,7 @@ public class MovementUtil implements MinecraftUtil {
     }
 
 
-    public boolean isMathGround(){
+    public boolean isMathGround() {
         return mc.thePlayer.posY % 0.015625 == 0;
     }
 
@@ -101,7 +103,7 @@ public class MovementUtil implements MinecraftUtil {
         final boolean right = strafe > 0;
         final boolean left = strafe < 0;
         float direction = 0;
-        if(backwards)
+        if (backwards)
             direction += 180;
         direction += forwards ? (right ? -45 : left ? 45 : 0) : backwards ? (right ? 45 : left ? -45 : 0) : (right ? -90 : left ? 90 : 0);
         direction += yaw;
@@ -148,10 +150,10 @@ public class MovementUtil implements MinecraftUtil {
         double mz = ApacheMath.sin(ApacheMath.toRadians((yaw + 90.0F)));
         double x = (forward * moveSpeed * mx + strafe * moveSpeed * mz);
         double z = (forward * moveSpeed * mz - strafe * moveSpeed * mx);
-        return new double[] {x, z};
+        return new double[]{x, z};
     }
 
-    
+
     public double getBaseMoveSpeed(boolean sprint) {
         double baseSpeed = (sprint) ? 0.2873 : 0.22;
         if ((mc.thePlayer != null && mc.thePlayer.isPotionActive(Potion.moveSpeed)) && sprint) {
@@ -175,41 +177,31 @@ public class MovementUtil implements MinecraftUtil {
         return (float) (mc.thePlayer.getMaxFallHeight() + height);
     }
 
-//    public void setSpeed(final PlayerMoveEvent event, double speed) {
-//        EntityPlayerSP player = mc.thePlayer;
-//        TargetStrafe targetStrafeModule = Pulsive.INSTANCE.getModuleManager().getModule(TargetStrafe.class);
-//        if (targetStrafeModule.shouldStrafe()) {
-//            if (targetStrafeModule.shouldAdaptSpeed())
-//                speed = ApacheMath.min(speed, targetStrafeModule.getAdaptedSpeed());
-//            targetStrafeModule.setSpeed(event, speed);
-//            return;
-//        }
-//
-//        setSpeed(event, speed, player.moveForward, player.moveStrafing, player.rotationYaw);
-//    }
+    public void setSpeed(final PlayerMoveEvent event, double speed) {
+        EntityPlayerSP player = mc.thePlayer;
+        setSpeed(event, speed, player.moveForward, player.moveStrafing, player.rotationYaw);
+    }
 
+    public void setSpeed(PlayerMoveEvent e, double speed, float forward, float strafing, float yaw) {
+        if (forward == 0.0F && strafing == 0.0F) return;
 
+        boolean reversed = forward < 0.0f;
+        float strafingYaw = 90.0f *
+                (forward > 0.0f ? 0.5f : reversed ? -0.5f : 1.0f);
 
-//    public void setSpeed(PlayerMoveEvent e, double speed, float forward, float strafing, float yaw) {
-//        if (forward == 0.0F && strafing == 0.0F) return;
-//
-//        boolean reversed = forward < 0.0f;
-//        float strafingYaw = 90.0f *
-//                (forward > 0.0f ? 0.5f : reversed ? -0.5f : 1.0f);
-//
-//        if (reversed)
-//            yaw += 180.0f;
-//        if (strafing > 0.0f)
-//            yaw -= strafingYaw;
-//        else if (strafing < 0.0f)
-//            yaw += strafingYaw;
-//
-//        double x = ApacheMath.cos(ApacheMath.toRadians(yaw + 90.0f));
-//        double z = ApacheMath.cos(ApacheMath.toRadians(yaw));
-//
-//        e.setX(x * speed);
-//        e.setZ(z * speed);
-//    }
+        if (reversed)
+            yaw += 180.0f;
+        if (strafing > 0.0f)
+            yaw -= strafingYaw;
+        else if (strafing < 0.0f)
+            yaw += strafingYaw;
+
+        double x = ApacheMath.cos(ApacheMath.toRadians(yaw + 90.0f));
+        double z = ApacheMath.cos(ApacheMath.toRadians(yaw));
+
+        e.setX(x * speed);
+        e.setZ(z * speed);
+    }
 
 //    public void setSpeed(double speed) {
 //        EntityPlayerSP player = mc.thePlayer;
@@ -248,14 +240,14 @@ public class MovementUtil implements MinecraftUtil {
         mc.thePlayer.motionZ = z * speed;
     }
 
-    public double getSpeed(){
+    public double getSpeed() {
         return ApacheMath.hypot(mc.thePlayer.motionX, mc.thePlayer.motionZ);
     }
 
-    public double getLastDistance(){
+    public double getLastDistance() {
         return ApacheMath.hypot(mc.thePlayer.posX - mc.thePlayer.prevPosX, mc.thePlayer.posZ - mc.thePlayer.prevPosZ);
     }
-    
+
     public double[] getSpeed(double moveSpeed) {
         final double forward = mc.thePlayer.movementInput.moveForward;
         final double strafe = mc.thePlayer.movementInput.moveStrafe;
@@ -288,5 +280,4 @@ public class MovementUtil implements MinecraftUtil {
         }
         return false;
     }
-
 }

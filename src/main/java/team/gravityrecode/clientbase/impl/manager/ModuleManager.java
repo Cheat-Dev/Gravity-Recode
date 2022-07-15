@@ -7,6 +7,8 @@ import team.gravityrecode.clientbase.api.manager.Manager;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.keyboard.KeyboardPressEvent;
+import team.gravityrecode.clientbase.impl.module.movement.Flight;
+import team.gravityrecode.clientbase.impl.module.movement.Speed;
 import team.gravityrecode.clientbase.impl.module.movement.Sprint;
 import team.gravityrecode.clientbase.impl.module.visual.Hud;
 import team.gravityrecode.clientbase.impl.module.visual.TabGui;
@@ -20,7 +22,7 @@ public class ModuleManager extends Manager<Module> {
 
     public void init() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
-        Stream.of(new Sprint(), new Hud(), new TabGui()).sorted((o1, o2) -> {
+        Stream.of(new Sprint(), new Hud(), new TabGui(), new Speed(), new Flight()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
             ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);
@@ -40,6 +42,16 @@ public class ModuleManager extends Manager<Module> {
 
     public List<Module> getModules() {
         return new ArrayList<>(this.getObjects().values());
+    }
+
+    public List<Module> getModulesInCategory(Module.ModuleCategory category) {
+        List<Module> module = new ArrayList<>();
+        for (Module mod : getModules()) {
+            if (mod.getModuleCategory() == category) {
+                module.add(mod);
+            }
+        }
+        return module;
     }
 
     public <T extends Module> T getModule(Class<? extends Module> clazz) {

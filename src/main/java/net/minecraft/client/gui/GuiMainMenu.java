@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
+import team.gravityrecode.clientbase.api.alt.GuiAltManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -202,12 +203,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         if (Reflector.GuiModList_Constructor.exists())
         {
-            this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 + 2, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("menu.online", new Object[0]).replace("Minecraft", "").trim()));
+            this.buttonList.add(new GuiButton(14, this.width / 2 + 2, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("Alt Login")));
             this.buttonList.add(this.modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
         }
         else
         {
-            this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online")));
+            this.buttonList.add(new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("Alt Login")));
         }
     }
 
@@ -246,9 +247,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.mc.displayGuiScreen(new GuiMultiplayer(this));
         }
 
-        if (button.id == 14 && this.realmsButton.visible)
+        if (button.id == 14)
         {
-            mc.displayGuiScreen(this);
+            mc.displayGuiScreen(new GuiAltManager());
         }
 
         if (button.id == 4)

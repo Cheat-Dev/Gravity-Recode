@@ -23,8 +23,9 @@ public class Hud extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
 //        if(Client.INSTANCE)
-        Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 3, (int) draggable.getY() - 3, 42, 14, 8, 150);
-        mc.fontRendererObj.drawStringWithShadow(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX(), draggable.getY(), -1);
+        Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 2, (int) draggable.getY() - 2, 62, 14, 8, 95);
+        mc.fontRendererObj.drawStringWithShadow(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3,
+                Client.INSTANCE.getModuleManager().getModule("TabGui").isEnabled() ? draggable.getY() + 3 : draggable.getY() + 1, -1);
         int y = 0;
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);
@@ -32,9 +33,9 @@ public class Hud extends Module {
             int stringWidth = mc.fontRendererObj.getStringWidth(module.getModuleName());
             if (module.isEnabled()) {
                 int xVal = event.getScaledResolution().getScaledWidth() - stringWidth - 4;
-                Client.INSTANCE.getBlurrer().bloom(xVal, y - mc.fontRendererObj.FONT_HEIGHT + 10, stringWidth + 2, 15,
-                        10, 155);
-                mc.fontRendererObj.drawStringWithShadow(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 4, y + 4, -1);
+                Client.INSTANCE.getBlurrer().bloom(xVal - 8, y - mc.fontRendererObj.FONT_HEIGHT + 11, stringWidth + 12, 16,
+                        10, 95);
+                mc.fontRendererObj.drawStringWithShadow(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 6, -1);
                 y += 11;
             }
         }

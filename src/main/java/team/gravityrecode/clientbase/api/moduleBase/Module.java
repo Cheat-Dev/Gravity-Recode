@@ -11,7 +11,7 @@ import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 public class Module implements MinecraftUtil, IToggleable {
     private final ModuleInfo moduleInfo;
     private int keyBind;
-    private boolean enabled;
+    private boolean enabled, expanded;
 
     public Module(){
         Class<?> clazz = this.getClass();
@@ -37,6 +37,10 @@ public class Module implements MinecraftUtil, IToggleable {
         Logger.print("Disabled " + getModuleName());
     }
 
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
     public void toggle() {
         if (!this.enabled) {
             this.enabled = true;
@@ -57,13 +61,14 @@ public class Module implements MinecraftUtil, IToggleable {
 
     @AllArgsConstructor
     public static enum ModuleCategory {
-        COMBAT("Combat"),
-        MOVEMENT("Movement"),
-        PLAYER("Player"),
-        VISUAL("Render"),
-        EXPLOIT("Exploit"),
-        MISC("Misc");
+        COMBAT(1,"Combat"),
+        MOVEMENT(2, "Movement"),
+        PLAYER(3, "Player"),
+        VISUAL(4, "Render"),
+        EXPLOIT(5, "Exploit"),
+        MISC(6, "Misc");
 
+        public int elementIndex;
         public final String categoryName;
 
         @Override
