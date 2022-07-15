@@ -56,7 +56,7 @@ public class GuiChat extends GuiScreen
 
     public void onGuiClosed()
     {
-       // TargetHUD.ease.setDirection(Direction.BACKWARDS);
+        // TargetHUD.ease.setDirection(Direction.BACKWARDS);
         Keyboard.enableRepeatEvents(false);
         this.mc.ingameGUI.getChatGUI().resetScroll();
     }
@@ -147,8 +147,8 @@ public class GuiChat extends GuiScreen
 
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-       Client.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onClick(mouseX, mouseY, mouseButton));
-        
+        Client.INSTANCE.getDraggablesManager().getDraggables().values().forEach(draggable -> draggable.onClick(mouseX, mouseY, mouseButton));
+
         if (mouseButton == 0)
         {
             IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());

@@ -25,7 +25,7 @@ public enum Client implements MinecraftUtil{
     private final ClientInfo clientInfo = new ClientInfo("Gravity", "3.0-Recode", "Jinthium & That one cheater");
     private final ModuleManager moduleManager = new ModuleManager();
     private final PropertyManager propertyManager = new PropertyManager();
-    public final Path clientDir = Paths.get(mc.mcDataDir.getAbsolutePath(), getClientInfo().getClientName());
+    public final Path clientDir = Paths.get(mc.mcDataDir.getAbsolutePath(), "Gravity");
     public final Path clientDirConfigs = Paths.get(String.valueOf(clientDir), "configs");
     private Blurrer blurrer;
     private BlurUtil blurUtil;
