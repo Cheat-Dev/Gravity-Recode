@@ -3,10 +3,12 @@ package team.gravityrecode.clientbase.api.moduleBase;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.api.client.IToggleable;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
 @Getter
-public class Module implements MinecraftUtil {
+public class Module implements MinecraftUtil, IToggleable {
     private final ModuleInfo moduleInfo;
     private int keyBind;
     private boolean enabled;
@@ -20,12 +22,19 @@ public class Module implements MinecraftUtil {
         this.keyBind = moduleInfo.moduleKeyBind();
     }
 
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void onEnable(){
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
+        Logger.print("Enabled " + getModuleName());
     }
 
     public void onDisable(){
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
+        Logger.print("Disabled " + getModuleName());
     }
 
     public void toggle() {

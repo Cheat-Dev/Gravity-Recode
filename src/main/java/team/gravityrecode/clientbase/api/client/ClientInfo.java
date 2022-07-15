@@ -13,6 +13,6 @@ public class ClientInfo implements MinecraftUtil {
     }
 
     public String getLoadingTitle(){
-        return "Loading " + clientName + "...";
+        return "Loading Gravity...";
     }
 }

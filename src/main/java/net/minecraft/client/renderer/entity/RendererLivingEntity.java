@@ -1,6 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import com.google.common.collect.Lists;
+import me.jinthium.optimization.BackFaceCulling;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -110,6 +111,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
 
             GlStateManager.pushMatrix();
+            BackFaceCulling.backFaceCullingStart(entity);
             GlStateManager.disableCull();
             this.mainModel.swingProgress = this.getSwingProgress(entity, partialTicks);
             this.mainModel.isRiding = entity.isRiding();
@@ -192,7 +194,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     this.renderScaleFactor = f4;
                     this.renderPartialTicks = partialTicks;
                 }
-
                 if (this.renderOutlines) {
                     boolean flag1 = this.setScoreTeamColor(entity);
                     this.renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
@@ -213,6 +214,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     if (this.renderModelPushMatrix) {
                         GlStateManager.popMatrix();
                     }
+                    this.renderModel(entity, f6, f5, f8, f2, f7, 0.0625F);
                     if (EmissiveTextures.isActive()) {
                         if (EmissiveTextures.hasEmissive()) {
                             this.renderModelPushMatrix = true;
@@ -249,6 +251,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
             GlStateManager.enableTexture2D();
             GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+            BackFaceCulling.backFaceCullingEnd();
             GlStateManager.enableCull();
             GlStateManager.popMatrix();
 

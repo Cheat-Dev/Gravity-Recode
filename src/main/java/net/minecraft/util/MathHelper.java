@@ -1,6 +1,6 @@
 package net.minecraft.util;
 
-import team.gravityrecode.optimization.ApacheMath;
+import me.jinthium.optimization.ApacheMath;
 import net.optifine.util.MathUtils;
 
 import java.util.Random;

@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package team.gravityrecode.optimization;
+package me.jinthium.optimization;
 
-import team.gravityrecode.optimization.apacheMath.FastMathCalc;
-import team.gravityrecode.optimization.apacheMath.FastMathLiteralArrays;
-import team.gravityrecode.optimization.apacheMath.Precision;
+import me.jinthium.optimization.apacheMath.FastMathCalc;
+import me.jinthium.optimization.apacheMath.FastMathLiteralArrays;
+import me.jinthium.optimization.apacheMath.Precision;
 
 /**
  * Faster, more accurate, portable alternative to {@link Math} and

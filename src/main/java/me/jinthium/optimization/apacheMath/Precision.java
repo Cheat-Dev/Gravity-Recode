@@ -1,6 +1,6 @@
-package team.gravityrecode.optimization.apacheMath;
+package me.jinthium.optimization.apacheMath;
 
-import team.gravityrecode.optimization.ApacheMath;
+import me.jinthium.optimization.ApacheMath;
 
 public class Precision {
     /**

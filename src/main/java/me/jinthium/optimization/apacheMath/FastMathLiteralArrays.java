@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package team.gravityrecode.optimization.apacheMath;
+package me.jinthium.optimization.apacheMath;
 
 public class FastMathLiteralArrays {
     /** Exponential evaluated at integer values,

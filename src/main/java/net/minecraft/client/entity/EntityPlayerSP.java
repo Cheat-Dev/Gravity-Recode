@@ -26,6 +26,7 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import team.gravityrecode.clientbase.impl.event.player.SendSprintStateEvent;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
@@ -139,8 +140,11 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
         currentEvent = playerMotionEvent;
 
+        SendSprintStateEvent sendSprintStateEvent = new SendSprintStateEvent(isSprinting());
+        Client.INSTANCE.getPubSubEventBus().publish(sendSprintStateEvent);
 
-        boolean flag = this.isSprinting();
+
+        boolean flag = sendSprintStateEvent.isSprintState();
 
         if (flag != this.serverSprintState) {
             if (flag) {

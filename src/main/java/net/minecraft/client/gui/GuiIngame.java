@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import me.jinthium.shader.impl.BoxBlur;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -33,6 +34,9 @@ import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
 import net.optifine.util.MathUtils;
+import org.lwjgl.opengl.GL11;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.util.util.render.StencilUtil;
 
 import java.util.Collection;
 import java.util.List;
@@ -286,7 +290,14 @@ public class GuiIngame extends Gui {
             this.overlayPlayerList.updatePlayerList(false);
         }
         Gui.drawRect(0,0,0,0,0);
+//        Client.INSTANCE.getPubSubEventBus().publish(new Render2);
+        GL11.glPushMatrix();
+
+        Client.INSTANCE.getBlurrer().bloom(30, 30, 50, 50, 8, 150);
+        GL11.glPopMatrix();
+        Gui.drawRect(0,0,0,0,0);
         ScaledResolution sr2 = new ScaledResolution(Minecraft.getMinecraft());
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
 
@@ -294,29 +305,29 @@ public class GuiIngame extends Gui {
 
     protected void renderTooltip(ScaledResolution sr, float partialTicks) {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer) {
-//            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-//            this.mc.getTextureManager().bindTexture(widgetsTexPath);
-//            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
-//            int i = sr.getScaledWidth() / 2;
-//            float f = zLevel;
-//            zLevel = -90.0F;
-//            this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-//            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
-//            zLevel = f;
-//            GlStateManager.enableRescaleNormal();
-//            GlStateManager.enableBlend();
-//            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-//            RenderHelper.enableGUIStandardItemLighting();
-//
-////            for (int j = 0; j < 9; ++j) {
-////                int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
-////                int l = sr.getScaledHeight() - 16 - 3;
-////                this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
-////            }
-//
-//            RenderHelper.disableStandardItemLighting();
-//            GlStateManager.disableRescaleNormal();
-//            GlStateManager.disableBlend();
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            this.mc.getTextureManager().bindTexture(widgetsTexPath);
+            EntityPlayer entityplayer = (EntityPlayer) this.mc.getRenderViewEntity();
+            int i = sr.getScaledWidth() / 2;
+            float f = zLevel;
+            zLevel = -90.0F;
+            this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+            this.drawTexturedModalRect(i - 91 - 1 + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+            zLevel = f;
+            GlStateManager.enableRescaleNormal();
+            GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            RenderHelper.enableGUIStandardItemLighting();
+
+            for (int j = 0; j < 9; ++j) {
+                int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+                int l = sr.getScaledHeight() - 16 - 3;
+                this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+            }
+
+            RenderHelper.disableStandardItemLighting();
+            GlStateManager.disableRescaleNormal();
+            GlStateManager.disableBlend();
         }
     }
 

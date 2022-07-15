@@ -3,7 +3,7 @@
 uniform sampler2D texture;
 uniform vec2 resolution;
 const float kernel = 7.0;
-const float weight = 2.0;
+const float weight = 1.0;
 
 void main()
 {
