@@ -18,7 +18,7 @@ import java.util.List;
 @ModuleInfo(moduleName = "Hud", moduleCategory = Module.ModuleCategory.VISUAL, moduleKeyBind = Keyboard.KEY_U)
 public class Hud extends Module {
 
-    public Draggable draggable = Client.INSTANCE.getDraggablesManager().createNewDraggable(this, "test", 4, 4, mc.fontRendererObj.getStringWidth("Gravity"), mc.fontRendererObj.FONT_HEIGHT);
+    public Draggable draggable = Client.INSTANCE.getDraggablesManager().createNewDraggable(this, "test", 4, 4, Fonts.INSTANCE.getUbuntu_light().getStringWidth("Gravity"), mc.fontRendererObj.FONT_HEIGHT);
     public List<Module> modules;
 
     @EventHandler
