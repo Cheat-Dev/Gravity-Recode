@@ -4,8 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
-import team.gravityrecode.clientbase.api.moduleBase.Module;
+import team.gravityrecode.clientbase.api.client.IToggleable;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.Animation;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.impl.MainAnimations;
@@ -18,7 +19,7 @@ public class Draggable implements MinecraftUtil {
     @Expose
     @SerializedName("x")
     private float x;
-    
+
     @Expose
     @SerializedName("y")
     private float y;
@@ -28,12 +29,12 @@ public class Draggable implements MinecraftUtil {
     @Expose
     @SerializedName("name")
     private String name;
-    
+
     public Animation hoverAnimation = new MainAnimations(250, 1, Direction.BACKWARDS);
-    
-    public Module module;
-    
-    public Draggable(Module module, String name, float initialX, float initialY) {
+
+    public IToggleable module;
+
+    public Draggable(IToggleable module, String name, float initialX, float initialY) {
         this.module = module;
         this.name = name;
         this.x = initialX;
@@ -41,8 +42,8 @@ public class Draggable implements MinecraftUtil {
         this.initialX = initialX;
         this.initialY = initialY;
     }
-    
-    
+
+
     public final void onDraw(int mouseX, int mouseY) {
         boolean hovering = RenderUtil.isHovered(x, y, width, height, mouseX, mouseY);
         if(!this.module.isEnabled()) return;

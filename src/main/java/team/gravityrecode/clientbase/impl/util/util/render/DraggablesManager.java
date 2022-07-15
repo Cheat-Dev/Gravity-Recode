@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.api.client.IToggleable;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class DraggablesManager {
     }
 
 
-    public Draggable createNewDraggable(Module module, String name, float x, float y) {
+    public Draggable createNewDraggable(IToggleable module, String name, float x, float y) {
         draggables.put(name, new Draggable(module, name, x, y));
         return draggables.get(name);
     }

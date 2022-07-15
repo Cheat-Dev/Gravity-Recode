@@ -18,7 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Getter
-public enum Client implements MinecraftUtil{
+public enum Client implements MinecraftUtil {
     INSTANCE;
 
     private final PubSub<Event> pubSubEventBus = PubSub.newInstance(System.err::println);
@@ -30,28 +30,33 @@ public enum Client implements MinecraftUtil{
     private Blurrer blurrer;
     private BlurUtil blurUtil;
     private final ShaderManager shaderManager = new ShaderManager();
-    private final DraggablesManager draggablesManager = new DraggablesManager();
+    private DraggablesManager draggablesManager;
 
     private final Runnable startGame = () -> {
         ViaMCP.getInstance().start();
         ViaMCP.getInstance().initAsyncSlider();
 
-        if(!clientDir.toFile().exists()) {
+        if (!clientDir.toFile().exists()) {
             System.out.println(clientDir);
             clientDir.toFile().mkdir();
         }
-        if(!clientDirConfigs.toFile().exists()) {
+        if (!clientDirConfigs.toFile().exists()) {
             System.out.println(clientDirConfigs);
             clientDirConfigs.toFile().mkdir();
         }
+        draggablesManager = new DraggablesManager();
         shaderManager.init();
         propertyManager.init();
         moduleManager.init();
         Display.setTitle(clientInfo.getMinecraftTitle());
         blurrer = new Blurrer(false);
         blurUtil = new BlurUtil();
-        draggablesManager.loadDraggableData();
+        if (!draggablesManager.getDraggables().values().isEmpty())
+            draggablesManager.loadDraggableData();
     };
 
-    private final Runnable stopGame = draggablesManager::saveDraggableData;
+    private final Runnable stopGame = () -> {
+        if (draggablesManager != null && !draggablesManager.getDraggables().values().isEmpty())
+            draggablesManager.saveDraggableData();
+    };
 }

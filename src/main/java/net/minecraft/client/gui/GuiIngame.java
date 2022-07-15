@@ -36,6 +36,7 @@ import net.optifine.CustomColors;
 import net.optifine.util.MathUtils;
 import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
 import team.gravityrecode.clientbase.impl.util.util.render.StencilUtil;
 
 import java.util.Collection;
@@ -291,9 +292,10 @@ public class GuiIngame extends Gui {
         }
         Gui.drawRect(0,0,0,0,0);
 //        Client.INSTANCE.getPubSubEventBus().publish(new Render2);
+        Client.INSTANCE.getPubSubEventBus().publish(new Render2DEvent(scaledresolution, partialTicks));
         GL11.glPushMatrix();
 
-        Client.INSTANCE.getBlurrer().bloom(30, 30, 50, 50, 8, 150);
+
         GL11.glPopMatrix();
         Gui.drawRect(0,0,0,0,0);
         ScaledResolution sr2 = new ScaledResolution(Minecraft.getMinecraft());

@@ -64,7 +64,7 @@ public class Module implements MinecraftUtil, IToggleable {
         EXPLOIT("Exploit"),
         MISC("Misc");
 
-        private final String categoryName;
+        public final String categoryName;
 
         @Override
         public String toString() {return categoryName;}
