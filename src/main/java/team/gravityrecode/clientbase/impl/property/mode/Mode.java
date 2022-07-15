@@ -40,8 +40,10 @@ public abstract class Mode implements IToggleable {
         }
     }
 
-    public void onEnable() {}
+    public void onEnable() {
+    }
 
-    public void onDisable() {}
+    public void onDisable() {
+    }
 
 }

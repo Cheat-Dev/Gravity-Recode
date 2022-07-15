@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
+import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
 
 public class EnumComponent extends SettingComponent<ModeSetting> {

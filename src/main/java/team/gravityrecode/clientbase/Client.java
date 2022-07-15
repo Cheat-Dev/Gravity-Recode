@@ -50,6 +50,7 @@ public enum Client implements MinecraftUtil {
         Fonts.INSTANCE.initFonts();
         draggablesManager = new DraggablesManager();
         shaderManager.init();
+        pubSubEventBus.subscribe(propertyManager);
         propertyManager.init();
         moduleManager.init();
         mainCGUI = new MainCGUI();
