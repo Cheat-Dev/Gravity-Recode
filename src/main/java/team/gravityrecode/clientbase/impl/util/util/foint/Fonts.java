@@ -13,14 +13,14 @@ public enum Fonts implements MinecraftUtil {
 
     private MCFontRenderer sourceSansPro, ubuntu_light;
 
-    public void initFonts(){
+    public Runnable initFonts = () -> {
         try{
             sourceSansPro = new MCFontRenderer(fontFromTTF("SourceSansPro-Regular.ttf", 18), true, true);
             ubuntu_light = new MCFontRenderer(fontFromTTF("Ubuntu-Light.ttf", 30), true, true);
         }catch (Exception ex){
             ex.printStackTrace();
         }
-    }
+    };
 
 
     private Font fontFromTTF(String fontName, float fontSize) {

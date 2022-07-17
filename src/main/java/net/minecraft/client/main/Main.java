@@ -9,9 +9,6 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
-import store.intent.intentguard.annotation.ApiKey;
-import store.intent.intentguard.annotation.MainClass;
-
 import javax.swing.*;
 import java.io.File;
 import java.net.Authenticator;

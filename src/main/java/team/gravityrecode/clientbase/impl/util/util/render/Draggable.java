@@ -4,9 +4,8 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.Animation;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
 import team.gravityrecode.clientbase.impl.util.util.render.animations.impl.MainAnimations;
@@ -32,9 +31,9 @@ public class Draggable implements MinecraftUtil {
 
     public Animation hoverAnimation = new MainAnimations(250, 1, Direction.BACKWARDS);
 
-    public IToggleable module;
+    public Module module;
 
-    public Draggable(IToggleable module, String name, float initialX, float initialY, float width, float height) {
+    public Draggable(Module module, String name, float initialX, float initialY, float width, float height) {
         this.module = module;
         this.name = name;
         this.x = initialX;

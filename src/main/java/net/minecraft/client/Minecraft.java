@@ -92,7 +92,6 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
-import store.intent.intentguard.annotation.Native;
 import viamcp.utils.AttackOrder;
 
 import javax.imageio.ImageIO;
@@ -404,7 +403,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
     }
 
-    @Native
     private void startGame() throws LWJGLException, IOException {
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);

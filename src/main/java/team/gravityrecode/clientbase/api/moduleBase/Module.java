@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
 @Getter@Setter
-public class Module implements MinecraftUtil, IToggleable {
+public class Module implements MinecraftUtil {
     private final ModuleInfo moduleInfo;
     private int keyBind;
     private boolean enabled, expanded;
@@ -23,17 +24,26 @@ public class Module implements MinecraftUtil, IToggleable {
         this.keyBind = moduleInfo.moduleKeyBind();
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
     public void onEnable(){
+        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this)){
+            if(property instanceof ModeSetting){
+                ModeSetting modeSetting = (ModeSetting) property;
+                modeSetting.getValue().onEnable();
+            }
+        }
+
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         Logger.print("Enabled " + getModuleName());
     }
 
     public void onDisable(){
+        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this)){
+            if(property instanceof ModeSetting){
+                ModeSetting modeSetting = (ModeSetting) property;
+                modeSetting.getValue().onDisable();
+            }
+        }
+
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
         Logger.print("Disabled " + getModuleName());
     }

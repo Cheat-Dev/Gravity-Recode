@@ -1,6 +1,6 @@
 package team.gravityrecode.clientbase.impl.property;
 
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 
 import java.util.Arrays;
@@ -9,11 +9,11 @@ import java.util.function.BooleanSupplier;
 
 public class MultipleBoolSetting extends Property<List<MultiBoolean>> {
 
-    public MultipleBoolSetting(IToggleable owner, String name, BooleanSupplier visible, MultiBoolean... values) {
+    public MultipleBoolSetting(Module owner, String name, BooleanSupplier visible, MultiBoolean... values) {
         super(owner, name, Arrays.asList(values), visible);
     }
 
-    public MultipleBoolSetting(IToggleable owner, String name, MultiBoolean... values){
+    public MultipleBoolSetting(Module owner, String name, MultiBoolean... values){
         this(owner, name, () -> true, values);
     }
 

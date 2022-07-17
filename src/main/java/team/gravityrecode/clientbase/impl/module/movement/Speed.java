@@ -12,21 +12,5 @@ import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
 
 @ModuleInfo(moduleName = "Speed", moduleCategory = Module.ModuleCategory.MOVEMENT, moduleKeyBind = Keyboard.KEY_F)
 public class Speed extends Module {
-
-    OldNCP oldNCP = new OldNCP(this, "OldNCP");
-    NCP ncp = new NCP(this, "NCP");
-    public ModeSetting modeSetting = new ModeSetting(this, "Mode", oldNCP, ncp);
-
-    @EventHandler
-    public void onMove(PlayerMoveEvent event) {
-      oldNCP.onMove(event);
-      ncp.onMove(event);
-    }
-
-    @Override
-    public void onDisable() {
-        oldNCP.onDisable();
-        ncp.onDisable();
-        super.onDisable();
-    }
+    public ModeSetting modeSetting = new ModeSetting(this, "Mode", new OldNCP(this, "Old NCP"), new NCP(this, "NCP"));
 }

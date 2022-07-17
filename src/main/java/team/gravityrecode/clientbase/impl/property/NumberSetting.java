@@ -1,7 +1,7 @@
 package team.gravityrecode.clientbase.impl.property;
 
 import lombok.Getter;
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 
 import java.util.function.BooleanSupplier;
@@ -11,14 +11,14 @@ public class NumberSetting extends Property<Double> {
 
     private final double min, max, increment;
 
-    public NumberSetting(IToggleable owner, String name, double value, double min, double max, double increment, BooleanSupplier visible) {
+    public NumberSetting(Module owner, String name, double value, double min, double max, double increment, BooleanSupplier visible) {
         super(owner, name, value, visible);
         this.min = min;
         this.max = max;
         this.increment = increment;
     }
 
-    public NumberSetting(IToggleable owner, String name, double value, double min, double max, double increment) {
+    public NumberSetting(Module owner, String name, double value, double min, double max, double increment) {
         super(owner, name, value, () -> true);
         this.min = min;
         this.max = max;

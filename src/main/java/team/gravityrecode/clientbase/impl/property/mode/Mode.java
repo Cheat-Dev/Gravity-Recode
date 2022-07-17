@@ -4,46 +4,50 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
+import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
 import java.util.Objects;
 
 @Getter
 @Setter
-public abstract class Mode implements IToggleable {
+public abstract class Mode {
 
     protected final Minecraft mc = Minecraft.getMinecraft();
-    private final IToggleable owner;
+    private final Module owner;
     private Property<?> property;
     private final String name;
 
 
-    public Mode(IToggleable owner, String name) {
+    public Mode(Module owner, String name) {
         this.owner = owner;
         this.name = name;
     }
 
     @SuppressWarnings("unchecked")
-    public <T extends IToggleable> T getOwner() {
+    public <T extends Module> T getOwner() {
         return (T) owner;
     }
 
-    @Override
     public boolean isEnabled() {
         return Objects.equals(property.getValue(), this);
     }
 
     public final void init() {
-        for (Property<?> property : Client.INSTANCE.getPropertyManager().get(this)) {
+        for (Property<?> property : Client.INSTANCE.getPropertyManager().get(this.getOwner())) {
             property.setVisible(() -> this.property.getValue() == this);
         }
     }
 
     public void onEnable() {
+        Client.INSTANCE.getPubSubEventBus().subscribe(this);
+        Logger.print("e");
     }
 
     public void onDisable() {
+        Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
+        Logger.print("d");
     }
 
 }

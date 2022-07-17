@@ -178,21 +178,21 @@ public class PlayerProfileCache
     {
         BufferedReader bufferedreader = null;
 
-        try
-        {
+        try {
             bufferedreader = Files.newReader(this.usercacheFile, Charsets.UTF_8);
             List<ProfileEntry> list = this.gson.fromJson(bufferedreader, TYPE);
+            if(list == null) return;
             this.usernameToProfileEntryMap.clear();
             this.uuidToProfileEntryMap.clear();
             this.gameProfiles.clear();
 
-            for (ProfileEntry playerprofilecache$profileentry : Lists.reverse(list))
-            {
-                if (playerprofilecache$profileentry != null)
-                {
-                    this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
+            if (!list.isEmpty()){
+                for (ProfileEntry playerprofilecache$profileentry : Lists.reverse(list)) {
+                    if (playerprofilecache$profileentry != null) {
+                        this.addEntry(playerprofilecache$profileentry.getGameProfile(), playerprofilecache$profileentry.getExpirationDate());
+                    }
                 }
-            }
+        }
         }
         catch (FileNotFoundException var9)
         {

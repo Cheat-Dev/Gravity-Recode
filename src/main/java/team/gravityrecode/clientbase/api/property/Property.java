@@ -3,7 +3,7 @@ package team.gravityrecode.clientbase.api.property;
 import lombok.Getter;
 import lombok.Setter;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.api.client.IToggleable;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 
 import java.util.function.BooleanSupplier;
 
@@ -11,12 +11,12 @@ import java.util.function.BooleanSupplier;
 @Setter
 public class Property<T> {
 
-    private final IToggleable owner;
+    private final Module owner;
     private final String name;
     protected T value;
     private BooleanSupplier visible;
 
-    protected Property(IToggleable owner, String name, T value, BooleanSupplier visible) {
+    protected Property(Module owner, String name, T value, BooleanSupplier visible) {
         this.owner = owner;
         this.name = name;
         this.value = value;

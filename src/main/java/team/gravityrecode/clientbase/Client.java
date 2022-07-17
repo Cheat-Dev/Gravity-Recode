@@ -47,7 +47,7 @@ public enum Client implements MinecraftUtil {
             System.out.println(clientDirConfigs);
             clientDirConfigs.toFile().mkdir();
         }
-        Fonts.INSTANCE.initFonts();
+        Fonts.INSTANCE.initFonts.run();
         draggablesManager = new DraggablesManager();
         shaderManager.init();
         pubSubEventBus.subscribe(propertyManager);
