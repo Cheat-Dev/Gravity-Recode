@@ -26,11 +26,11 @@ public class TestMenu extends GuiScreen {
     public void initGui() {
         initTime = System.currentTimeMillis();
         buttonList.clear();
-        this.buttonList.add(new CustomButton(0, 5, 5, 94, 94, "Singleplayer", new ResourceLocation("pulsabo/images/sp.png")));
-        this.buttonList.add(new CustomButton(1, 5,107, 94, 94, "Multiplayer", new ResourceLocation("pulsabo/images/mp.png")));
-        this.buttonList.add(new CustomButton(2, 5, 209, 94, 94, "Alt Manager", new ResourceLocation("pulsabo/images/key.png")));
-        this.buttonList.add(new CustomButton(3, 5, 311, 94, 95, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
-        this.buttonList.add(new CustomButton(4, 5, 414, 94, 95, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
+        this.buttonList.add(new CustomButton(0, 5, 4, 94, 96, "Singleplayer", new ResourceLocation("pulsabo/images/singleplayer.png")));
+        this.buttonList.add(new CustomButton(1, 5,106, 94, 96, "Multiplayer", new ResourceLocation("pulsabo/images/multiplayer.png")));
+        this.buttonList.add(new CustomButton(2, 5, 208, 94, 96, "Alt Manager", new ResourceLocation("pulsabo/images/altmanager.png")));
+        this.buttonList.add(new CustomButton(3, 5, 310, 94, 97, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
+        this.buttonList.add(new CustomButton(4, 5, 413, 94, 97, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
         super.initGui();
     }
 

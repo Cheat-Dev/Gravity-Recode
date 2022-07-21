@@ -46,10 +46,10 @@ public class CustomButton extends GuiButton {
             float offset2 = animations != null ? -120 : 0;
             RoundedUtil.drawSmoothRoundedRect((float) -10, (float) (this.yPosition - 3),
                     Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
-                    this.yPosition + this.height + 3, 0, new Color(40, 40, 40).getRGB());
+                    this.yPosition + this.height + 3, 0, new Color(50, 50, 50, 240).getRGB());
             RoundedUtil.drawRoundedOutline((float) -10, (float) (this.yPosition - 3),
                     Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
-                    this.yPosition + this.height + 3, 0, 1.5f, new Color(25, 67, 169).getRGB());
+                    this.yPosition + this.height + 3, 0, 1.5f, new Color(45, 87, 189, 100).brighter().brighter().getRGB());
             if (this.hovered) {
                 if (animations == null) {
                     animations = new SmoothStep(300, 2.6, Direction.FORWARDS);
