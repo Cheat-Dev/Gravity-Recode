@@ -69,7 +69,7 @@ public class GuiAltManager extends GuiScreen {
 
     @Override
     public void drawScreen(int par1, int par2, float par3) {
-        this.mc.getTextureManager().bindTexture(new ResourceLocation("gravity/gravitymainmenu.jpeg"));
+        this.mc.getTextureManager().bindTexture(new ResourceLocation("pulsabo/images/gravitymainmenu.jpeg"));
         Gui.drawScaledCustomSizeModalRect(0, 0, 0, 0, width, height, width, height, width, height);
         this.username.drawTextBox();
         this.password.drawTextBox();
