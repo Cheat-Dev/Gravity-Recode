@@ -12,6 +12,7 @@ import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
 import team.gravityrecode.clientbase.impl.module.movement.Speed;
 import team.gravityrecode.clientbase.impl.property.*;
+import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 import team.gravityrecode.clientbase.impl.util.util.client.TimerUtil;
 import team.gravityrecode.clientbase.impl.util.util.entity.EntityValidator;
 import team.gravityrecode.clientbase.impl.util.util.entity.impl.AliveCheck;
@@ -48,20 +49,20 @@ public class Killaura extends Module {
 
     static double[] y1 = {0.104080378093037, 0.105454222033912, 0.102888018147468, 0.099634532004642};
 
-    private final EnumSetting<KillAuraMode> modeProperty = new EnumSetting(this, "Mode", KillAuraMode.SINGLE, KillAuraMode.values());
+    private final EnumSetting<KillAuraMode> modeProperty = new EnumSetting<>(this, "Mode", KillAuraMode.values());
 
     private final NumberSetting switchDelayProperty = new NumberSetting(this, "Switch Delay", 50, 1, 1000, 20, () -> modeProperty.getValue() == KillAuraMode.SWITCH);
-    private final EnumSetting<SortMode> sortProperty = new EnumSetting(this, "Sort by", () -> modeProperty.getValue() == KillAuraMode.SINGLE, SortMode.values());
+    private final EnumSetting<SortMode> sortProperty = new EnumSetting<>(this, "Sort by", () -> modeProperty.getValue() == KillAuraMode.SINGLE, SortMode.values());
     public int waitDelay, groundTicks;
     public boolean crits;
     private final NumberSetting minAPSProperty = new NumberSetting(this, "Min APS", 11, 1, 20, 1);
     private final NumberSetting maxAPSProperty = new NumberSetting(this, "Max APS", 14, 1, 20, 1);
 
-    private final EnumSetting<AttackMode> attackModeProperty = new EnumSetting(this, "Attack In", AttackMode.PRE, AttackMode.values());
-    private final EnumSetting<BlockMode> blockModeProperty = new EnumSetting(this, "Block Mode", BlockMode.WATCHDOG, BlockMode.values());
-    public final EnumSetting<RotationsMode> rotationsProperty = new EnumSetting(this, "Rotations", RotationsMode.UNDETECTABLE, RotationsMode.values());
+    private final EnumSetting<AttackMode> attackModeProperty = new EnumSetting<>(this, "Attack In", AttackMode.values());
+    private final EnumSetting<BlockMode> blockModeProperty = new EnumSetting<>(this, "Block Mode", BlockMode.values());
+    public final EnumSetting<RotationsMode> rotationsProperty = new EnumSetting<>(this, "Rotations", RotationsMode.values());
     private final BooleanSetting onlyAttackWhenLookingAtEntityLongNameMethod = new BooleanSetting(this, "Attack When Looking", false, () -> rotationsProperty.getValue() != RotationsMode.UNDETECTABLE);
-    private final EnumSetting<RotationUtil.RotationsPoint> rotationsPointProperty = new EnumSetting(this, "Rotations Point", RotationUtil.RotationsPoint.CLOSEST);
+    private final EnumSetting<RotationUtil.RotationsPoint> rotationsPointProperty = new EnumSetting<>(this, "Rotations Point", RotationUtil.RotationsPoint.CLOSEST);
 
     private final NumberSetting rangeProperty = new NumberSetting(this, "Range", 4.2, 1, 7, 0.1);
     public final NumberSetting maxTargets = new NumberSetting(this, "Max Targets", 4, 1, 10, 1, () -> modeProperty.getValue() == KillAuraMode.MULTI);
@@ -583,7 +584,7 @@ public class Killaura extends Module {
     }
 
     @AllArgsConstructor
-    private enum SortMode {
+    private enum SortMode implements INameable{
         HEALTH("Health", new HealthSorter()),
         ARMOR("Armor", new ArmorSorter()),
         FOV("FOV", new FovSorter()),
@@ -594,13 +595,13 @@ public class Killaura extends Module {
         private final Comparator<EntityLivingBase> sorter;
 
         @Override
-        public String toString() {
+        public String getName() {
             return modeName;
         }
     }
 
     @AllArgsConstructor
-    private enum KillAuraMode {
+    private enum KillAuraMode implements INameable {
         SINGLE("Single"),
         SWITCH("Switch"),
         MULTI("Multi");
@@ -608,13 +609,13 @@ public class Killaura extends Module {
         private final String modeName;
 
         @Override
-        public String toString() {
+        public String getName() {
             return modeName;
         }
     }
 
     @AllArgsConstructor
-    private enum AttackMode {
+    private enum AttackMode implements INameable {
         PRE("Pre"),
         POST("Post"),
         HVH("HvH");
@@ -622,13 +623,13 @@ public class Killaura extends Module {
         private final String modeName;
 
         @Override
-        public String toString() {
+        public String getName() {
             return modeName;
         }
     }
 
     @AllArgsConstructor
-    private enum BlockMode {
+    private enum BlockMode implements INameable {
         WATCHDOG("Watchdog"),
         VERUS("Verus"),
         VANILLA("Vanilla"),
@@ -637,7 +638,7 @@ public class Killaura extends Module {
         private final String modeName;
 
         @Override
-        public String toString() {
+        public String getName() {
             return modeName;
         }
     }
@@ -677,7 +678,7 @@ public class Killaura extends Module {
 //    }
 
     @AllArgsConstructor
-    public enum RotationsMode {
+    public enum RotationsMode implements INameable {
         OFF("Off"),
         SNAP("Snap"),
         UNDETECTABLE("Undetectable"),
@@ -686,7 +687,7 @@ public class Killaura extends Module {
         private final String modeName;
 
         @Override
-        public String toString() {
+        public String getName() {
             return modeName;
         }
     }

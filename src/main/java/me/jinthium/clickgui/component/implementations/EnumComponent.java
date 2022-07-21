@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
+import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
 
 public class EnumComponent extends SettingComponent<ModeSetting> {
@@ -50,7 +51,7 @@ public class EnumComponent extends SettingComponent<ModeSetting> {
         }
         if(extended) {
             for(int i = 0; i < setting.getModeList().size(); i++){
-                if(isHovered2(x, y + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 7) * i + 20, x + width, y + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 7) * i + 8 + 20, mouseX, mouseY)) {
+                if(RenderUtil.isHovered(x, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 7) * i + 20, width, Fonts.INSTANCE.getSourceSansPro().getHeight() + 7, mouseX, mouseY)) {
                     setting.setValue(setting.getModeList().get(i));
                 }
             }

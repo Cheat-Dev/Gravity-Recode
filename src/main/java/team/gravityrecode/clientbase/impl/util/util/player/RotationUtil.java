@@ -9,6 +9,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 import team.gravityrecode.clientbase.impl.util.util.Rotation;
 import me.jinthium.optimization.ApacheMath;
 
@@ -353,7 +354,7 @@ public final class RotationUtil implements MinecraftUtil {
         return MathHelper.wrapAngleTo180_float(a - b);
     }
 
-    public enum RotationsPoint {
+    public enum RotationsPoint implements INameable {
         CLOSEST("Closest", RotationUtil::getClosestPoint),
         HEAD("Head", (start, hitBox) -> {
             return RotationUtil.getCenterPointOnBB(hitBox, 0.9);
@@ -384,7 +385,7 @@ public final class RotationUtil implements MinecraftUtil {
         }
 
         @Override
-        public String toString() {
+        public String getName() {
             return name;
         }
     }

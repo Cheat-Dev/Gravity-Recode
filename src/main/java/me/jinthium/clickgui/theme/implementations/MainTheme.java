@@ -43,7 +43,7 @@ public class MainTheme implements Theme, MinecraftUtil {
 //                panel.getCategory() == Module.ModuleCategory.MOVEMENT ? "u" :
 //                panel.getCategory() == Module.ModuleCategory.PLAYER ? "o" : panel.getCategory() == Module.ModuleCategory.EXPLOIT ? "r" :
 //                        panel.getCategory() == Module.ModuleCategory.MISC ? "v" : "e";
-        Fonts.INSTANCE.getSourceSansPro().drawString(name, x + 4, y + panel.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2, new Color(220,220,220,255).getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(name, x + 4, y + panel.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2, new Color(220,220,220,255).getRGB());
 //        Fonts.undefeated.drawString(categoryIcon, x + 4 + Fonts.googleMedium.getStringWidth(name) + 3, y + panel.height() / 2 - Fonts.moontitle.getHeight() / 2 + 2, -1);
         if(panel.isExtended())
             RenderUtil.drawGradientRect(x, y + 16 - 1, x + width, y + 16 + 1 - 2, new Color(30,30,30,50).getRGB(), new Color(30,30,30,30).getRGB(), false);
@@ -81,7 +81,7 @@ public class MainTheme implements Theme, MinecraftUtil {
 
         RoundedUtil.drawRoundedRect(x, y - 1,  x + width,  y + height - 1, 0,panel.getModule().isEnabled() ? RenderUtil.applyOpacity(main, 0.3f).darker().getRGB() : new Color(0,0,0,0).getRGB());
         RenderUtil.color(panel.getModule().isEnabled() ? -1 : new Color(220,220,220,255).getRGB());
-        Fonts.INSTANCE.getSourceSansPro().drawString(panel.getModule().getModuleName(), x + 4, y + panel.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(panel.getModule().getModuleName(), x + 4, y + panel.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
 //        if(panel.getModule().getKeyBind() != 0) {
 //            Fonts.icons315.drawString("L", x + 4 + Fonts.google.getStringWidth(panel.getModule().getName()) + 3, y + panel.height() / 2 - Fonts.googleSmall2.getHeight() / 2 - 0.5f + 1, -1);
 //
@@ -134,20 +134,20 @@ public class MainTheme implements Theme, MinecraftUtil {
                 if(i % 2 != 0) {
 
                     String enumName2 =  panel.getProperty().getValue().get(panel.getProperty().getValue().size() - 1).getName();
-                    RoundedUtil.drawSmoothRoundedRect(x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 - 3 + 2, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - (mc.fontRendererObj.FONT_HEIGHT + 10) - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName2) + 11 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - (mc.fontRendererObj.FONT_HEIGHT + 10) + mc.fontRendererObj.FONT_HEIGHT + 3, 10, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
+                    RoundedUtil.drawSmoothRoundedRect(x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 - 3 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10) - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName2) + 11 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10) + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, 10, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
                     RenderUtil.color(-1);
-                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 + 2, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - (mc.fontRendererObj.FONT_HEIGHT + 10),
+                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10),
                             -1);
 
-                    //panel.count += mc.fontRendererObj.FONT_HEIGHT;
+                    //panel.count += Fonts.INSTANCE.getSourceSansPro().getHeight();
                 } else {
-                    // RoundedUtil.drawRoundedOutline(x + 4, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName) + 4, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - 2 + mc.fontRendererObj.FONT_HEIGHT + 4, 5, 2, HUD.getColor(i, (int) (y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - 2 + mc.fontRendererObj.FONT_HEIGHT + 4)) );
-                    RoundedUtil.drawSmoothRoundedRect(x + 6 + 2 - 3 + 1, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count - 4, x + 6 + 2 - 3 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2 + 1, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count + mc.fontRendererObj.FONT_HEIGHT + 3, 12, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
+                    // RoundedUtil.drawRoundedOutline(x + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName) + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 5, 2, HUD.getColor(i, (int) (y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4)) );
+                    RoundedUtil.drawSmoothRoundedRect(x + 6 + 2 - 3 + 1, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 4, x + 6 + 2 - 3 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2 + 1, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, 12, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
                     RenderUtil.color(-1);
-                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 6.5f + 2, y + mc.fontRendererObj.FONT_HEIGHT * 3 + panel.count,
+                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 6.5f + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count,
                             -1);
 
-                    panel.count += mc.fontRendererObj.FONT_HEIGHT + 10;
+                    panel.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 10;
                 }
 
             }
@@ -160,13 +160,13 @@ public class MainTheme implements Theme, MinecraftUtil {
 //                Fonts.googleSmall.drawString(panel.getProperty().getValues(), x + 4, y + Fonts.googleSmall.getHeight() * 3 + panel.count, panel.getProperty().isSelected(e) ? HUD.getColor() : -1);
 //                panel.count += Fonts.googleSmall.getHeight() + 4;
 //            }
-            // panel.setHeight(mc.fontRendererObj.FONT_HEIGHT + panel.count * 1.3f);
-            panel.setHeight(RenderUtil.animate(mc.fontRendererObj.FONT_HEIGHT + panel.count + 13, panel.height() ,0.1f));
+            // panel.setHeight(Fonts.INSTANCE.getSourceSansPro().getHeight() + panel.count * 1.3f);
+            panel.setHeight(RenderUtil.animate(Fonts.INSTANCE.getSourceSansPro().getHeight() + panel.count + 13, panel.height() ,0.1f));
 
         }
         else {
             panel.setHeight(RenderUtil.animate(panel.origHeight(), panel.height() ,0.1f));
-            Fonts.INSTANCE.getSourceSansPro().drawString("RBUTTON...", x + width - Fonts.INSTANCE.getSourceSansPro().getStringWidth("RBUTTON...") - 2, y + panel.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f, -1);
+            Fonts.INSTANCE.getSourceSansPro().drawString("RBUTTON...", x + width - Fonts.INSTANCE.getSourceSansPro().getStringWidth("RBUTTON...") - 2, y + panel.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
         }
         GlStateManager.popMatrix();
         Fonts.INSTANCE.getSourceSansPro().drawString(panel.getProperty().getName(), x + 4, y + 4 - 4, new Color(255,255,255,225).getRGB());
@@ -177,13 +177,13 @@ public class MainTheme implements Theme, MinecraftUtil {
     @Override
     public void drawBindComponent(Module module, float x, float y, float width, float height, boolean focused) {
         String text = "Bind: [" + (focused ? " " : Keyboard.getKeyName(module.getKeyBind())) + "]";
-        Fonts.INSTANCE.getSourceSansPro().drawString(text, x + 4, y + height / 2 - mc.fontRendererObj.FONT_HEIGHT / 2, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(text, x + 4, y + height / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2, -1);
     }
 
     @Override
     public void drawBooleanComponent(BooleanComponent component, float x, float y, float width, float height, float settingWidth, float settingHeight, int opacity) {
         String label = component.getSetting().getName();
-        Fonts.INSTANCE.getSourceSansPro().drawString(label, x + 4, y + component.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(label, x + 4, y + component.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2, -1);
         RoundedUtil.drawSmoothRoundedRect(x + width - 15, y + height / 2 -1 - 1, x + width - 5, y + height / 2 +1, 3,0xFF606060);
         if(!component.getSetting().getValue()) {
             RenderUtil.drawCGuiCircle(x + width - 13, y + height / 2 - 1, 4f, -1);
@@ -198,7 +198,7 @@ public class MainTheme implements Theme, MinecraftUtil {
     @Override
     public void drawEnumComponent(EnumComponent component, float x, float y, float width, float height) {
 //        String label = component.getSetting().getLabel();
-//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f, -1);
+//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
 //    }
         RoundedUtil.drawSmoothRoundedRect(x + 3, y, x + width - 3, y + height - 3, 8, 0x702D2D2D);
         RoundedUtil.drawRoundedOutline(x + 3, y, x + width - 3, y + height - 3, 8, 1.5f, 0xFF404040);
@@ -210,17 +210,17 @@ public class MainTheme implements Theme, MinecraftUtil {
             for(int i = 0; i < component.getSetting().getModeList().size(); i++){
                 String enumName = component.getSetting().getModeList().get(i).getName();
 //                if(component.getSetting().getValue() == component.getSetting().getModeList().get(i)){
-//                    // ShaderRound.drawRound(x, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count, width, mc.fontRendererObj.FONT_HEIGHT + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
-//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count + 12 , -1);
+//                    // ShaderRound.drawRound(x, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count, width, Fonts.INSTANCE.getSourceSansPro().getHeight() + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
+//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count + 12 , -1);
 //
 //                }
 
                 Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
-                                        .getStringWidth(enumName) / 2.0), y + mc.fontRendererObj.FONT_HEIGHT * 3 + component.count + 6, -1);
-                component.count += mc.fontRendererObj.FONT_HEIGHT + 7;
+                        .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
+                component.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 7;
             }
             //RenderUtil.animate()
-            component.setHeight(RenderUtil.animate(mc.fontRendererObj.FONT_HEIGHT + component.count + 16, component.height() ,0.1f));
+            component.setHeight(RenderUtil.animate(Fonts.INSTANCE.getSourceSansPro().getHeight() + component.count + 16, component.height() ,0.1f));
             //ShaderRound.drawRound(x, y + component.height() - 4.5f, width, 2, 0, new Color(50, 50, 50, 240));
 //            for (Enum e :panel.getProperty().getValues()){
 //                GL11.glPushMatrix();
@@ -236,17 +236,17 @@ public class MainTheme implements Theme, MinecraftUtil {
             component.setHeight(RenderUtil.animate(component.origHeight() + 7, component.height() ,0.1f));
         }
 
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1, -1);
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 + mc.fontRendererObj.FONT_HEIGHT + 2, new Color(255,255,255,180).getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 2, new Color(255,255,255,180).getRGB());
 //        Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
 
-//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f + 1 + 3, -1);
+//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f + 1 + 3, -1);
     }
 
     @Override
     public void drawEnumSetComponent(EnumComponent2 component, float x, float y, float width, float height) {
         //        String label = component.getSetting().getLabel();
-//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f, -1);
+//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
 //    }
         RoundedUtil.drawSmoothRoundedRect(x + 3, y, x + width - 3, y + height - 3, 8, 0x702D2D2D);
         RoundedUtil.drawRoundedOutline(x + 3, y, x + width - 3, y + height - 3, 8, 1.5f, 0xFF404040);
@@ -256,19 +256,19 @@ public class MainTheme implements Theme, MinecraftUtil {
             component.count = 2;
             // ShaderRound.drawRound(x, y, width, component.height(), 0, new Color(10, 10, 10,90));
             for(int i = 0; i < component.getSetting().getEnumList().size(); i++){
-                String enumName = component.getSetting().getEnumList().get(i).toString();
+                String enumName = component.getSetting().getEnumList().get(i).getName();
 //                if(component.getSetting().getValue() == component.getSetting().getModeList().get(i)){
-//                    // ShaderRound.drawRound(x, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count, width, mc.fontRendererObj.FONT_HEIGHT + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
-//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count + 12 , -1);
+//                    // ShaderRound.drawRound(x, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count, width, Fonts.INSTANCE.getSourceSansPro().getHeight() + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
+//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count + 12 , -1);
 //
 //                }
 
                 Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
-                        .getStringWidth(enumName) / 2.0), y + mc.fontRendererObj.FONT_HEIGHT * 3 + component.count + 6, -1);
-                component.count += mc.fontRendererObj.FONT_HEIGHT + 7;
+                        .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
+                component.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 7;
             }
             //RenderUtil.animate()
-            component.setHeight(RenderUtil.animate(mc.fontRendererObj.FONT_HEIGHT + component.count + 16, component.height() ,0.1f));
+            component.setHeight(RenderUtil.animate(Fonts.INSTANCE.getSourceSansPro().getHeight() + component.count + 16, component.height() ,0.1f));
             //ShaderRound.drawRound(x, y + component.height() - 4.5f, width, 2, 0, new Color(50, 50, 50, 240));
 //            for (Enum e :panel.getProperty().getValues()){
 //                GL11.glPushMatrix();
@@ -284,11 +284,11 @@ public class MainTheme implements Theme, MinecraftUtil {
             component.setHeight(RenderUtil.animate(component.origHeight() + 7, component.height() ,0.1f));
         }
 
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1, -1);
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().toString(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 + mc.fontRendererObj.FONT_HEIGHT + 2, new Color(255,255,255,180).getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 2, new Color(255,255,255,180).getRGB());
 //        Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
 
-//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f + 1 + 3, -1);
+//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f + 1 + 3, -1);
     }
 
     @Override
@@ -304,7 +304,7 @@ public class MainTheme implements Theme, MinecraftUtil {
         //1RenderUtil.drawCGuiCircle(x + length+ 5, y + height + 1 - 5.5f + 1.5f, 3.5f, -1);
         RenderUtil.drawCGuiCircle(x + length+ 5, y + height + 1 - 5.5f + 1.5f, 3f, -1);
         String rep = "";
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName() + ": " + component.getSetting().getValue() + rep, x + 4, y + height / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 2, new Color(230,230,230,255).getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName() + ": " + component.getSetting().getValue() + rep, x + 4, y + height / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 2, new Color(230,230,230,255).getRGB());
         GlStateManager.popMatrix();
     }
 
@@ -337,8 +337,8 @@ public class MainTheme implements Theme, MinecraftUtil {
             //Fonts.icons4.drawString("A", x + 9, y + height / 2 - 3, -1);
            // Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
 
-            Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 - 2, -1);
-            RoundedUtil.drawSmoothRoundedRect(x + 8 + 13,  y + component.getHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 - 2 + mc.fontRendererObj.FONT_HEIGHT + 3, x + 8 + 13 + mc.fontRendererObj.getStringWidth(component.getSetting().getName()), y + component.getHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 - 2 + mc.fontRendererObj.FONT_HEIGHT + 3 + 2,  2, component.getSetting().getValue().getRGB());
+            Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2, -1);
+            RoundedUtil.drawSmoothRoundedRect(x + 8 + 13,  y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, x + 8 + 13 + mc.fontRendererObj.getStringWidth(component.getSetting().getName()), y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3 + 2,  2, component.getSetting().getValue().getRGB());
 
             component.setHeight(RenderUtil.animate(25, component.getHeight(), 0.1f));
         }
