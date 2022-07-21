@@ -117,60 +117,53 @@ public class MainTheme implements Theme, MinecraftUtil {
 
 
     @Override
-    public void drawMulti(MultiSelectPanel panel, float x, float y, float width, float height) {
-        panel.setExtended(true);
-        RoundedUtil.drawRoundedRect(x + 3, y + 8, x + width - 3, y + height - 4, 8, 0x702D2D2D);
-
-        RoundedUtil.drawRoundedOutline(x + 3, y + 8, x + width - 3, y + height - 4, 8, 2, 0xFF404040 );
-
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(1.5, 1.5, 0);
-        if (panel.isExtended()) {
+    public void drawMulti(MultiSelectPanel component, float x, float y, float width, float height) {
+//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
+//    }
+        RoundedUtil.drawSmoothRoundedRect(x + 3, y, x + width - 3, y + height - 3, 8, 0x702D2D2D);
+        RoundedUtil.drawRoundedOutline(x + 3, y, x + width - 3, y + height - 3, 8, 1.5f, 0xFF404040);
+        RenderUtil.color(-1);
+        if (component.isExtended()) {
             // int count = 0;
-            panel.count = 0;
-            //ShaderRound.drawRound(x, y, width, panel.height(), 0, new Color(10, 10, 10,90));
-            for(int i = 0; i < panel.getProperty().getValue().size(); i++){
-                String enumName = panel.getProperty().getValue().get(i).getName();
-                if(i % 2 != 0) {
+            component.count = 2;
+            // ShaderRound.drawRound(x, y, width, component.height(), 0, new Color(10, 10, 10,90));
+            for(int i = 0; i < component.getSetting().getValue().size(); i++){
+                String enumName = component.getSetting().getValue().get(i).getName();
+//                if(component.getSetting().getValue() == component.getSetting().getModeList().get(i)){
+//                    // ShaderRound.drawRound(x, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count, width, Fonts.INSTANCE.getSourceSansPro().getHeight() + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
+//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 2f + component.count + 12 , -1);
+//
+//                }
 
-                    String enumName2 =  panel.getProperty().getValue().get(panel.getProperty().getValue().size() - 1).getName();
-                    RoundedUtil.drawSmoothRoundedRect(x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 - 3 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10) - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName2) + 11 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10) + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, 10, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
-                    RenderUtil.color(-1);
-                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - (Fonts.INSTANCE.getSourceSansPro().getHeight() + 10),
-                            -1);
+                if(component.getSetting().isSelected(component.getSetting().getValue().get(i).getName()))
+                    RoundedUtil.drawSmoothRoundedRect(x + 8, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1, (x + width) - 8, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 8, new Color(25, 67, 169).darker().getRGB());
 
-                    //panel.count += Fonts.INSTANCE.getSourceSansPro().getHeight();
-                } else {
-                    // RoundedUtil.drawRoundedOutline(x + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 4, x + 4 + mc.fontRendererObj.getStringWidth(enumName) + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 5, 2, HUD.getColor(i, (int) (y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4)) );
-                    RoundedUtil.drawSmoothRoundedRect(x + 6 + 2 - 3 + 1, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count - 4, x + 6 + 2 - 3 + mc.fontRendererObj.getStringWidth(enumName) + 3 + 2 + 1, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, 12, panel.getProperty().isSelected(panel.getProperty().getValue().get(i).getName()) ? new Color(25, 67, 169).darker().getRGB() : 0xFF303030);
-                    RenderUtil.color(-1);
-                    Fonts.INSTANCE.getSourceSansPro().drawString(enumName, x + 6.5f + 2, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + panel.count,
-                            -1);
-
-                    panel.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 10;
-                }
-
+                Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
+                        .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
+                component.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 7;
             }
+            //RenderUtil.animate()
+            component.setHeight(RenderUtil.animate(Fonts.INSTANCE.getSourceSansPro().getHeight() + component.count + 16, component.height() ,0.1f));
+            //ShaderRound.drawRound(x, y + component.height() - 4.5f, width, 2, 0, new Color(50, 50, 50, 240));
 //            for (Enum e :panel.getProperty().getValues()){
 //                GL11.glPushMatrix();
 //
 //                GL11.glPopMatrix();
 //                GlStateManager.color(1, 1, 1, 1);
 //                RenderUtil.color(-1);
-//                Fonts.googleSmall.drawString(panel.getProperty().getValues(), x + 4, y + Fonts.googleSmall.getHeight() * 3 + panel.count, panel.getProperty().isSelected(e) ? HUD.getColor() : -1);
-//                panel.count += Fonts.googleSmall.getHeight() + 4;
+//                Fonts.googleSmall.drawString(panel.getProperty().getValues(), x + 4, y + Fonts.googleSmall.getHeight() * 3 + component.count, panel.getProperty().isSelected(e) ? HUD.getColor() : -1);
+//                component.count += Fonts.googleSmall.getHeight() + 4;
 //            }
-            // panel.setHeight(Fonts.INSTANCE.getSourceSansPro().getHeight() + panel.count * 1.3f);
-            panel.setHeight(RenderUtil.animate(Fonts.INSTANCE.getSourceSansPro().getHeight() + panel.count + 13, panel.height() ,0.1f));
-
         }
         else {
-            panel.setHeight(RenderUtil.animate(panel.origHeight(), panel.height() ,0.1f));
-            Fonts.INSTANCE.getSourceSansPro().drawString("RBUTTON...", x + width - Fonts.INSTANCE.getSourceSansPro().getStringWidth("RBUTTON...") - 2, y + panel.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f, -1);
+            component.setHeight(RenderUtil.animate(component.origHeight() + 7, component.height() ,0.1f));
         }
-        GlStateManager.popMatrix();
-        Fonts.INSTANCE.getSourceSansPro().drawString(panel.getProperty().getName(), x + 4, y + 4 - 4, new Color(255,255,255,225).getRGB());
 
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString("...", x + 8 + 13, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 2, new Color(255,255,255,180).getRGB());
+//        Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
+
+//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f + 1 + 3, -1);
     }
 
 

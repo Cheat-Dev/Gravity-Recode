@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.component.SettingComponent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.impl.property.BooleanSetting;
 import team.gravityrecode.clientbase.impl.property.MultipleBoolSetting;
 import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
@@ -44,7 +46,6 @@ public class MultiSelectPanel extends SettingComponent<MultipleBoolSetting> {
 
     @Override
     public void drawScreen(int mouseX, int mouseY) {
-        hovered = RenderUtil.isHovered(x, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + count, width, Fonts.INSTANCE.getSourceSansPro().getHeight(), mouseX, mouseY);
         if (visible) {
             theme.drawMulti(this, x, y, width, height);
         }
@@ -59,28 +60,19 @@ public class MultiSelectPanel extends SettingComponent<MultipleBoolSetting> {
             }
         }
         if(extended) {
-            for(int i = 0; i < getProperty().getValue().size(); i++){
-                String enumName = getProperty().getValue().get(i).getName();
-                if((getProperty().getValue().size() - i) % 2 != 0) {
-                    String enumName2 = getProperty().getValue().get((getProperty().getValue().size() - i)).getName();
-                    if(isHovered2(x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 - 3 + 2, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * ((getProperty().getValue().size() - i)) + 15 - 3, x + 4 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName2) + 11 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName) + 3 + 2, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * ((getProperty().getValue().size() - i)) + 8 + 15 + 3, mouseX, mouseY)){
-                        // if(isHovered2(x, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * Arrays.asList(getProperty().getValues()).indexOf(e) + 15, x +  Fonts.INSTANCE.getSourceSansPro().getStringWidth(e.name()), y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * Arrays.asList(getProperty().getValues()).indexOf(e) + 8 + 15, mouseX, mouseY)) {
-                        if( getProperty().isSelected(getProperty().getValue().get(i).getName())) {
-                            getProperty().getValue().get(i).setValue(false);
-                        } else {
-                            getProperty().getValue().get(i).setValue(true);
-                        }
-                    }
-                } else {
-                    if(isHovered2(x + 4 + 11 - 3 + 2 - 7, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * (i) + 15 - 4, x + 4 + 11 + Fonts.INSTANCE.getSourceSansPro().getStringWidth(enumName) + 3 + 2 - 6, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 4) * (i) + 8 + 15 + 2, mouseX, mouseY)){
-                        if( getProperty().isSelected(getProperty().getValue().get(i).getName())) {
-                            getProperty().getValue().get(i).setValue(false);
-                        } else {
-                            getProperty().getValue().get(i).setValue(true);
-                        }
+            for(int i = 0; i < setting.getValue().size(); i++){
+                if(RenderUtil.isHovered(x, y + (Fonts.INSTANCE.getSourceSansPro().getHeight() + 7) * i + 20, width, Fonts.INSTANCE.getSourceSansPro().getHeight() + 7, mouseX, mouseY)) {
+                    if(setting.isSelected(setting.getValue().get(i).getName())){
+                        setting.getValue().get(i).setValue(false);
+                    } else {
+                        setting.getValue().get(i).setValue(true);
                     }
                 }
             }
+            GL11.glPushMatrix();
+            GL11.glPopMatrix();
+            GlStateManager.color(1, 1, 1, 1);
+            RenderUtil.color(-1);
         }
     }
     public boolean isHovered2(double x, double y, double width, double height, int mouseX, int mouseY) {

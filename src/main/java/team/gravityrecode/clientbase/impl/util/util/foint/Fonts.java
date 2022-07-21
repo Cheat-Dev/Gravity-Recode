@@ -11,11 +11,14 @@ import java.awt.*;
 public enum Fonts implements MinecraftUtil {
     INSTANCE;
 
-    private MCFontRenderer sourceSansPro, ubuntu_light;
+    private MCFontRenderer sourceSansPro, ubuntu_light, sourceSansProSmall, s, sourceSansProSmall2;
 
     public Runnable initFonts = () -> {
         try{
             sourceSansPro = new MCFontRenderer(fontFromTTF("SourceSansPro-Regular.ttf", 18), true, true);
+            s = new MCFontRenderer(fontFromTTF("SourceSansPro-Regular.ttf", 16), true, true);
+            sourceSansProSmall = new MCFontRenderer(fontFromTTF("SourceSansPro-Regular.ttf", 15), true, true);
+            sourceSansProSmall2 = new MCFontRenderer(fontFromTTF("SourceSansPro-Regular.ttf", 14), true, true);
             ubuntu_light = new MCFontRenderer(fontFromTTF("Ubuntu-Light.ttf", 30), true, true);
         }catch (Exception ex){
             ex.printStackTrace();
