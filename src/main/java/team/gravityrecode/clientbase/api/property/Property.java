@@ -23,6 +23,4 @@ public class Property<T> {
         this.visible = visible;
         Client.INSTANCE.getPropertyManager().add(this);
     }
-
-    public T getValue() { return value;}
 }

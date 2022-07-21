@@ -17,32 +17,26 @@ public class Module implements MinecraftUtil {
 
     public Module(){
         Class<?> clazz = this.getClass();
-        if (!clazz.isAnnotationPresent(ModuleInfo.class)) {
+        if (!clazz.isAnnotationPresent(ModuleInfo.class))
             throw new RuntimeException("No ModuleInfo found for class " + clazz.getName() + "!");
-        }
+
         this.moduleInfo = clazz.getDeclaredAnnotation(ModuleInfo.class);
         this.keyBind = moduleInfo.moduleKeyBind();
     }
 
     public void onEnable(){
-        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this)){
-            if(property instanceof ModeSetting){
-                ModeSetting modeSetting = (ModeSetting) property;
-                modeSetting.getValue().onEnable();
-            }
-        }
+        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
+            if(property instanceof ModeSetting)
+                ((ModeSetting) property).getValue().onEnable();
 
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         Logger.print("Enabled " + getModuleName());
     }
 
     public void onDisable(){
-        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this)){
-            if(property instanceof ModeSetting){
-                ModeSetting modeSetting = (ModeSetting) property;
-                modeSetting.getValue().onDisable();
-            }
-        }
+        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
+            if(property instanceof ModeSetting)
+                ((ModeSetting) property).getValue().onDisable();
 
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
         Logger.print("Disabled " + getModuleName());

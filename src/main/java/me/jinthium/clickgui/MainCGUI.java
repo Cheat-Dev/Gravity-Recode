@@ -63,7 +63,9 @@ public class MainCGUI extends GuiScreen {
                             @Override
                             public void init() {
                                 components.add(new BindComponent(module, x, y, componentWidth, componentHeight));
-                                for (Property property : Client.INSTANCE.getPropertyManager().get(module)) {
+                                for (Property<?> property : Client.INSTANCE.getPropertyManager().get(module)) {
+                                    if(property instanceof EnumSetting<?>)
+                                        components.add(new EnumComponent2((EnumSetting<?>) property, x, y, componentWidth, componentHeight, property.getVisible().getAsBoolean()));
                                     if (property instanceof BooleanSetting)
                                         components.add(new BooleanComponent((BooleanSetting)property, x, y, componentWidth, componentHeight, property.getVisible().getAsBoolean()));
                                     if (property instanceof ModeSetting)
@@ -73,7 +75,7 @@ public class MainCGUI extends GuiScreen {
                                     if (property instanceof MultipleBoolSetting)
                                         components.add(new MultiSelectPanel((MultipleBoolSetting) property, x, y, componentWidth, componentHeight, property.getVisible().getAsBoolean()));
                                     if (property instanceof ColorSetting)
-                                        components.add(new ColorPickerComponent((ColorSetting) property, x, y, componentWidth, componentHeight * 5));
+                                        components.add(new ColorPickerComponent((ColorSetting) property, x, y, componentWidth, componentHeight * 5, property.getVisible().getAsBoolean()));
                                     updateComponents();
                                 }
                                 updateComponents();

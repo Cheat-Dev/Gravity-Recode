@@ -16,6 +16,7 @@ import team.gravityrecode.clientbase.impl.util.util.foint.MCFontRenderer;
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
 
 @ModuleInfo(moduleName = "TabGui", moduleKeyBind = Keyboard.KEY_Y, moduleCategory = Module.ModuleCategory.VISUAL)
 public class TabGui extends Module {
@@ -64,7 +65,7 @@ public class TabGui extends Module {
         if (code == Keyboard.KEY_RIGHT) {
             if (expanded && moduleList.size() != 0) {
                 Module module = moduleList.get(category.elementIndex);
-                if (expanded && !moduleList.isEmpty() && moduleList.get(category.elementIndex).isExpanded()) {
+                if (moduleList.get(category.elementIndex).isExpanded()) {
 
                 } else {
                     module.toggle();
@@ -91,7 +92,7 @@ public class TabGui extends Module {
 
         int count = 0;
         for (ModuleCategory c : ModuleCategory.values()) {
-                font.drawString(c.categoryName, x + (c.categoryName == category.categoryName ? 8 : 5), y + 6f + count * 13.5f, -1);
+                font.drawString(c.categoryName, x + (Objects.equals(c.categoryName, category.categoryName) ? 8 : 5), y + 6f + count * 13.5f, -1);
             count++;
         }
         if(expanded){
@@ -101,7 +102,7 @@ public class TabGui extends Module {
             Client.INSTANCE.getBlurrer().bloom((int) x + 61, (int) y + category.elementIndex * 13 + (tab * 13 + 2), (int) x + 75, (int) 15, 8, 65);
             count = 0;
             for (Module mod : elementList) {
-                font.drawString(mod.getModuleName(), x + (mod.getModuleName() == module.getModuleName() ? 67 : 64),
+                font.drawString(mod.getModuleName(), x + (Objects.equals(mod.getModuleName(), module.getModuleName()) ? 67 : 64),
                         y + 6 + count * 13.5f + (tab * 13 + 2), mod.isEnabled() ? Color.lightGray.getRGB() : -1);
                 count++;
             }

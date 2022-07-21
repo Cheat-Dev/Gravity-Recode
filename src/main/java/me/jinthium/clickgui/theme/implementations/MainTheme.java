@@ -1,9 +1,6 @@
 package me.jinthium.clickgui.theme.implementations;
 
-import me.jinthium.clickgui.component.implementations.BooleanComponent;
-import me.jinthium.clickgui.component.implementations.ColorPickerComponent;
-import me.jinthium.clickgui.component.implementations.EnumComponent;
-import me.jinthium.clickgui.component.implementations.SliderComponent;
+import me.jinthium.clickgui.component.implementations.*;
 import me.jinthium.clickgui.panel.implementations.CategoryPanel;
 import me.jinthium.clickgui.panel.implementations.ModulePanel;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
@@ -241,6 +238,54 @@ public class MainTheme implements Theme, MinecraftUtil {
 
         Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1, -1);
         Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 + mc.fontRendererObj.FONT_HEIGHT + 2, new Color(255,255,255,180).getRGB());
+//        Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
+
+//        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f + 1 + 3, -1);
+    }
+
+    @Override
+    public void drawEnumSetComponent(EnumComponent2 component, float x, float y, float width, float height) {
+        //        String label = component.getSetting().getLabel();
+//        Fonts.googleSmall.drawString(label + ": " + component.getSetting().getValue().toString(), x + 4, y + component.height() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f, -1);
+//    }
+        RoundedUtil.drawSmoothRoundedRect(x + 3, y, x + width - 3, y + height - 3, 8, 0x702D2D2D);
+        RoundedUtil.drawRoundedOutline(x + 3, y, x + width - 3, y + height - 3, 8, 1.5f, 0xFF404040);
+        RenderUtil.color(-1);
+        if (component.extended) {
+            // int count = 0;
+            component.count = 2;
+            // ShaderRound.drawRound(x, y, width, component.height(), 0, new Color(10, 10, 10,90));
+            for(int i = 0; i < component.getSetting().getEnumList().size(); i++){
+                String enumName = component.getSetting().getEnumList().get(i).toString();
+//                if(component.getSetting().getValue() == component.getSetting().getModeList().get(i)){
+//                    // ShaderRound.drawRound(x, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count, width, mc.fontRendererObj.FONT_HEIGHT + 7, 0, RenderUtil.applyOpacity(ClientSettings.mainColor.getValue(), 0.3f));
+//                    Fonts.icons314.drawString("I", x + width / 2.0 - mc.fontRendererObj.getStringWidth(enumName) / 2 - 8, y + mc.fontRendererObj.FONT_HEIGHT * 2f + component.count + 12 , -1);
+//
+//                }
+
+                Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
+                        .getStringWidth(enumName) / 2.0), y + mc.fontRendererObj.FONT_HEIGHT * 3 + component.count + 6, -1);
+                component.count += mc.fontRendererObj.FONT_HEIGHT + 7;
+            }
+            //RenderUtil.animate()
+            component.setHeight(RenderUtil.animate(mc.fontRendererObj.FONT_HEIGHT + component.count + 16, component.height() ,0.1f));
+            //ShaderRound.drawRound(x, y + component.height() - 4.5f, width, 2, 0, new Color(50, 50, 50, 240));
+//            for (Enum e :panel.getProperty().getValues()){
+//                GL11.glPushMatrix();
+//
+//                GL11.glPopMatrix();
+//                GlStateManager.color(1, 1, 1, 1);
+//                RenderUtil.color(-1);
+//                Fonts.googleSmall.drawString(panel.getProperty().getValues(), x + 4, y + Fonts.googleSmall.getHeight() * 3 + component.count, panel.getProperty().isSelected(e) ? HUD.getColor() : -1);
+//                component.count += Fonts.googleSmall.getHeight() + 4;
+//            }
+        }
+        else {
+            component.setHeight(RenderUtil.animate(component.origHeight() + 7, component.height() ,0.1f));
+        }
+
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getValue().toString(), x + 8 + 13, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f - 1 + mc.fontRendererObj.FONT_HEIGHT + 2, new Color(255,255,255,180).getRGB());
 //        Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
 
 //        Fonts.icons315.drawString("E", x + 8, y + component.getOrigHeight() / 2 - mc.fontRendererObj.FONT_HEIGHT / 2 - 0.5f + 1 + 3, -1);

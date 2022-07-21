@@ -21,9 +21,8 @@ public class Manager<T> implements MinecraftUtil {
 
     @SafeVarargs
     public final void addAll(T ... objects) {
-        for(int i = 0; i < objects.length; i++){
+        for(int i = 0; i < objects.length; i++)
             this.objects.put(Arrays.asList(objects).get(i).getClass(), Arrays.asList(objects).get(i));
-        }
     }
 
     public LinkedHashMap<Class<?>, T> getObjects() {
