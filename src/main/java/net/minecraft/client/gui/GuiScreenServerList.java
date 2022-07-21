@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
+import team.gravityrecode.clientbase.Client;
 
 import java.io.IOException;
 

@@ -31,6 +31,8 @@ import net.minecraft.scoreboard.Team;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.PlayerJumpEvent;
 
 import java.util.*;
 public abstract class EntityLivingBase extends Entity {
@@ -1063,7 +1065,14 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected void jump() {
-        this.motionY = getJumpUpwardsMotion();
+        PlayerJumpEvent playerJumpEvent = new PlayerJumpEvent(this, getJumpUpwardsMotion(), rotationYaw);
+        Client.INSTANCE.getPubSubEventBus().publish(playerJumpEvent);
+
+        if(playerJumpEvent.getEntity() instanceof EntityPlayerSP && playerJumpEvent.isCancelled())
+            return;
+
+
+        this.motionY = this instanceof EntityPlayerSP ? playerJumpEvent.getMotionY() : getJumpUpwardsMotion();
 
         if (this.isPotionActive(Potion.jump)) {
             this.motionY += (float) (this.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F;

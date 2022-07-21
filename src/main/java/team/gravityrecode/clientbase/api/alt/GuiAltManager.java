@@ -15,6 +15,7 @@ import net.minecraft.util.Session;
 import org.apache.commons.lang3.RandomUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import team.gravityrecode.clientbase.Client;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -104,6 +105,7 @@ public class GuiAltManager extends GuiScreen {
 
     @Override
     public void initGui() {
+        Client.INSTANCE.updateRPC("Version: 3.0", "Alt Manager!");
         this.username = new UsernameField(this.mc.fontRendererObj, width / 2 - 90, 120, 180, 20);
         this.password = new PasswordField(this.mc.fontRendererObj, width / 2 - 90, 150, 180, 20);
         this.buttonList.add(new GuiButton(0, width / 2 - 90, 180, 180, 20, "Clipboard"));

@@ -91,6 +91,7 @@ public class GuiIngame extends Gui {
     }
 
     public void renderGameOverlay(float partialTicks) {
+        Client.INSTANCE.updateRPC("Version: 3.0", mc.isSingleplayer() ? "In a singleplayer world!" : "Playing on " + mc.getCurrentServerData().serverIP);
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         int i = scaledresolution.getScaledWidth();
         int j = scaledresolution.getScaledHeight();

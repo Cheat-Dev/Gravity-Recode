@@ -18,14 +18,13 @@ public class NCP extends Mode {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
-        Logger.print("ncp");
         if (MovementUtil.isMovingOnGround()) {
-            moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.8;
+            moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.925;
             event.setY(mc.thePlayer.motionY = 0.42F);
             doSlow = true;
         } else {
             if (doSlow) {
-                moveSpeed -= 0.72 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
+                moveSpeed -= 0.66 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
                 doSlow = false;
             } else {
                 moveSpeed -= moveSpeed / 159;

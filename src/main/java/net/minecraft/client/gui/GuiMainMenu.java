@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
+import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.alt.GuiAltManager;
 
 import java.io.BufferedReader;
@@ -150,6 +151,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
     public void initGui()
     {
+        Client.INSTANCE.updateRPC("Version: 3.0", "Main Menu!");
         this.viewportTexture = new DynamicTexture(256, 256);
         this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
         Calendar calendar = Calendar.getInstance();

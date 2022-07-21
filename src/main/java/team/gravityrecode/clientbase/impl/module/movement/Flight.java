@@ -24,7 +24,8 @@ public class Flight extends Module {
                 moveSpeed += 0.26 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
                 doSlow = false;
             } else {
-                moveSpeed -= moveSpeed / 159;
+                if (moveSpeed > MovementUtil.getBaseMoveSpeed())
+                    moveSpeed -= moveSpeed / 159;
             }
         }
         MovementUtil.setSpeed(event, moveSpeed);

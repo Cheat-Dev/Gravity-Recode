@@ -3,6 +3,9 @@ package team.gravityrecode.clientbase;
 import lombok.Getter;
 import me.jinthium.clickgui.MainCGUI;
 import me.jinthium.shader.ShaderManager;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import team.gravityrecode.clientbase.api.client.ClientInfo;
 import team.gravityrecode.clientbase.api.client.Event;
 import team.gravityrecode.clientbase.api.eventBus.PubSub;
@@ -34,11 +37,18 @@ public enum Client implements MinecraftUtil {
     private BlurUtil blurUtil;
     private final ShaderManager shaderManager = new ShaderManager();
     private DraggablesManager draggablesManager;
+    private DiscordRPC rpc;
 
     private final Runnable startGame = () -> {
         ViaMCP.getInstance().start();
         ViaMCP.getInstance().initAsyncSlider();
-
+        rpc = new DiscordRPC();
+        String applicationId = "999497605669195796";
+        String steamId = "";
+        DiscordEventHandlers handlers = new DiscordEventHandlers();
+        handlers.ready = (user) -> System.out.println("Ready!");
+        rpc.discordInitialize(applicationId, handlers, true, steamId);
+        updateRPC("Version: 3.0", "Loading...");
         if (!clientDir.toFile().exists()) {
             System.out.println(clientDir);
             clientDir.toFile().mkdir();
@@ -66,4 +76,11 @@ public enum Client implements MinecraftUtil {
         if (draggablesManager != null && !draggablesManager.getDraggables().values().isEmpty())
             draggablesManager.saveDraggableData();
     };
+
+    public void updateRPC(String text, String buildtext){
+        DiscordRichPresence.Builder builder = new DiscordRichPresence.Builder(buildtext);
+        builder.setBigImage("gravitylogo", "");
+        builder.setDetails(text);
+        rpc.discordUpdatePresence(builder.build());
+    }
 }

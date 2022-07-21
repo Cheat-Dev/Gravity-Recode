@@ -73,6 +73,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
+import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -315,6 +318,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         {
             float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f1 = f * f * f * 8.0F;
+            Client.INSTANCE.getPubSubEventBus().publish(new UpdateLookEvent());
             this.smoothCamFilterX = this.mouseFilterXAxis.smooth(this.smoothCamYaw, 0.05F * f1);
             this.smoothCamFilterY = this.mouseFilterYAxis.smooth(this.smoothCamPitch, 0.05F * f1);
             this.smoothCamPartialTicks = 0.0F;
@@ -1794,6 +1798,11 @@ public class EntityRenderer implements IResourceManagerReloadListener
         final double ry = RenderManager.renderPosY;
         final double rz = RenderManager.renderPosZ;
 
+        glTranslated(-rx, -ry, -rz);
+
+        Client.INSTANCE.getPubSubEventBus().publish(new Render3DEvent(partialTicks));
+
+        glTranslated(rx, ry, rz);
 
         if (this.renderHand && !Shaders.isShadowPass)
         {
