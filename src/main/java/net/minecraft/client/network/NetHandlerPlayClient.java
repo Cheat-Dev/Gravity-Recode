@@ -63,6 +63,7 @@ import net.minecraft.world.storage.MapData;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 
 import java.io.File;
 import java.io.IOException;
@@ -640,7 +641,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         }
         else
         {
-            this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new GuiMainMenu()), "disconnect.lost", reason));
+            this.gameController.displayGuiScreen(new GuiDisconnected(new GuiMultiplayer(new TestMenu()), "disconnect.lost", reason));
         }
     }
 

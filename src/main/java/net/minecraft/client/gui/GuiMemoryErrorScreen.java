@@ -1,6 +1,7 @@
 package net.minecraft.client.gui;
 
 import net.minecraft.client.resources.I18n;
+import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ public class GuiMemoryErrorScreen extends GuiScreen
     {
         if (button.id == 0)
         {
-            this.mc.displayGuiScreen(new GuiMainMenu());
+            this.mc.displayGuiScreen(new TestMenu());
         }
         else if (button.id == 1)
         {

@@ -10,6 +10,7 @@ import team.gravityrecode.clientbase.api.client.ClientInfo;
 import team.gravityrecode.clientbase.api.client.Event;
 import team.gravityrecode.clientbase.api.eventBus.PubSub;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.manager.ChangelogManager;
 import team.gravityrecode.clientbase.impl.manager.ModuleManager;
 import org.lwjgl.opengl.Display;
 import team.gravityrecode.clientbase.impl.manager.PropertyManager;
@@ -32,6 +33,7 @@ public enum Client implements MinecraftUtil {
     private final PropertyManager propertyManager = new PropertyManager();
     public final Path clientDir = Paths.get(mc.mcDataDir.getAbsolutePath(), "Gravity");
     public final Path clientDirConfigs = Paths.get(String.valueOf(clientDir), "configs");
+    private final ChangelogManager changelogManager = new ChangelogManager();
     private Blurrer blurrer;
     private MainCGUI mainCGUI;
     private BlurUtil blurUtil;
@@ -58,6 +60,7 @@ public enum Client implements MinecraftUtil {
             clientDirConfigs.toFile().mkdir();
         }
         Fonts.INSTANCE.initFonts.run();
+        changelogManager.init();
         draggablesManager = new DraggablesManager();
         shaderManager.init();
         pubSubEventBus.subscribe(propertyManager);

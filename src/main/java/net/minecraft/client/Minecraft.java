@@ -92,6 +92,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
+import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 import viamcp.utils.AttackOrder;
 
 import javax.imageio.ImageIO;
@@ -494,9 +495,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         Client.INSTANCE.getStartGame().run();
 
         if (this.serverName != null) {
-            this.displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, this.serverName, this.serverPort));
+            this.displayGuiScreen(new GuiConnecting(new TestMenu(), this, this.serverName, this.serverPort));
         } else {
-            this.displayGuiScreen(new GuiMainMenu());
+            this.displayGuiScreen(new TestMenu());
         }
 
         this.renderEngine.deleteTexture(this.mojangLogo);
@@ -791,7 +792,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         if (guiScreenIn == null && this.theWorld == null) {
-            guiScreenIn = new GuiMainMenu();
+            guiScreenIn = new TestMenu();
         } else if (guiScreenIn == null && this.thePlayer.getHealth() <= 0.0F) {
             guiScreenIn = new GuiGameOver();
         }

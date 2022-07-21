@@ -11,6 +11,7 @@ import net.minecraft.client.resources.I18n;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 import viamcp.gui.GuiProtocolSelector;
 
 import java.io.IOException;
@@ -182,7 +183,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
                     break;
                 }
                 case 0:{
-                    this.mc.displayGuiScreen(this.parentScreen);
+                    this.mc.displayGuiScreen(new TestMenu());
                     break;
                 }
                 case 8:{

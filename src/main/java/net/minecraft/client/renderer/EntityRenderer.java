@@ -76,6 +76,7 @@ import org.lwjgl.util.glu.Project;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
+import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -2583,9 +2584,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
             }
         }
 
-        if (this.mc.currentScreen instanceof GuiMainMenu)
+        if (this.mc.currentScreen instanceof TestMenu)
         {
-            this.updateMainMenu((GuiMainMenu)this.mc.currentScreen);
+            this.updateMainMenu((TestMenu)this.mc.currentScreen);
         }
 
         if (this.updatedWorld != world)
@@ -2623,7 +2624,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         }
     }
 
-    private void updateMainMenu(GuiMainMenu p_updateMainMenu_1_)
+    private void updateMainMenu(TestMenu p_updateMainMenu_1_)
     {
         try
         {
