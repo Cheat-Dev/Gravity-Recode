@@ -18,7 +18,8 @@ public class EnumSetting<T> extends Property<T> {
     }
 
     public EnumSetting(Module owner, String name, T... modes) {
-        this(owner, name, () -> true, modes[0]);
+        super(owner, name, modes[0], () -> true);
+        this.enumList = Arrays.asList(modes);
     }
 
     public void setValue(String value) {
