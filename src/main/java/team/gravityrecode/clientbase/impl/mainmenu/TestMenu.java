@@ -1,11 +1,14 @@
 package team.gravityrecode.clientbase.impl.mainmenu;
 
+import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
+import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
+import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
+import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Session;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.api.alt.GuiAltManager;
-import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.impl.mainmenu.changelog.Changelog;
 import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
@@ -23,10 +26,11 @@ public class TestMenu extends GuiScreen {
     public void initGui() {
         initTime = System.currentTimeMillis();
         buttonList.clear();
-        this.buttonList.add(new CustomButton(0, 5, 5, 100, 100, "Singleplayer", new ResourceLocation("pulsabo/images/sp.png")));
-        this.buttonList.add(new CustomButton(1, 5,114, 100, 100, "Multiplayer", new ResourceLocation("pulsabo/images/mp.png")));
-        this.buttonList.add(new CustomButton(2, 5, 223, 100, 100, "Alt Manager", new ResourceLocation("pulsabo/images/key.png")));
-        this.buttonList.add(new CustomButton(3, 5, 332, 100, 100, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
+        this.buttonList.add(new CustomButton(0, 5, 5, 94, 94, "Singleplayer", new ResourceLocation("pulsabo/images/sp.png")));
+        this.buttonList.add(new CustomButton(1, 5,107, 94, 94, "Multiplayer", new ResourceLocation("pulsabo/images/mp.png")));
+        this.buttonList.add(new CustomButton(2, 5, 209, 94, 94, "Alt Manager", new ResourceLocation("pulsabo/images/key.png")));
+        this.buttonList.add(new CustomButton(3, 5, 311, 94, 95, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
+        this.buttonList.add(new CustomButton(4, 5, 414, 94, 95, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
         super.initGui();
     }
 
@@ -47,7 +51,9 @@ public class TestMenu extends GuiScreen {
 
             y += Fonts.INSTANCE.getSourceSansPro().getHeight() + 2;
         }
-
+        Fonts.INSTANCE.getSourceSansPro().drawString("Current Account: " + mc.getSession().getUsername(), width -
+                Fonts.INSTANCE.getSourceSansPro().getStringWidth("Current Account: " + mc.getSession().getUsername()) - 2,
+                height - Fonts.INSTANCE.getSourceSansPro().getHeight() - 2, -1);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
@@ -61,10 +67,20 @@ public class TestMenu extends GuiScreen {
                 mc.displayGuiScreen(new GuiMultiplayer(this));
                 break;
             case 2:
-                mc.displayGuiScreen(new GuiAltManager());
+                MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+                try {
+
+                    MicrosoftAuthResult result = authenticator.loginWithWebview();
+                    MinecraftProfile profile = result.getProfile();
+                    mc.session = new Session(profile.getName(), profile.getId(), result.getAccessToken(), "microsoft");
+                } catch (MicrosoftAuthenticationException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 3:
                 mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+            case 4:
+                mc.shutdown();
                 break;
         }
     }

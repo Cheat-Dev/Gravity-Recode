@@ -17,10 +17,11 @@ public class ChangelogManager {
 
     public void init(){
         changelogs.addAll(Stream.of(
-             new Changelog("New Watchdog Bhop", Changelog.ChangeType.ADDED),
                 new Changelog("New Client Base", Changelog.ChangeType.ADDED),
                 new Changelog("Client optimizations", Changelog.ChangeType.FIXED),
-                new Changelog("new yayayayayayayayayayayayayaya", Changelog.ChangeType.ADDED)
+                new Changelog("New Watchdog Bhop", Changelog.ChangeType.ADDED),
+                new Changelog("New Main Menu", Changelog.ChangeType.ADDED),
+                new Changelog("Discord RPC", Changelog.ChangeType.ADDED)
                 ).collect(Collectors.toList()));
     }
 

@@ -18,7 +18,6 @@ import java.awt.*;
 
 public class CustomButton extends GuiButton {
     private ResourceLocation picture;
-    public String buttonText;
     protected boolean hovered;
     private int hoveredSize;
     private Animation animations;
@@ -27,7 +26,7 @@ public class CustomButton extends GuiButton {
                              ResourceLocation picture) {
         super(buttonId, x, y, widthIn, heightIn, buttonText);
         this.picture = picture;
-        this.buttonText = buttonText;
+        this.displayString = buttonText;
     }
 
     /**
@@ -46,11 +45,13 @@ public class CustomButton extends GuiButton {
         GlStateManager.blendFunc(770, 771);
 
         if (this.visible) {
+            float offset = animations != null ? Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) : 0;
+            float offset2 = animations != null ? -120 : 0;
             RoundedUtil.drawSmoothRoundedRect((float) -10, (float) (this.yPosition - 3),
-                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.buttonText) / 2)))) + 3,
+                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2)))) + 3,
                     this.yPosition + this.height + 3, 0, new Color(40, 40, 40).getRGB());
             RoundedUtil.drawRoundedOutline((float) -10, (float) (this.yPosition - 3),
-                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.buttonText) / 2)))) + 3,
+                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2)))) + 3,
                     this.yPosition + this.height + 3, 0, 1.5f, new Color(25, 67, 169).getRGB());
             if (this.hovered) {
                 if (animations == null) {
@@ -67,19 +68,18 @@ public class CustomButton extends GuiButton {
                 }
             }
 
-            int currentButtonStuff = animations == null ? this.xPosition : (int) (this.xPosition - animations.getOutput()  * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.buttonText) / 2);
+            int currentButtonStuff = animations == null ? this.xPosition : (int) (this.xPosition - animations.getOutput()  * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2);
 
             if(animations != null && !animations.finished(Direction.BACKWARDS)) {
                 GL11.glEnable(GL11.GL_SCISSOR_TEST);
-                RenderUtil.scissor((float) this.xPosition - 8, (float) this.yPosition, Math.max(xPosition, (float) ((this.xPosition) + animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.buttonText) / 2)), this.height);
+                RenderUtil.scissor((float) this.xPosition - 8, (float) this.yPosition, Math.max(xPosition, (float) ((this.xPosition) + animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2)), this.height);
 //                RenderUtil.makeCropBox();
-                Fonts.INSTANCE.getUbuntu_light().drawString(this.buttonText, this.xPosition - 1,
+                Fonts.INSTANCE.getUbuntu_light().drawString(this.displayString, this.xPosition - 1,
                         this.yPosition + this.height / 2 - Fonts.INSTANCE.getUbuntu_light().getHeight() / 2, Color.WHITE.getRGB());
 //                RenderUtil.destroyCropBox();
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
-
-            RenderUtil.drawImage(this.picture, Math.max(xPosition, animations == null ? this.xPosition : (int) (this.xPosition + animations.getOutput()  * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.buttonText) / 2)), this.yPosition, this.width, this.height);
+            RenderUtil.drawImage(this.picture, Math.max(this.xPosition, offset + (animations == null ? this.xPosition : (int) (this.xPosition + animations.getOutput() * 50)) + offset2), this.yPosition, this.width, this.height);
             //RenderUtil.drawImage(this.picture, this.xPosition, animations == null ? this.yPosition : (int) (this.yPosition - (animations.getOutput() * 12.0f)), this.width, this.height);
         }
     }
