@@ -34,9 +34,6 @@ public class CustomButton extends GuiButton {
      */
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-        if(animations != null)
-            Logger.printSysLog("Anim: " + animations.getOutput());
-
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < (this.xPosition + this.width)
                 && mouseY < this.yPosition + this.height;
@@ -48,10 +45,10 @@ public class CustomButton extends GuiButton {
             float offset = animations != null ? Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) : 0;
             float offset2 = animations != null ? -120 : 0;
             RoundedUtil.drawSmoothRoundedRect((float) -10, (float) (this.yPosition - 3),
-                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2)))) + 3,
+                    Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
                     this.yPosition + this.height + 3, 0, new Color(40, 40, 40).getRGB());
             RoundedUtil.drawRoundedOutline((float) -10, (float) (this.yPosition - 3),
-                    Math.max(this.xPosition + this.width, (float) (((this.xPosition + this.width) + (animations == null ? 0 : animations.getOutput() * (50) - Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) / 2)))) + 3,
+                    Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
                     this.yPosition + this.height + 3, 0, 1.5f, new Color(25, 67, 169).getRGB());
             if (this.hovered) {
                 if (animations == null) {

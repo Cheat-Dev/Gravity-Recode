@@ -79,6 +79,7 @@ public class TestMenu extends GuiScreen {
                 break;
             case 3:
                 mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+                break;
             case 4:
                 mc.shutdown();
                 break;
