@@ -20,6 +20,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestMenu extends GuiScreen {
 
+    MainMenuShader mainMenuShader = new MainMenuShader();
+
     long initTime;
 
     @Override
@@ -38,7 +40,8 @@ public class TestMenu extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         Gui.drawRect(0, 0, 1920, 1080, Color.BLACK.getRGB());
 
-        RenderUtil.drawImage(new ResourceLocation("pulsabo/images/gravitychild.png"), 0, 0, this.width, this.height);
+        mainMenuShader.run(initTime);
+//        RenderUtil.drawImage(new ResourceLocation("pulsabo/images/gravitychild.png"), 0, 0, this.width, this.height);
 
         Fonts.INSTANCE.getSourceSansPro().drawString("Changelog v" + Client.INSTANCE.getClientInfo().getClientVersion(),
                 this.width - Fonts.INSTANCE.getSourceSansPro().getStringWidth("Changelog v" + Client.INSTANCE.getClientInfo().getClientVersion()) - 2, 2, Color.WHITE.getRGB());

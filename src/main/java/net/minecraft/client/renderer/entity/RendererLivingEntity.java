@@ -125,7 +125,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             try {
                 float f, f1;
                 if (mc.thePlayer != null && entity == mc.thePlayer) {
-                    float yaw = this.interpolateRotation(entity.prevRotationYaw, entity.rotationYaw, partialTicks);
+                    float yaw = this.interpolateRotation(mc.thePlayer.currentEvent.getPrevYaw(), mc.thePlayer.currentEvent.getYaw(), partialTicks);
                     f = yaw;
                     f1 = yaw;
                 } else {
@@ -159,7 +159,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                 float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
                 if (mc.thePlayer != null && entity == mc.thePlayer)
-                    f7 = this.interpolateRotation(entity.prevRotationPitch, entity.rotationPitch, partialTicks);
+                    f7 = this.interpolateRotation(mc.thePlayer.currentEvent.getPrevPitch(), mc.thePlayer.currentEvent.getPitch(), partialTicks);
                 float f8 = this.handleRotationFloat(entity, partialTicks);
 
                 this.renderLivingAt(entity, x, y, z);
