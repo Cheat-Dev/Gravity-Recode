@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
@@ -44,12 +45,17 @@ public class CustomButton extends GuiButton {
         if (this.visible) {
             float offset = animations != null ? Fonts.INSTANCE.getUbuntu_light().getStringWidth(this.displayString) : 0;
             float offset2 = animations != null ? -120 : 0;
-            RoundedUtil.drawSmoothRoundedRect((float) -10, (float) (this.yPosition - 3),
-                    Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
-                    this.yPosition + this.height + 3, 0, new Color(50, 50, 50, 240).getRGB());
+//            RoundedUtil.drawSmoothRoundedRect((float) -10, (float) (this.yPosition - 3),
+//                    Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
+//                    this.yPosition + this.height + 3, 0, new Color(20, 20, 20).getRGB());
+
+            Client.INSTANCE.getBlurrer().bloom((int) -10, (int) (this.yPosition - 3),
+                    (int) (Math.max(this.width, offset + (animations == null ? width : (int) ((width) + animations.getOutput() * 50)) + offset2) + 25),
+                    this.height + 3, 15, new Color(20, 20, 20));
+
             RoundedUtil.drawRoundedOutline((float) -10, (float) (this.yPosition - 3),
                     Math.max(this.xPosition + this.width, offset + (animations == null ? this.xPosition + width : (int) ((this.xPosition + width) + animations.getOutput() * 50)) + offset2) + 3,
-                    this.yPosition + this.height + 3, 0, 1.5f, new Color(45, 87, 189, 100).brighter().brighter().getRGB());
+                    this.yPosition + this.height + 3, 0, 3.5f, 255);
             if (this.hovered) {
                 if (animations == null) {
                     animations = new SmoothStep(300, 2.6, Direction.FORWARDS);
