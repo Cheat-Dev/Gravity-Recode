@@ -21,14 +21,12 @@ public class NCPSpeed extends Mode {
             moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.925;
             event.setY(mc.thePlayer.motionY = 0.42F);
             doSlow = true;
-        } else {
-            if (doSlow) {
-                moveSpeed -= 0.66 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
+        } else  if (doSlow) {
+                moveSpeed -= 0.72 * (moveSpeed - MovementUtil.getBaseMoveSpeed());
                 doSlow = false;
             } else {
-                moveSpeed -= moveSpeed / 159;
+                moveSpeed *= 0.98;
             }
-        }
         MovementUtil.setSpeed(event, moveSpeed);
     }
 

@@ -2,20 +2,28 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import com.mojang.authlib.Agent;
+import com.mojang.authlib.exceptions.AuthenticationException;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
 import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.network.OldServerPinger;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.Session;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
+import team.gravityrecode.clientbase.impl.util.util.math.MathUtil;
 import viamcp.gui.GuiProtocolSelector;
 
 import java.io.IOException;
+import java.net.Proxy;
 import java.util.List;
+import java.util.Random;
 
 public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
 {
@@ -100,6 +108,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
         this.buttonList.add(new GuiButton(3, this.width / 2 + 4 + 50, this.height - 52, 100, 20, I18n.format("selectServer.add")));
         this.buttonList.add(new GuiButton(8, this.width / 2 + 4, this.height - 28, 70, 20, I18n.format("selectServer.refresh")));
         this.buttonList.add(new GuiButton(0, this.width / 2 + 4 + 76, this.height - 28, 75, 20, I18n.format("gui.cancel")));
+        this.buttonList.add(new GuiButton(420, this.width / 2 + 4 + 179, this.height - 28, 75, 20, I18n.format("Cracked Username")));
        // this.buttonList.add(ViaMCP.getInstance().asyncSlider);
         this.buttonList.add(new GuiButton(69, 5, 5, 90, 20, "Version"));
         this.buttonList.add(new GuiButton(99, 5, 59, 110, 20, "Diable all modules"));
@@ -160,6 +169,10 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
                 }
                 case 1:{
                     this.connectToSelected();
+                    break;
+                }
+                case 420:{
+                    mc.session = new Session("gravity" + MathUtil.randomInt(1000, 1000000), "", "", "mojang");
                     break;
                 }
                 case 4:{
