@@ -1,6 +1,7 @@
 package me.jinthium.clickgui.theme.implementations;
 
 import me.jinthium.clickgui.component.implementations.*;
+import me.jinthium.clickgui.panel.Panel;
 import me.jinthium.clickgui.panel.implementations.CategoryPanel;
 import me.jinthium.clickgui.panel.implementations.ModulePanel;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
@@ -29,7 +30,7 @@ import java.util.List;
 public class MainTheme implements Theme, MinecraftUtil {
     @Override
     public void drawCategory(CategoryPanel panel, float x, float y, float width, float height) {
-
+        panel.updateComponents();
         String name = StringUtils.upperSnakeCaseToPascal(panel.getCategory().name());
         StencilUtil.initStencilToWrite();
         RoundedUtil.drawRoundedRect(x, y,  x + width,  y + height -1, 8,new Color(0,0,0,100).getRGB());
@@ -55,6 +56,7 @@ public class MainTheme implements Theme, MinecraftUtil {
 
     @Override
     public void drawModule(ModulePanel panel, float x, float y, float width, float height) {
+        panel.updateComponents();
         Module.ModuleCategory category = panel.getModule().getModuleCategory();
         panel.setHeight(15);
         //ShaderRound.drawRound(x, y, width, height, 0,new Color(0xff212120));

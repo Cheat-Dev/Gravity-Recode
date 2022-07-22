@@ -29,20 +29,16 @@ final class PubSubImpl<Event> implements PubSub<Event> {
             Class<T> event,
             Listener<T> listener
     ) {
-        Runnable runnable = () -> {
             // add cache entry
             this.eventTypeListenerCache.computeIfAbsent(event, key -> new ArrayList<>()).add((Listener<Event>) listener);
             // add subscribe (so cache entry isn't removed when unsubscribe is called)
             this.subscriberMap.computeIfAbsent(GLOBAL_LISTENERS_BACKING_OBJECT, key -> new ArrayList<>())
                     .add(new TypedListener(event, (Listener<Event>) listener));
-        };
-        runnable.run();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void subscribe(Object subscriber) {
-        Runnable runnable = () -> {
             // the type of the LMF factory
             MethodType factoryType = MethodType.methodType(Listener.class, subscriber.getClass());
             // iterate over all methods (to catch programmer errors)
@@ -117,13 +113,10 @@ final class PubSubImpl<Event> implements PubSub<Event> {
                     }
                 }
             }
-        };
-        runnable.run();
     }
 
     @Override
     public void unsubscribe(Object subscriber) {
-        Runnable runnable = () -> {
             // remove subscriber
             this.subscriberMap.remove(subscriber);
             // clear and ...
@@ -133,13 +126,10 @@ final class PubSubImpl<Event> implements PubSub<Event> {
                     typedListeners.forEach(typedListener ->
                             this.eventTypeListenerCache.computeIfAbsent(typedListener.type, key -> new ArrayList<>())
                                     .add(typedListener.listener)));
-        };
-        runnable.run();
     }
 
     @Override
     public void publish(Event event) {
-        Runnable runnable = () -> {
             try {
                 final List<Listener<Event>> listeners = this.eventTypeListenerCache.get(event.getClass());
 
@@ -152,25 +142,17 @@ final class PubSubImpl<Event> implements PubSub<Event> {
                 }
             } catch (Exception ex) {
             }
-        };
-        runnable.run();
     }
 
     @Override
     public void clear() {
-        Runnable runnable = () -> {
             // clear subscriber map and cache
             this.subscriberMap.clear();
             this.eventTypeListenerCache.clear();
-        };
-        runnable.run();
     }
 
     private void error(String msg) {
-        Runnable runnable = () -> {
             this.logger.accept(msg);
-        };
-        runnable.run();
     }
 
     private class TypedListener {

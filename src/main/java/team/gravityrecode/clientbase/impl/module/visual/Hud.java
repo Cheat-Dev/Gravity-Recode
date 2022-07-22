@@ -9,6 +9,7 @@ import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
 import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.util.network.BalanceUtil;
 import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
 import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
 
@@ -24,6 +25,9 @@ public class Hud extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
 //        if(Client.INSTANCE)
+        Fonts.INSTANCE.getSourceSansPro().drawString("Balance: " + BalanceUtil.INSTANCE.getBalance(), event.getScaledResolution().getScaledWidth() -
+                Fonts.INSTANCE.getSourceSansPro().getStringWidth("Balance: " + BalanceUtil.INSTANCE.getBalance()) - 2, event.getScaledResolution().getScaledHeight() -
+                Fonts.INSTANCE.getSourceSansPro().getHeight() - 2, 0xFFFFFF);
         Client.INSTANCE.getBlurrer().bloom((int) draggable.getX() - 2, (int) draggable.getY() - 2, 62, 20, 8, 95);
         Fonts.INSTANCE.getUbuntu_light().drawString(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3,
                 Client.INSTANCE.getModuleManager().getModule("TabGui").isEnabled() ? draggable.getY() + 3 : draggable.getY() + 1, -1);
@@ -34,7 +38,7 @@ public class Hud extends Module {
             int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             if (module.isEnabled()) {
                 int xVal = event.getScaledResolution().getScaledWidth() - stringWidth - 4;
-                Client.INSTANCE.getBlurrer().bloom(xVal - 8, y - mc.fontRendererObj.FONT_HEIGHT + 11, stringWidth + 12, 16,
+                Client.INSTANCE.getBlurrer().bloom(xVal - 8, y -  Fonts.INSTANCE.getSourceSansPro().getHeight() + 11, stringWidth + 12, 16,
                         10, 95);
                 Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 6, -1);
                 y += 11;

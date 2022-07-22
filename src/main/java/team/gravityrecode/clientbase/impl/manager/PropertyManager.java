@@ -1,10 +1,14 @@
 package team.gravityrecode.clientbase.impl.manager;
 
+import net.minecraft.client.Minecraft;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
+import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -37,14 +41,20 @@ public class PropertyManager extends AbstractManager<Property<?>> {
                 .toArray(Property[]::new);
     }
 
-    private Property<?>[] getDisplayableSettings(Module toggleable) {
+    public Property<?>[] getDisplayableSettings(Module toggleable) {
         return this.getStream(toggleable)
                 .filter(option -> option.getVisible().getAsBoolean())
                 .toArray(Property[]::new);
     }
 
     public Stream<Property<?>> getStream(Module toggleable) {
-        return this.stream().filter(property -> Objects.equals(property.getOwner(), toggleable));
+        return this.stream().filter(property -> Objects.equals(property.getOwner(), toggleable)).sorted(SORT_METHOD);
     }
+
+    private final Comparator<Object> SORT_METHOD = Comparator.comparingDouble(m -> {
+        Property<?> module = (Property<?>) m;
+        String name = module.getName();
+        return Fonts.INSTANCE.getSourceSansPro().getStringWidth(name);
+    });
 
 }

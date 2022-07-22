@@ -15,7 +15,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import sun.security.pkcs11.wrapper.CK_LOCKMUTEX;
+import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.event.player.windowclick.WindowClickRequest;
+import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
 
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +47,16 @@ public class InventoryUtils implements MinecraftUtil {
         }
 
         return false;
+    }
+
+    private static InventoryManager inventoryManager;
+
+    public static void queueClickRequest(final WindowClickRequest request) {
+        if (inventoryManager == null) {
+            inventoryManager = Client.INSTANCE.getModuleManager().getModule(InventoryManager.class);
+        }
+
+        inventoryManager.getClickRequests().add(request);
     }
 
     public static boolean isValidStack(final EntityPlayerSP player,

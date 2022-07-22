@@ -245,7 +245,7 @@ public class Killaura extends Module {
             // Reset rotating state
             this.rotating = false;
             // Get the current targeted entity
-            final EntityLivingBase target = this.getTarget();
+            final EntityLivingBase target = this.target;
             if (target == null) return;
             // Find the optimal attack hit vec to aim at
             final Vec3 attackHitVec = RotationUtil.getCenterPointOnBB(target.getEntityBoundingBox(),
@@ -482,7 +482,24 @@ public class Killaura extends Module {
 
     private void block() {
         switch (blockModeProperty.getValue()) {
-            case WATCHDOG:
+            case WATCHDOG:{
+                if(isEntityNearbyAttack() && PlayerUtil.isHoldingSword()){
+                    if (mc.thePlayer.swingProgressInt == -1) {
+                        PacketUtil.sendPacketNoEvent(new C07PacketPlayerDigging(
+                                C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
+                    } else if (mc.thePlayer.swingProgressInt == -0.8) {
+                        PacketUtil.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(
+                                new BlockPos(-1, -1, -1), 1, mc.thePlayer.inventory.getCurrentItem(),
+                                0.1f, 0.1f, 0.1f
+                        ));
+                    } else if (mc.thePlayer.swingProgressInt < 0.8 && mc.thePlayer.swingProgressInt > -0.7) {
+                        PacketUtil.sendPacketNoEvent(new C08PacketPlayerBlockPlacement
+                                (new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(),
+                                        0.0081284124F, 0.00004921712F, 0.0081248912F));
+                    }
+                }
+                break;
+            }
             case VERUS: {
                 if (isEntityNearbyAttack() && PlayerUtil.isHoldingSword()) {
                     PacketUtil.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255, mc.thePlayer.inventory.getCurrentItem(), 0.0081284124F, 0.00004921712F, 0.0081248912F));
@@ -504,12 +521,6 @@ public class Killaura extends Module {
     private void unblock() {
         switch (blockModeProperty.getValue()) {
             case VERUS:
-            case WATCHDOG: {
-                if (mc.thePlayer.ticksExisted % 5 == 2) {
-                    PacketUtil.sendPacketNoEvent(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
-                }
-                break;
-            }
             case VANILLA: {
                 PacketUtil.sendPacketNoEvent(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
                 break;

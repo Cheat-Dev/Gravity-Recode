@@ -118,12 +118,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     public void onUpdate() {
 
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
+            super.onUpdate();
             PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(PlayerMotionEvent.EventState.UPDATE, lastReportedYaw, lastReportedPitch,
                     lastTickPosX, lastTickPosY, lastTickPosZ,
                     posX, getEntityBoundingBox().minY, posZ,
                     rotationYaw, rotationPitch, onGround);
             Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
-            super.onUpdate();
 
             if (this.isRiding()) {
                 this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, this.onGround));
@@ -141,10 +141,20 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 posX, getEntityBoundingBox().minY, posZ,
                 rotationYaw, rotationPitch, onGround);
 
-        playerMotionEvent.setState(PlayerMotionEvent.EventState.PRE);
         Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
         currentEvent = playerMotionEvent;
 
+//        boolean isEnabled = !Pulsive.INSTANCE.getModuleManager().getModule(Scaffold.class).isToggled()
+//                && Pulsive.INSTANCE.getModuleManager().getModule(Aura.class).getTarget() == null && !Pulsive.INSTANCE.getModuleManager().getModule(AutoPotion.class).potting;
+//        if(!playerMotionEvent.isRotating() && isEnabled){
+//            if(playerMotionEvent.getYaw() == this.rotationYaw && playerMotionEvent.getPitch() == this.rotationPitch){
+//                float[] lastRots = new float[] {playerMotionEvent.getPrevYaw(), playerMotionEvent.getPrevPitch()};
+//                float[] dstRots = new float[] {this.rotationYaw, this.rotationPitch};
+//                RotationUtil.applySmoothing(lastRots, 12.5f, dstRots);
+//                playerMotionEvent.setYaw(dstRots[0]);
+//                playerMotionEvent.setPitch(dstRots[1]);
+//            }
+//        }
         SendSprintStateEvent sendSprintStateEvent = new SendSprintStateEvent(isSprinting());
         Client.INSTANCE.getPubSubEventBus().publish(sendSprintStateEvent);
 

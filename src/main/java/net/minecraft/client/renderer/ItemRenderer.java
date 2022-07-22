@@ -31,6 +31,8 @@ import net.optifine.DynamicLights;
 import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.module.combat.Killaura;
 
 public class ItemRenderer {
     private static final ResourceLocation RES_MAP_BACKGROUND = new ResourceLocation("textures/map/map_background.png");
@@ -313,16 +315,17 @@ public class ItemRenderer {
             this.rotateWithPlayerRotations(abstractclientplayer, partialTicks);
             GlStateManager.enableRescaleNormal();
             GlStateManager.pushMatrix();
-//            boolean block = Pulsive.INSTANCE.getModuleManager().getModule(Aura.class).blockAnimation;
+            Killaura killaura = Client.INSTANCE.getModuleManager().getModule(Killaura.class);
+            boolean block = killaura.blockAnimation;
             if (this.itemToRender != null) {
                 if (this.itemToRender.getItem() instanceof ItemMap) {
                     this.renderItemMap(abstractclientplayer, f2, f, f1);
-                } else if (abstractclientplayer.getItemInUseCount() > 0) {
+                } else if (abstractclientplayer.getItemInUseCount() > 0 || block) {
                     EnumAction enumaction = this.itemToRender.getItemUseAction();
 
-//                    if (block) {
-//                        enumaction = EnumAction.BLOCK;
-//                    }
+                    if (block) {
+                        enumaction = EnumAction.BLOCK;
+                    }
 
                     switch (enumaction) {
                         case NONE:

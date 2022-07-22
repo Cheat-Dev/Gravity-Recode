@@ -17,6 +17,10 @@ import net.minecraft.stats.StatFileWriter;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldSettings;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.BlockPlaceEvent;
+import team.gravityrecode.clientbase.impl.event.player.SpoofItemEvent;
+import team.gravityrecode.clientbase.impl.event.player.WindowClickEvent;
 
 public class PlayerControllerMP
 {
@@ -317,8 +321,10 @@ public class PlayerControllerMP
 
     public void syncCurrentPlayItem()
     {
+        SpoofItemEvent event = new SpoofItemEvent(mc.thePlayer.inventory.currentItem);
+        Client.INSTANCE.getPubSubEventBus().publish(event);
 
-        int i = mc.thePlayer.inventory.currentItem;
+        int i = event.getCurrentItem();
 
         if (i != this.currentPlayerItem) {
             this.netClientHandler.addToSendQueue(new C09PacketHeldItemChange(i));
@@ -360,6 +366,9 @@ public class PlayerControllerMP
                 }
             }
 
+            final BlockPlaceEvent event = new BlockPlaceEvent(hitPos, side, hitVec);
+            Client.INSTANCE.getPubSubEventBus().publish(event);
+            if (event.isCancelled()) return false;
             this.netClientHandler.addToSendQueue(new C08PacketPlayerBlockPlacement(hitPos, side.getIndex(), player.inventory.getCurrentItem(), f, f1, f2));
 
             if (!flag && this.currentGameType != WorldSettings.GameType.SPECTATOR)
@@ -453,6 +462,8 @@ public class PlayerControllerMP
 
     public ItemStack windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn)
     {
+        if (playerIn.equals(mc.thePlayer))
+            Client.INSTANCE.getPubSubEventBus().publish(new WindowClickEvent(windowId, slotId, mouseButtonClicked, mode));
         short short1 = playerIn.openContainer.getNextTransactionID(playerIn.inventory);
         ItemStack itemstack = playerIn.openContainer.slotClick(slotId, mouseButtonClicked, mode, playerIn);
         this.netClientHandler.addToSendQueue(new C0EPacketClickWindow(windowId, slotId, mouseButtonClicked, mode, itemstack, short1));

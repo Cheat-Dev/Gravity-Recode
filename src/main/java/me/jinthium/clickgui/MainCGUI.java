@@ -1,5 +1,6 @@
 package me.jinthium.clickgui;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import lombok.Getter;
 import me.jinthium.clickgui.component.Component;
 import me.jinthium.clickgui.component.implementations.*;
 import me.jinthium.clickgui.panel.implementations.CategoryPanel;
@@ -21,11 +22,9 @@ import team.gravityrecode.clientbase.impl.property.*;
 import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
+@Getter
 public class MainCGUI extends GuiScreen {
 
     private final Theme currentTheme;
@@ -64,6 +63,7 @@ public class MainCGUI extends GuiScreen {
                             public void init() {
                                 components.add(new BindComponent(module, x, y, componentWidth, componentHeight));
                                 for (Property<?> property : Client.INSTANCE.getPropertyManager().get(module)) {
+                                    Arrays.stream(Client.INSTANCE.getPropertyManager().get(module)).sorted();
                                     if(property instanceof EnumSetting<?>)
                                         components.add(new EnumComponent2((EnumSetting<?>) property, x, y, componentWidth, componentHeight, property.getVisible().getAsBoolean()));
                                     if (property instanceof BooleanSetting)

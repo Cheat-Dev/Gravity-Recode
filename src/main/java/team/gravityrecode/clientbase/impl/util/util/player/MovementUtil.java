@@ -31,6 +31,10 @@ public class MovementUtil implements MinecraftUtil {
         PacketUtil.sendPacketNoEvent(new C03PacketPlayer(true));
     }
 
+    public float getLilypadValue(){
+        return 0.015625F;
+    }
+
     public boolean canSprint(final boolean omni) {
         return (mc.thePlayer.movementInput.moveForward >= 0.8F || (omni && isMoving())) &&
                 (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying) &&
@@ -203,21 +207,10 @@ public class MovementUtil implements MinecraftUtil {
         e.setZ(z * speed);
     }
 
-//    public void setSpeed(double speed) {
-//        EntityPlayerSP player = mc.thePlayer;
-//        TargetStrafe targetStrafeModule = Pulsive.INSTANCE.getModuleManager().getModule(TargetStrafe.class);
-//        if (targetStrafeModule.shouldStrafe()) {
-//            if (targetStrafeModule.shouldAdaptSpeed())
-//                speed = ApacheMath.min(speed, targetStrafeModule.getAdaptedSpeed());
-//            MovementUtil.setSpeed(speed, 1, 0,
-//                    RotationUtil.calculateYawFromSrcToDst(player.rotationYaw,
-//                            player.posX, player.posZ,
-//                            targetStrafeModule.currentPoint.point.xCoord, targetStrafeModule.currentPoint.point.zCoord));
-//            return;
-//        }
-//
-//        setSpeed(speed, player.moveForward, player.moveStrafing, player.rotationYaw);
-//    }
+    public void setSpeed(double speed) {
+        EntityPlayerSP player = mc.thePlayer;
+        setSpeed(speed, player.moveForward, player.moveStrafing, player.rotationYaw);
+    }
 
     public void setSpeed(double speed, float forward, float strafing, float yaw) {
         if (forward == 0.0F && strafing == 0.0F) return;
