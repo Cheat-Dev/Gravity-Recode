@@ -18,4 +18,10 @@ public class Timer extends Module {
     public void onUpdate(PlayerMotionEvent event){
         mc.timer.timerSpeed = timerSpeed.getValue().floatValue() + (randomTimer.getValue() ? randomTimerSpeed.getValue().floatValue() : 0.0f);
     }
+
+    @Override
+    public void onDisable() {
+        mc.timer.timerSpeed = 1;
+        super.onDisable();
+    }
 }
