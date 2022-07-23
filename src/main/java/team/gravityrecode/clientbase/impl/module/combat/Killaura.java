@@ -120,6 +120,9 @@ public class Killaura extends Module {
 
         updateTargets();
         if (event.isPre()) {
+            if (target != null) {
+                PacketUtil.sendPacketNoEvent(new C0CPacketInput());
+            }
             if (target == null) {
                 if (block)
                     unblock();
@@ -482,8 +485,8 @@ public class Killaura extends Module {
 
     private void block() {
         switch (blockModeProperty.getValue()) {
-            case WATCHDOG:{
-                if(isEntityNearbyAttack() && PlayerUtil.isHoldingSword()){
+            case WATCHDOG: {
+                if (isEntityNearbyAttack() && PlayerUtil.isHoldingSword()) {
                     if (mc.thePlayer.swingProgressInt == -1) {
                         PacketUtil.sendPacketNoEvent(new C07PacketPlayerDigging(
                                 C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
@@ -507,12 +510,12 @@ public class Killaura extends Module {
                 break;
             }
 
-            case VANILLA: {
+            case ASTRALMC:
+            case VANILLA:
                 if (isEntityNearbyAttack() && PlayerUtil.isHoldingSword()) {
                     PacketUtil.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(mc.thePlayer.inventory.getCurrentItem()));
+                    break;
                 }
-                break;
-            }
         }
         block = true;
         blockAnimation = true;
@@ -644,6 +647,7 @@ public class Killaura extends Module {
         WATCHDOG("Watchdog"),
         VERUS("Verus"),
         VANILLA("Vanilla"),
+        ASTRALMC("AstralMC"),
         FAKE("Fake");
 
         private final String modeName;
