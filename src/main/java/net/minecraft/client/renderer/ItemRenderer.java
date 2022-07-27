@@ -339,7 +339,7 @@ public class ItemRenderer {
                             break;
 
                         case BLOCK:
-                            transformFirstPersonItem(f, 0.0F);
+                            transformFirstPersonItem(f, f1);
                             doBlockTransformations();
                             break;
 

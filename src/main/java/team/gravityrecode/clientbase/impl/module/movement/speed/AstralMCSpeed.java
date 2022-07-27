@@ -30,7 +30,7 @@ public class AstralMCSpeed extends Mode {
         }
 
         if (MovementUtil.isMoving() && mc.thePlayer.onGround) {
-            moveSpeed = amp > 1 ? baseSpeed + 0.6 : baseSpeed * 2.15;
+            moveSpeed = amp > 1 ? baseSpeed + 0.9 : baseSpeed * 2.15;
             event.setY(0.42F);
             boolean cond = mc.theWorld.getBlockState(new BlockPos(mc.thePlayer)).getBlock() instanceof BlockSlab ||
                     mc.theWorld.getBlockState(new BlockPos(mc.thePlayer).down()).getBlock() instanceof BlockSlab ||
