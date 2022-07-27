@@ -12,6 +12,7 @@ import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 @Getter@Setter
 public class Module implements MinecraftUtil {
     private final ModuleInfo moduleInfo;
+    private String funnyNumber;
     private int keyBind;
     private boolean enabled, expanded;
 
@@ -57,7 +58,7 @@ public class Module implements MinecraftUtil {
     }
 
     public String getModuleName(){
-        return moduleInfo.moduleName();
+        return this.moduleInfo.isScript() ? funnyNumber : moduleInfo.moduleName();
     }
 
     public ModuleCategory getModuleCategory(){
@@ -71,7 +72,8 @@ public class Module implements MinecraftUtil {
         PLAYER(3, "Player"),
         VISUAL(4, "Render"),
         EXPLOIT(5, "Exploit"),
-        MISC(6, "Misc");
+        MISC(6, "Misc"),
+        SCRIPT(7, "Script");
 
         public int elementIndex;
         public final String categoryName;

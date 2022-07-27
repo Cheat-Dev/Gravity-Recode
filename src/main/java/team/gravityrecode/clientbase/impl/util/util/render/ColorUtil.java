@@ -1,20 +1,21 @@
 package team.gravityrecode.clientbase.impl.util.util.render;
 
+import lombok.AllArgsConstructor;
 import lombok.experimental.UtilityClass;
 import me.jinthium.optimization.ApacheMath;
 
 import java.awt.*;
 
-@UtilityClass
+@AllArgsConstructor
 public class ColorUtil {
-    public float getOffset(int index) {
+    public static float getOffset(int index) {
         long ms = (long) (1.3 * 1000L);
         long currentMillis = -1;
         currentMillis = System.currentTimeMillis();
         final float offset = (currentMillis + (3 * 2 / (index + 1) * 50)) % ms / (ms / 2.0F);
         return offset;
     }
-    public Color interpolateColorC(Color color1, Color color2, float amount) {
+    public static Color interpolateColorC(Color color1, Color color2, float amount) {
         amount = ApacheMath.min(1, ApacheMath.max(0, amount));
         return new Color(interpolateInt(color1.getRed(), color2.getRed(), amount),
                 interpolateInt(color1.getGreen(), color2.getGreen(), amount),
@@ -22,10 +23,10 @@ public class ColorUtil {
                 interpolateInt(color1.getAlpha(), color2.getAlpha(), amount));
     }
 
-    public int interpolateInt(int oldValue, int newValue, double interpolationValue){
+    public static int interpolateInt(int oldValue, int newValue, double interpolationValue){
         return interpolate(oldValue, newValue, (float) interpolationValue).intValue();
     }
-    public Double interpolate(double oldValue, double newValue, double interpolationValue){
+    public static Double interpolate(double oldValue, double newValue, double interpolationValue){
         return (oldValue + (newValue - oldValue) * interpolationValue);
     }
 

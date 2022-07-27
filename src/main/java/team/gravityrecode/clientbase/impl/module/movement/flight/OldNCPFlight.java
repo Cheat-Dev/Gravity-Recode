@@ -43,7 +43,7 @@ public class OldNCPFlight extends Mode {
                         if (doFly) {
                             moveSpeed = 1f + (10 / 10.5F);
                             double timer1 = 9F;
-                            mc.timer.timerSpeed = (float) timer1;
+                            mc.timer.timerSpeed = (float) 1;
                             doFly = false;
                         } else {
                             mc.timer.timerSpeed = Math.max(4f, mc.timer.timerSpeed - (mc.timer.timerSpeed / 1000));

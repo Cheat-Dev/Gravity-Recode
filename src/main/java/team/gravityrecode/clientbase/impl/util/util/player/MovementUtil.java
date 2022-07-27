@@ -1,5 +1,6 @@
 package team.gravityrecode.clientbase.impl.util.util.player;
 
+import lombok.AllArgsConstructor;
 import lombok.experimental.UtilityClass;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
@@ -20,10 +21,10 @@ import me.jinthium.optimization.ApacheMath;
 
 import java.security.SecureRandom;
 
-@UtilityClass
+@AllArgsConstructor
 public class MovementUtil implements MinecraftUtil {
 
-    public void damage() {
+    public static void damage() {
         for (int i = 0; i < 50; i++) {
             PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 0.0625, mc.thePlayer.posZ, false));
             PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, false));
@@ -31,11 +32,11 @@ public class MovementUtil implements MinecraftUtil {
         PacketUtil.sendPacketNoEvent(new C03PacketPlayer(true));
     }
 
-    public float getLilypadValue(){
+    public static float getLilypadValue(){
         return 0.015625F;
     }
 
-    public boolean canSprint(final boolean omni) {
+    public static boolean canSprint(final boolean omni) {
         return (mc.thePlayer.movementInput.moveForward >= 0.8F || (omni && isMoving())) &&
                 (mc.thePlayer.getFoodStats().getFoodLevel() > 6.0F || mc.thePlayer.capabilities.allowFlying) &&
                 !mc.thePlayer.isPotionActive(Potion.blindness) &&
@@ -44,11 +45,11 @@ public class MovementUtil implements MinecraftUtil {
     }
 
 
-    public boolean isMathGround() {
+    public static boolean isMathGround() {
         return mc.thePlayer.posY % 0.015625 == 0;
     }
 
-    public double getRandomHypixelValues() {
+    public static double getRandomHypixelValues() {
         SecureRandom secureRandom = new SecureRandom();
         double value = secureRandom.nextDouble() * (1.0 / System.currentTimeMillis());
         for (int i = 0; i < MathUtil.randomInt(MathUtil.randomInt(4, 6), MathUtil.randomInt(8, 20)); i++)
@@ -56,7 +57,7 @@ public class MovementUtil implements MinecraftUtil {
         return value;
     }
 
-    public float getRandomHypixelValuesFloat() {
+    public static float getRandomHypixelValuesFloat() {
         double value = 1;
         for (int i = 0; i < RandomUtils.nextInt(4, 7); i++) {
             value *= ApacheMath.random();
@@ -64,42 +65,42 @@ public class MovementUtil implements MinecraftUtil {
         return (float) value;
     }
 
-    public boolean isMoving() {
+    public static boolean isMoving() {
         return mc.thePlayer.movementInput.moveForward != 0.0F || mc.thePlayer.movementInput.moveStrafe != 0.0F;
     }
 
-    public double getJumpBoostMotion() {
+    public static double getJumpBoostMotion() {
         if (mc.thePlayer.isPotionActive(Potion.jump))
             return (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1;
 
         return 0;
     }
 
-    public boolean isOnGround() {
+    public static boolean isOnGround() {
         return mc.thePlayer.onGround && mc.thePlayer.isCollidedVertically;
     }
 
-    public boolean isMovingOnGround() {
+    public static boolean isMovingOnGround() {
         return isMoving() && isOnGround();
     }
 
-    public boolean isOnGround(double height) {
+    public static boolean isOnGround(double height) {
         return !mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.getEntityBoundingBox().offset(0, -height, 0)).isEmpty();
     }
 
-    public void sendPositionAll(double value, boolean ground) {
+    public static void sendPositionAll(double value, boolean ground) {
         PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX + value, mc.thePlayer.posY, mc.thePlayer.posZ + value, ground));
     }
 
-    public void sendPositionOnlyY(double y, boolean ground) {
+    public static void sendPositionOnlyY(double y, boolean ground) {
         PacketUtil.sendPacketNoEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + y, mc.thePlayer.posZ, ground));
     }
 
-    public float getMovementDirection() {
+    public static float getMovementDirection() {
         return getMovementDirection(mc.thePlayer.rotationYaw);
     }
 
-    public float getMovementDirection(final float yaw) {
+    public static float getMovementDirection(final float yaw) {
         final float forward = mc.thePlayer.moveForward;
         final float strafe = mc.thePlayer.moveStrafing;
         final boolean forwards = forward > 0;
@@ -114,15 +115,15 @@ public class MovementUtil implements MinecraftUtil {
         return MathHelper.wrapAngleTo180_float(direction);
     }
 
-    public double getBaseMoveSpeed() {
+    public static double getBaseMoveSpeed() {
         return getBaseMoveSpeed(true);
     }
 
-    public double[] yawPos(double value) {
+    public static double[] yawPos(double value) {
         return yawPos(mc.thePlayer.rotationYaw * MathHelper.deg2Rad, value);
     }
 
-    public double[] yawPos(float yaw, double value) {
+    public static double[] yawPos(float yaw, double value) {
         return new double[]{-MathHelper.sin(yaw) * value, MathHelper.cos(yaw) * value};
     }
 
@@ -158,7 +159,7 @@ public class MovementUtil implements MinecraftUtil {
     }
 
 
-    public double getBaseMoveSpeed(boolean sprint) {
+    public static double getBaseMoveSpeed(boolean sprint) {
         double baseSpeed = (sprint) ? 0.2873 : 0.22;
         if ((mc.thePlayer != null && mc.thePlayer.isPotionActive(Potion.moveSpeed)) && sprint) {
             int amplifier = mc.thePlayer.getActivePotionEffect(Potion.moveSpeed).getAmplifier();
@@ -167,7 +168,7 @@ public class MovementUtil implements MinecraftUtil {
         return baseSpeed;
     }
 
-    public double getJumpHeight(double height) {
+    public static double getJumpHeight(double height) {
         if (mc.thePlayer.isPotionActive(Potion.jump)) {
             int amplifier = mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier();
             return height + (amplifier + 1) * 0.1F;
@@ -175,18 +176,18 @@ public class MovementUtil implements MinecraftUtil {
         return height;
     }
 
-    public float getMaxFallDist() {
+    public static float getMaxFallDist() {
         PotionEffect jump = mc.thePlayer.getActivePotionEffect(Potion.jump);
         final int height = jump != null ? jump.getAmplifier() + 1 : 0;
         return (float) (mc.thePlayer.getMaxFallHeight() + height);
     }
 
-    public void setSpeed(final PlayerMoveEvent event, double speed) {
+    public static void setSpeed(final PlayerMoveEvent event, double speed) {
         EntityPlayerSP player = mc.thePlayer;
         setSpeed(event, speed, player.moveForward, player.moveStrafing, player.rotationYaw);
     }
 
-    public void setSpeed(PlayerMoveEvent e, double speed, float forward, float strafing, float yaw) {
+    public static void setSpeed(PlayerMoveEvent e, double speed, float forward, float strafing, float yaw) {
         if (forward == 0.0F && strafing == 0.0F) return;
 
         boolean reversed = forward < 0.0f;
@@ -207,12 +208,12 @@ public class MovementUtil implements MinecraftUtil {
         e.setZ(z * speed);
     }
 
-    public void setSpeed(double speed) {
+    public static void setSpeed(double speed) {
         EntityPlayerSP player = mc.thePlayer;
         setSpeed(speed, player.moveForward, player.moveStrafing, player.rotationYaw);
     }
 
-    public void setSpeed(double speed, float forward, float strafing, float yaw) {
+    public static void setSpeed(double speed, float forward, float strafing, float yaw) {
         if (forward == 0.0F && strafing == 0.0F) return;
 
         boolean reversed = forward < 0.0f;
@@ -233,15 +234,15 @@ public class MovementUtil implements MinecraftUtil {
         mc.thePlayer.motionZ = z * speed;
     }
 
-    public double getSpeed() {
+    public static double getSpeed() {
         return ApacheMath.hypot(mc.thePlayer.motionX, mc.thePlayer.motionZ);
     }
 
-    public double getLastDistance() {
+    public static double getLastDistance() {
         return ApacheMath.hypot(mc.thePlayer.posX - mc.thePlayer.prevPosX, mc.thePlayer.posZ - mc.thePlayer.prevPosZ);
     }
 
-    public double[] getSpeed(double moveSpeed) {
+    public static double[] getSpeed(double moveSpeed) {
         final double forward = mc.thePlayer.movementInput.moveForward;
         final double strafe = mc.thePlayer.movementInput.moveStrafe;
         float yaw = mc.thePlayer.rotationYaw;
@@ -256,7 +257,7 @@ public class MovementUtil implements MinecraftUtil {
         return new double[]{x * moveSpeed, z * moveSpeed};
     }
 
-    public boolean isInsideBlock() {
+    public static boolean isInsideBlock() {
         for (int x = MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().minX); x < MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().maxX) + 1; x++) {
             for (int y = MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().minY); y < MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().maxY) + 1; y++) {
                 for (int z = MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().minZ); z < MathHelper.floor_double(mc.thePlayer.getEntityBoundingBox().maxZ) + 1; z++) {

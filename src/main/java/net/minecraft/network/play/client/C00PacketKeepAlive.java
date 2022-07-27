@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class C00PacketKeepAlive implements Packet<INetHandlerPlayServer>
 {
-    private int key;
+    public int key;
 
     public C00PacketKeepAlive()
     {

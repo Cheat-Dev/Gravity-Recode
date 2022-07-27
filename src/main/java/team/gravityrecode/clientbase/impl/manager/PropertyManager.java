@@ -14,6 +14,8 @@ import java.util.stream.Stream;
 
 public class PropertyManager extends AbstractManager<Property<?>> {
 
+
+
     @Override
     public void init() {
         this.stream()

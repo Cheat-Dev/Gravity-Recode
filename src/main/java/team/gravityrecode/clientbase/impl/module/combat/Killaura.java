@@ -454,6 +454,9 @@ public class Killaura extends Module {
 
     @EventHandler
     public void onPlayerJump(PlayerJumpEvent event) {
+        if(rotating && mc.thePlayer.movementInput.jump && target != null){
+            event.setYaw(RotationUtil.calculateYawFromSrcToDst(mc.thePlayer.rotationYaw, mc.thePlayer.posX, mc.thePlayer.posZ, target.posX, target.posZ));
+        }
         if (isBypassRotations() && rotating) {
             event.setYaw(this.rotationStore[0]);
         }
@@ -469,6 +472,10 @@ public class Killaura extends Module {
 
     @EventHandler
     public void onPlayerStrafe(PlayerStrafeEvent event) {
+        if(rotating && mc.thePlayer.movementInput.jump && target != null){
+            event.setYaw(RotationUtil.calculateYawFromSrcToDst(mc.thePlayer.rotationYaw, mc.thePlayer.posX, mc.thePlayer.posZ, target.posX, target.posZ));
+        }
+
         if (isBypassRotations() && rotating) {
             event.setYaw(this.rotationStore[0]);
         }

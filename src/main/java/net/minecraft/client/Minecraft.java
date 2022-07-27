@@ -92,6 +92,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
+import team.gravityrecode.clientbase.impl.event.player.TickEvnet;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 import viamcp.utils.AttackOrder;
 
@@ -1271,6 +1272,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public void runTick() throws IOException {
+        Client.INSTANCE.getPubSubEventBus().publish(new TickEvnet());
+
         if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;
         }

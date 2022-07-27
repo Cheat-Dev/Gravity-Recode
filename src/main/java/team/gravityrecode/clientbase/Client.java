@@ -2,6 +2,7 @@ package team.gravityrecode.clientbase;
 
 import lombok.Getter;
 import me.jinthium.clickgui.MainCGUI;
+import me.jinthium.scripting.ScriptManager;
 import me.jinthium.shader.ShaderManager;
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
@@ -30,6 +31,7 @@ public enum Client implements MinecraftUtil {
     private final PubSub<Event> pubSubEventBus = PubSub.newInstance(System.err::println);
     private final ClientInfo clientInfo = new ClientInfo("Gravity", "3.0-Recode", "Jinthium & That one cheater");
     private final ModuleManager moduleManager = new ModuleManager();
+    private final ScriptManager scriptManager = ScriptManager.INSTANCE;
     private final PropertyManager propertyManager = new PropertyManager();
     public final Path clientDir = Paths.get(mc.mcDataDir.getAbsolutePath(), "Gravity");
     public final Path clientDirConfigs = Paths.get(String.valueOf(clientDir), "configs");
@@ -65,6 +67,7 @@ public enum Client implements MinecraftUtil {
         shaderManager.init();
         pubSubEventBus.subscribe(propertyManager);
         propertyManager.init();
+        scriptManager.init();
         moduleManager.init();
         mainCGUI = new MainCGUI();
         Display.setTitle(clientInfo.getMinecraftTitle());

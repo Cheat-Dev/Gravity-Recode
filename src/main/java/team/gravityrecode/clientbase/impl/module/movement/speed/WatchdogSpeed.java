@@ -39,11 +39,7 @@ public class WatchdogSpeed extends Mode {
     public void yayayyayayayayayayayayayayayaya(PlayerMoveEvent event){
         if (MovementUtil.isMoving()) {
             if (mc.thePlayer.onGround) {
-                double motion;
-                motion = 0.42f;
-                motion += MovementUtil.getJumpBoostMotion();
-
-                event.setY(mc.thePlayer.motionY = motion);
+                event.setY(mc.thePlayer.motionY = MovementUtil.getJumpHeight(0.42F));
                 this.moveSpeed = (MovementUtil.getBaseMoveSpeed() * 1.95);
                 this.shouldBoost = true;
             } else if (this.shouldBoost) {
@@ -51,7 +47,7 @@ public class WatchdogSpeed extends Mode {
                 this.shouldBoost = false;
             } else {
                 this.moveSpeed = this.lastDistance * 0.91f;
-                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.045f : 0.038f;
+              //  this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.045f : 0.038f;
                 if (mc.thePlayer.moveStrafing > 0) {
                     double multi = (MovementUtil.getSpeed() - this.lastDistance) * MovementUtil.getBaseMoveSpeed();
 

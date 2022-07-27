@@ -1,5 +1,6 @@
 package team.gravityrecode.clientbase.impl.util.util.render;
 
+import lombok.AllArgsConstructor;
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -24,19 +25,19 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL14.glBlendFuncSeparate;
+import static org.lwjgl.opengl.GL14.*;
 
-@UtilityClass
+@AllArgsConstructor
 public class RenderUtil implements MinecraftUtil {
 
-    private final Frustum frustrum = new Frustum();
-    private final FloatBuffer WND_POS_BUFFER = GLAllocation.createDirectFloatBuffer(4);
-    private final IntBuffer VIEWPORT_BUFFER = GLAllocation.createDirectIntBuffer(16);
-    private final FloatBuffer MODEL_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
-    private final FloatBuffer PROJECTION_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
-    private final IntBuffer SCISSOR_BUFFER = GLAllocation.createDirectIntBuffer(16);
+    private static final Frustum frustrum = new Frustum();
+    private static final FloatBuffer WND_POS_BUFFER = GLAllocation.createDirectFloatBuffer(4);
+    private static final IntBuffer VIEWPORT_BUFFER = GLAllocation.createDirectIntBuffer(16);
+    private static final FloatBuffer MODEL_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
+    private static final FloatBuffer PROJECTION_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
+    private static final IntBuffer SCISSOR_BUFFER = GLAllocation.createDirectIntBuffer(16);
     
-    public enum ColorMode{
+    public static enum ColorMode{
         Sync,
         Custom
     }
@@ -55,7 +56,7 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glScissor((int) x, (int) (y - height), (int) width, (int) height);
     }
 
-    public void glColor(int hex) {
+    public static void glColor(int hex) {
         float alpha = (hex >> 24 & 0xFF) / 255.0F;
         float red = (hex >> 16 & 0xFF) / 255.0F;
         float green = (hex >> 8 & 0xFF) / 255.0F;
@@ -63,7 +64,7 @@ public class RenderUtil implements MinecraftUtil {
         glColor4f(red, green, blue, alpha);
     }
 
-    public void drawImage(ResourceLocation image, float x, float y, float width, float height, boolean ez) {
+    public static void drawImage(ResourceLocation image, float x, float y, float width, float height, boolean ez) {
         glPushMatrix();
         glDisable(GL_DEPTH_TEST);
         //glEnable(GL_BLEND);
@@ -78,7 +79,7 @@ public class RenderUtil implements MinecraftUtil {
         glPopMatrix();
     }
 
-    public boolean worldToScreen(double[] in, double[] out, double scaling) {
+    public static boolean worldToScreen(double[] in, double[] out, double scaling) {
         glGetFloat(GL_MODELVIEW_MATRIX, MODEL_MATRIX_BUFFER);
         glGetFloat(GL_PROJECTION_MATRIX, PROJECTION_MATRIX_BUFFER);
         glGetInteger(GL_VIEWPORT, VIEWPORT_BUFFER);
@@ -100,7 +101,7 @@ public class RenderUtil implements MinecraftUtil {
         return false;
     }
 
-    public double[] worldToScreen(final double[] positionVector,
+    public static double[] worldToScreen(final double[] positionVector,
                                          final AxisAlignedBB boundingBox,
                                          final double[] projection,
                                          final double[] projectionBuffer) {
@@ -149,7 +150,7 @@ public class RenderUtil implements MinecraftUtil {
         return position;
     }
 
-    public void drawImage(boolean t, ResourceLocation image, float x, float y, float width, float height) {
+    public static void drawImage(boolean t, ResourceLocation image, float x, float y, float width, float height) {
         glPushMatrix();
         glDisable(GL_DEPTH_TEST);
         //glEnable(GL_BLEND);
@@ -165,7 +166,7 @@ public class RenderUtil implements MinecraftUtil {
         glPopMatrix();
     }
 
-    public int removeAlphaComponent(final int color) {
+    public static int removeAlphaComponent(final int color) {
         final int red = color >> 16 & 0xFF;
         final int green = color >> 8 & 0xFF;
         final int blue = color & 0xFF;
@@ -175,7 +176,7 @@ public class RenderUtil implements MinecraftUtil {
                 (blue & 0xFF);
     }
 
-    public void glDrawGradientLine(final double x,
+    public static void glDrawGradientLine(final double x,
                                           final double y,
                                           final double x1,
                                           final double y1,
@@ -230,7 +231,7 @@ public class RenderUtil implements MinecraftUtil {
         glEnable(GL_TEXTURE_2D);
     }
 
-    public void drawCGuiCircle(double x, double y, float radius, int color) {
+    public static void drawCGuiCircle(double x, double y, float radius, int color) {
         color(color);
         RenderUtils.setup2DRendering(() -> {
             glEnable(GL_POINT_SMOOTH);
@@ -269,7 +270,7 @@ public class RenderUtil implements MinecraftUtil {
         GL11.glPopMatrix();
     }
 
-    public void pre3D() {
+    public static void pre3D() {
         glPushMatrix();
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -280,7 +281,7 @@ public class RenderUtil implements MinecraftUtil {
         glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     }
 
-    public void post3D() {
+    public static void post3D() {
         glDisable(GL_LINE_SMOOTH);
         glEnable(GL_TEXTURE_2D);
         glShadeModel(GL_FLAT);
@@ -289,7 +290,7 @@ public class RenderUtil implements MinecraftUtil {
         glColor4f(1, 1, 1, 1);
     }
 
-    public double[] project2D(final double x, final double y, final double z) {
+    public static double[] project2D(final double x, final double y, final double z) {
         FloatBuffer objectPosition = ActiveRenderInfo.objectCoords();
         ScaledResolution sc = new ScaledResolution(mc);
         if (GLU.gluProject((float)x, (float)y, (float)z, ActiveRenderInfo.modelview(), ActiveRenderInfo.projection(), ActiveRenderInfo.viewport(), objectPosition))
@@ -298,15 +299,15 @@ public class RenderUtil implements MinecraftUtil {
         return null;
     }
     
-    public void bindTexture(int textureID){
+    public static void bindTexture(int textureID){
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
     
-    public boolean isHovered(float x, float y, float w, float h, int mouseX, int mouseY) {
+    public static boolean isHovered(float x, float y, float w, float h, int mouseX, int mouseY) {
         return (mouseX >= x && mouseX <= (x + w) && mouseY >= y && mouseY <= (y + h));
     }
 
-    public boolean isInViewFrustrum(final Entity entity) {
+    public static boolean isInViewFrustrum(final Entity entity) {
         frustrum.setPosition(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
         return frustrum.isBoundingBoxInFrustum(entity.getEntityBoundingBox()) || entity.ignoreFrustumCheck;
     }
@@ -317,7 +318,7 @@ public class RenderUtil implements MinecraftUtil {
         return frustrum.isBoundingBoxInFrustum(bb);
     }
 
-    public void drawFilledCircleNoGL(final int x, final int y, final double r, final int c, final int quality) {
+    public static void drawFilledCircleNoGL(final int x, final int y, final double r, final int c, final int quality) {
         final float f = ((c >> 24) & 0xff) / 255F;
         final float f1 = ((c >> 16) & 0xff) / 255F;
         final float f2 = ((c >> 8) & 0xff) / 255F;
@@ -335,24 +336,24 @@ public class RenderUtil implements MinecraftUtil {
         glEnd();
     }
 
-    public void makeCropBox(float left, float top, float right, float bottom) {
+    public static void makeCropBox(float left, float top, float right, float bottom) {
         glPushMatrix();
         glEnable(GL_SCISSOR_TEST);
         cropBox(left, top, right, bottom);
     }
 
-    public void scaleStart(float x, float y, float scale) {
+    public static void scaleStart(float x, float y, float scale) {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, 0);
         GlStateManager.scale(scale, scale, 1);
         GlStateManager.translate(-x, -y, 0);
     }
     
-    public void scaleEnd() {
+    public static void scaleEnd() {
         GlStateManager.popMatrix();
     }
 
-    public Framebuffer createFramebuffer(Framebuffer framebuffer, boolean depth) {
+    public static Framebuffer createFramebuffer(Framebuffer framebuffer, boolean depth) {
         if (framebuffer == null || framebuffer.framebufferWidth != mc.displayWidth || framebuffer.framebufferHeight != mc.displayHeight) {
             if (framebuffer != null) {
                 framebuffer.deleteFramebuffer();
@@ -362,7 +363,7 @@ public class RenderUtil implements MinecraftUtil {
         return framebuffer;
     }
     
-    public AxisAlignedBB interpolate(final Entity entity,
+    public static AxisAlignedBB interpolate(final Entity entity,
                                             final AxisAlignedBB boundingBox,
                                             final float partialTicks) {
         final float invertedPT = 1.0f - partialTicks;
@@ -373,32 +374,32 @@ public class RenderUtil implements MinecraftUtil {
         );
     }
 
-    public double interpolate(double current, double old, double scale) {
+    public static double interpolate(double current, double old, double scale) {
         return old + (current - old) * scale;
     }
 
-    public int applyOpacity(int color, float opacity) {
+    public static int applyOpacity(int color, float opacity) {
         Color old = new Color(color);
         return applyOpacity(old, opacity).getRGB();
     }
 
     //Opacity value ranges from 0-1
-    public Color applyOpacity(Color color, float opacity) {
+    public static Color applyOpacity(Color color, float opacity) {
         opacity = ApacheMath.min(1, ApacheMath.max(0, opacity));
         return new Color(color.getRed(), color.getGreen(), color.getBlue(), (int) (color.getAlpha() * opacity));
     }
 
-    public void glRestoreBlend(final boolean wasEnabled) {
+    public static void glRestoreBlend(final boolean wasEnabled) {
         if (!wasEnabled) {
             glDisable(GL_BLEND);
         }
     }
 
-    public void drawImage(ResourceLocation image, float x, float y, float width, float height) {
+    public static void drawImage(ResourceLocation image, float x, float y, float width, float height) {
         drawImage(image, x, y, width, height, 255);
     }
 
-    public void drawImage(ResourceLocation image, float x, float y, float width, float height, float opacity) {
+    public static void drawImage(ResourceLocation image, float x, float y, float width, float height, float opacity) {
         glPushMatrix();
         glDisable(GL_DEPTH_TEST);
         //glEnable(GL_BLEND);
@@ -414,7 +415,7 @@ public class RenderUtil implements MinecraftUtil {
         glPopMatrix();
     }
     
-    public void glDrawBoundingBox(final AxisAlignedBB bb,
+    public static void glDrawBoundingBox(final AxisAlignedBB bb,
                                          final float lineWidth,
                                          final boolean filled) {
         if (filled) {
@@ -506,7 +507,7 @@ public class RenderUtil implements MinecraftUtil {
         }
     }
 
-    public boolean glEnableBlend() {
+    public static boolean glEnableBlend() {
         final boolean wasEnabled = glIsEnabled(GL_BLEND);
 
         if (!wasEnabled) {
@@ -517,19 +518,19 @@ public class RenderUtil implements MinecraftUtil {
         return wasEnabled;
     }
 
-    public void cropBox(float x, float y, float width, float height) {
+    public static void cropBox(float x, float y, float width, float height) {
         final ScaledResolution scale = new ScaledResolution(mc);
         int factor = scale.getScaleFactor();
         
         glScissor((int) (x * factor), (int) ((scale.getScaledHeight() - height) * factor), (int) ((width - x) * factor), (int) ((height - y) * factor));
     }
     
-    public void destroyCropBox() {
+    public static void destroyCropBox() {
         glDisable(GL_SCISSOR_TEST);
         glPopMatrix();
     }
     
-    public float animate(float target, float current, float speed) {
+    public static float animate(float target, float current, float speed) {
         boolean larger = (target > current);
         if (speed < 0.0f) speed = 0.0f;
         else if (speed > 1.0f) speed = 1.0f;
@@ -540,11 +541,11 @@ public class RenderUtil implements MinecraftUtil {
         return current;
     }
     
-    public boolean inBounds(float x, float y, float w, float h, int mouseX, int mouseY) {
+    public static boolean inBounds(float x, float y, float w, float h, int mouseX, int mouseY) {
         return (mouseX >= x && mouseX <= w && mouseY >= y && mouseY <= h);
     }
 
-    public void drawGradientRect(float x, float y, float width, float height, int firstColor, int secondColor, boolean perpendicular) {
+    public static void drawGradientRect(float x, float y, float width, float height, int firstColor, int secondColor, boolean perpendicular) {
         glPushMatrix();
         glEnable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -574,12 +575,12 @@ public class RenderUtil implements MinecraftUtil {
         color(-1);
     }
 
-    public Color toColorRGB(int rgb, float alpha) {
+    public static Color toColorRGB(int rgb, float alpha) {
         float[] rgba = convertRGB(rgb);
         return new Color(rgba[0], rgba[1], rgba[2], alpha / 255f);
     }
 
-    public float[] convertRGB(int rgb) {
+    public static float[] convertRGB(int rgb) {
         float a = (rgb >> 24 & 0xFF) / 255.0f;
         float r = (rgb >> 16 & 0xFF) / 255.0f;
         float g = (rgb >> 8 & 0xFF) / 255.0f;
@@ -587,7 +588,7 @@ public class RenderUtil implements MinecraftUtil {
         return new float[]{r, g, b, a};
     }
 
-    public void drawRect(double x, double y, double width, double height, int color) {
+    public static void drawRect(double x, double y, double width, double height, int color) {
         glPushMatrix();
         glEnable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
@@ -608,12 +609,12 @@ public class RenderUtil implements MinecraftUtil {
         glPopMatrix();
     }
 
-    public void color(int color) {
+    public static void color(int color) {
         float[] rgba = convertRGB(color);
         glColor4f(rgba[0], rgba[1], rgba[2], rgba[3]);
     }
 
-    public void color(Color color, float alpha) {
+    public static void color(Color color, float alpha) {
         GlStateManager.color(color.getRed() / 255f, color.getGreen() / 255f, color.getBlue() / 255f, alpha / 255f);
     }
 }

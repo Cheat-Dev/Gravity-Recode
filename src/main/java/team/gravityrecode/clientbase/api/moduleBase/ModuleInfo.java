@@ -10,4 +10,6 @@ public @interface ModuleInfo {
     public String moduleDescription() default "hahahahhahahahahaha";
     public Module.ModuleCategory moduleCategory();
 
+    boolean isScript() default false;
+
 }

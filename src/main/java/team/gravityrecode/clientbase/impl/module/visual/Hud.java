@@ -25,6 +25,7 @@ public class Hud extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
 //        if(Client.INSTANCE)
+
         Fonts.INSTANCE.getSourceSansPro().drawString("Balance: " + BalanceUtil.INSTANCE.getBalance(), event.getScaledResolution().getScaledWidth() -
                 Fonts.INSTANCE.getSourceSansPro().getStringWidth("Balance: " + BalanceUtil.INSTANCE.getBalance()) - 2, event.getScaledResolution().getScaledHeight() -
                 Fonts.INSTANCE.getSourceSansPro().getHeight() - 2, 0xFFFFFF);
@@ -35,6 +36,7 @@ public class Hud extends Module {
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);
         for (Module module : modules) {
+
             int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             if (module.isEnabled()) {
                 int xVal = event.getScaledResolution().getScaledWidth() - stringWidth - 4;

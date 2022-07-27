@@ -50,6 +50,14 @@
             <systemPath>${project.basedir}/libs/ViaSnakeYaml-1.30.jar</systemPath>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.graalvm.js/js -->
+        <dependency>
+            <groupId>org.graalvm.js</groupId>
+            <artifactId>js</artifactId>
+            <version>22.2.0</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.sample</groupId>
             <artifactId>sample4</artifactId>

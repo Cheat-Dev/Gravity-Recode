@@ -1,5 +1,4 @@
 package me.jinthium.clickgui;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.Getter;
 import me.jinthium.clickgui.component.Component;
 import me.jinthium.clickgui.component.implementations.*;
@@ -14,7 +13,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.Display;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
@@ -57,6 +55,8 @@ public class MainCGUI extends GuiScreen {
                             return String.CASE_INSENSITIVE_ORDER.compare(p1.getModuleName(), p2.getModuleName());
                         }
                     });
+
+
                     for (Module module : list) {
                         getComponents().add(new ModulePanel(module, x, y, componentWidth, componentHeight) {
                             @Override
