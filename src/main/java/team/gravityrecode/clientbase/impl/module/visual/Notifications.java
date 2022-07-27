@@ -6,13 +6,13 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
-import team.gravityrecode.clientbase.api.notifications.Notification;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
 import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.render.TranslationUtils;
 import team.gravityrecode.clientbase.impl.util.render.secondary.RenderUtils;
 
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /*
     Sorry if code is aids, i was high as fuck when i coded this because ive been smoking weed for the past 6 hours LMAO
@@ -24,9 +24,9 @@ public class Notifications extends Module {
     @EventHandler
     public void onRender2D(Render2DEvent event) {
         ScaledResolution scaledResolution = event.getScaledResolution();
-        float y = 0;
         float height = 27.5f;
-        for (Notification notification : Client.INSTANCE.getNotificationManager().getNotificationList()) {
+        AtomicReference<Float> y = new AtomicReference<>((float) 0);
+        Client.INSTANCE.getNotificationManager().getNotificationList().forEach(notification -> {
             if (notification.getTimer().hasElapsed(4000)) {
                 Client.INSTANCE.getNotificationManager().removeNotification(0);
                 notification.getTimer().reset();
@@ -41,18 +41,18 @@ public class Notifications extends Module {
             double translateX = translate.getX();
             float xMax = 110;
             if (notification.isActive())
-                translate.interpolate(xMax, y, translationFactor);
+                translate.interpolate(xMax, y.get(), translationFactor);
             if (!notification.isActive())
-                translate.interpolate(-xMax, y, translationFactor);
+                translate.interpolate(-xMax, y.get(), translationFactor);
             Gui.drawRect(0, 0, 0, 0, 0);
-            RenderUtils.drawBorderedRect((float) (scaledResolution.getScaledWidth() - translateX), (y + (scaledResolution.getScaledHeight() - yMax)) - 13,
-                    scaledResolution.getScaledWidth() + 1, ((y) + (scaledResolution.getScaledHeight() + yMax - height)) - 13,
+            RenderUtils.drawBorderedRect((float) (scaledResolution.getScaledWidth() - translateX), (y.get() + (scaledResolution.getScaledHeight() - yMax)) - 13,
+                    scaledResolution.getScaledWidth() + 1, ((y.get()) + (scaledResolution.getScaledHeight() + yMax - height)) - 13,
                     1, new Color(10, 10, 10, 155).getRGB(), notification.getColor());
             Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getTitle(), scaledResolution.getScaledWidth() - translateX + 2,
-                    y + (scaledResolution.getScaledHeight() - yMax + 4.5) - 13, notification.getColor());
+                    y.get() + (scaledResolution.getScaledHeight() - yMax + 4.5) - 13, notification.getColor());
             Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getText(), scaledResolution.getScaledWidth() - translateX + 2,
-                    y + (scaledResolution.getScaledHeight() - yMax + 16.5) - 13, -1);
-            y -= height;
-        }
+                    y.get() + (scaledResolution.getScaledHeight() - yMax + 16.5) - 13, -1);
+            y.updateAndGet(v -> new Float((float) (v - height)));
+        });
     }
 }
