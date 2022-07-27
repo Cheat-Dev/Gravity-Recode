@@ -1,14 +1,12 @@
 package team.gravityrecode.clientbase.impl.module.movement.speed;
 
 import me.jinthium.optimization.ApacheMath;
-import net.minecraft.potion.Potion;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
-import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
+import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
 
 public class WatchdogSpeed extends Mode {
 

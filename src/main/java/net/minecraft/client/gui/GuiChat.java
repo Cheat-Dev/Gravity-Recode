@@ -9,8 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
+import team.gravityrecode.clientbase.impl.util.render.Draggable;
+import team.gravityrecode.clientbase.impl.util.render.animations.Direction;
 
 import java.io.IOException;
 import java.util.List;

@@ -2,8 +2,8 @@ package me.jinthium.clickgui.component.implementations;
 
 import me.jinthium.clickgui.component.SettingComponent;
 import team.gravityrecode.clientbase.impl.property.NumberSetting;
-import team.gravityrecode.clientbase.impl.util.util.math.MathUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.math.MathUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 public class SliderComponent extends SettingComponent<NumberSetting> {
 

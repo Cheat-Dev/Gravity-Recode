@@ -17,7 +17,7 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.impl.property.*;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 import java.io.IOException;
 import java.util.*;

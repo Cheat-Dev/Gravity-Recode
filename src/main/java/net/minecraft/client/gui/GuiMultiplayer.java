@@ -2,10 +2,6 @@ package net.minecraft.client.gui;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.mojang.authlib.Agent;
-import com.mojang.authlib.exceptions.AuthenticationException;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.ServerList;
@@ -17,13 +13,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
-import team.gravityrecode.clientbase.impl.util.util.math.MathUtil;
+import team.gravityrecode.clientbase.impl.util.math.MathUtil;
 import viamcp.gui.GuiProtocolSelector;
 
 import java.io.IOException;
-import java.net.Proxy;
 import java.util.List;
-import java.util.Random;
 
 public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
 {

@@ -1,21 +1,12 @@
 package team.gravityrecode.clientbase.impl.module.movement.flight;
 
-import de.gerrygames.viarewind.utils.math.Vector3d;
-import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.util.MovementInput;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector2f;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
-import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
-import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
-import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.network.PacketUtil;
-import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
+import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
 
 public class OldNCPFlight extends Mode {
 

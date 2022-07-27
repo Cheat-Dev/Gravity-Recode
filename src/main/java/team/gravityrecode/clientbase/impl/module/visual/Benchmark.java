@@ -4,8 +4,10 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
+import team.gravityrecode.clientbase.api.notifications.Notification;
 import team.gravityrecode.clientbase.impl.event.render.BenchmarkEvent;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
+
+import java.awt.*;
 
 @ModuleInfo(moduleName = "Benchmark", moduleCategory = Module.ModuleCategory.VISUAL)
 public class Benchmark extends Module {
@@ -22,7 +24,8 @@ public class Benchmark extends Module {
             Client.INSTANCE.getPubSubEventBus().publish(new BenchmarkEvent());
         }
 
-        Logger.printSysLog("Event Benchmark took " + (System.currentTimeMillis() - millis) + "ms");
+        Client.INSTANCE.getNotificationManager().addNotification(new Notification("Benchmark!", "Completed in " + (System.currentTimeMillis() - millis) + "ms!", Notification.NotificationType.ALERT,
+                Color.orange.getRGB()));
         toggle();
     }
 }

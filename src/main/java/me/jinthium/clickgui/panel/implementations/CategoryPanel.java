@@ -6,7 +6,7 @@ import me.jinthium.clickgui.panel.Panel;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Mouse;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 @Setter
 @Getter

@@ -1,7 +1,7 @@
 package team.gravityrecode.clientbase.impl.mainmenu;
 
 import net.minecraft.client.Minecraft;
-import team.gravityrecode.clientbase.impl.util.util.render.secondary.RuntimeShader;
+import team.gravityrecode.clientbase.impl.util.render.secondary.RuntimeShader;
 
 public class MainMenuShader {
     RuntimeShader runtimeShader = new RuntimeShader("mainMenu.frag");

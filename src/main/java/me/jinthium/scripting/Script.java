@@ -2,7 +2,6 @@ package me.jinthium.scripting;
 
 import jdk.nashorn.api.scripting.JSObject;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
@@ -14,19 +13,18 @@ import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
-import team.gravityrecode.clientbase.impl.util.util.math.MathUtil;
-import team.gravityrecode.clientbase.impl.util.util.network.PacketUtil;
-import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.ColorUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.client.Logger;
+import team.gravityrecode.clientbase.impl.util.math.MathUtil;
+import team.gravityrecode.clientbase.impl.util.network.PacketUtil;
+import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
+import team.gravityrecode.clientbase.impl.util.render.ColorUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.function.Function;
 
@@ -86,7 +84,6 @@ public class Script extends Module {
     @Override
     public void onEnable() {
         super.onEnable();
-        Logger.printSysLog("ee");
         //Artemis.INSTANCE.getEventBus().register(this);
         //invoke("onEnable");
         call("onEnable");
@@ -115,7 +112,6 @@ public class Script extends Module {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         //invoke("onMove", event);
-        Logger.printSysLog("test");
         call("onMove", event);
     }
 

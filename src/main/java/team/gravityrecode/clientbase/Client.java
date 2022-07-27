@@ -10,15 +10,16 @@ import net.arikia.dev.drpc.DiscordRichPresence;
 import team.gravityrecode.clientbase.api.client.ClientInfo;
 import team.gravityrecode.clientbase.api.client.Event;
 import team.gravityrecode.clientbase.api.eventBus.PubSub;
+import team.gravityrecode.clientbase.api.notifications.NotificationManager;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.manager.ChangelogManager;
 import team.gravityrecode.clientbase.impl.manager.ModuleManager;
 import org.lwjgl.opengl.Display;
 import team.gravityrecode.clientbase.impl.manager.PropertyManager;
-import team.gravityrecode.clientbase.impl.util.util.Blurrer;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
-import team.gravityrecode.clientbase.impl.util.util.render.shaders.BlurUtil;
+import team.gravityrecode.clientbase.impl.util.Blurrer;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.render.DraggablesManager;
+import team.gravityrecode.clientbase.impl.util.render.shaders.BlurUtil;
 import viamcp.ViaMCP;
 
 import java.nio.file.Path;
@@ -42,6 +43,7 @@ public enum Client implements MinecraftUtil {
     private final ShaderManager shaderManager = new ShaderManager();
     private DraggablesManager draggablesManager;
     private DiscordRPC rpc;
+    private NotificationManager notificationManager;
 
     private final Runnable startGame = () -> {
         ViaMCP.getInstance().start();
@@ -69,6 +71,7 @@ public enum Client implements MinecraftUtil {
         propertyManager.init();
         scriptManager.init();
         moduleManager.init();
+        notificationManager = new NotificationManager();
         mainCGUI = new MainCGUI();
         Display.setTitle(clientInfo.getMinecraftTitle());
         blurrer = new Blurrer(false);

@@ -4,19 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.api.notifications.Notification;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
+import team.gravityrecode.clientbase.impl.util.render.TranslationUtils;
+
+import java.awt.*;
 
 @Getter@Setter
 public class Module implements MinecraftUtil {
     private final ModuleInfo moduleInfo;
     private String funnyNumber;
     private int keyBind;
-    private boolean enabled, expanded;
+    private boolean enabled, expanded, stopState;
 
-    public Module(){
+    private TranslationUtils translate = new TranslationUtils(0.0F, 0.0F);
+
+    public Module() {
         Class<?> clazz = this.getClass();
         if (!clazz.isAnnotationPresent(ModuleInfo.class))
             throw new RuntimeException("No ModuleInfo found for class " + clazz.getName() + "!");
@@ -25,22 +30,28 @@ public class Module implements MinecraftUtil {
         this.keyBind = moduleInfo.moduleKeyBind();
     }
 
-    public void onEnable(){
-        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
-            if(property instanceof ModeSetting)
+    public void onEnable() {
+        for (Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
+            if (property instanceof ModeSetting)
                 ((ModeSetting) property).getValue().onEnable();
 
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
-        Logger.print("Enabled " + getModuleName());
+        if (Client.INSTANCE.getModuleManager().getModule("Notifications").isEnabled())
+            Client.INSTANCE.getNotificationManager().addNotification(new Notification("Module Toggled!", "Enabled " + getModuleName() + "!",
+                    Notification.NotificationType.ALERT, Color.green.getRGB()));
+        stopState = false;
     }
 
-    public void onDisable(){
-        for(Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
-            if(property instanceof ModeSetting)
+    public void onDisable() {
+        for (Property<?> property : Client.INSTANCE.getPropertyManager().get(this))
+            if (property instanceof ModeSetting)
                 ((ModeSetting) property).getValue().onDisable();
 
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
-        Logger.print("Disabled " + getModuleName());
+        if (Client.INSTANCE.getModuleManager().getModule("Notifications").isEnabled())
+            Client.INSTANCE.getNotificationManager().addNotification(new Notification("Module Toggled!", "Disabled " + getModuleName() + "!",
+                    Notification.NotificationType.ALERT, Color.red.getRGB()));
+        stopState = false;
     }
 
     public void setExpanded(boolean expanded) {
@@ -57,17 +68,17 @@ public class Module implements MinecraftUtil {
         }
     }
 
-    public String getModuleName(){
+    public String getModuleName() {
         return this.moduleInfo.isScript() ? funnyNumber : moduleInfo.moduleName();
     }
 
-    public ModuleCategory getModuleCategory(){
+    public ModuleCategory getModuleCategory() {
         return moduleInfo.moduleCategory();
     }
 
     @AllArgsConstructor
     public static enum ModuleCategory {
-        COMBAT(1,"Combat"),
+        COMBAT(1, "Combat"),
         MOVEMENT(2, "Movement"),
         PLAYER(3, "Player"),
         VISUAL(4, "Render"),
@@ -79,7 +90,8 @@ public class Module implements MinecraftUtil {
         public final String categoryName;
 
         @Override
-        public String toString() {return categoryName;}
+        public String toString() {
+            return categoryName;
+        }
     }
-
 }

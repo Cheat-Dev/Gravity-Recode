@@ -3,15 +3,11 @@ package me.jinthium.clickgui.panel.implementations;
 import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.component.SettingComponent;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
-import team.gravityrecode.clientbase.impl.property.BooleanSetting;
 import team.gravityrecode.clientbase.impl.property.MultipleBoolSetting;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
-
-import java.util.Arrays;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 @Getter
 @Setter

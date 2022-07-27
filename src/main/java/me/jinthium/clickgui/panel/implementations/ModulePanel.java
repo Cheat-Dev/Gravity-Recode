@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.panel.Panel;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
-import team.gravityrecode.clientbase.impl.util.util.client.TimerUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Animation;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.impl.EaseInOutRect;
+import team.gravityrecode.clientbase.impl.util.client.TimerUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
+import team.gravityrecode.clientbase.impl.util.render.animations.Direction;
+import team.gravityrecode.clientbase.impl.util.render.animations.impl.EaseInOutRect;
 
 @Getter
 @Setter

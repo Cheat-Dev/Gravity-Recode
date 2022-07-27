@@ -1,13 +1,11 @@
 package team.gravityrecode.clientbase.impl.manager;
 
-import net.minecraft.client.Minecraft;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Stream;

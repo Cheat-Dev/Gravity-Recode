@@ -19,7 +19,7 @@ import team.gravityrecode.clientbase.impl.property.BooleanSetting;
 import team.gravityrecode.clientbase.impl.property.EnumSetting;
 import team.gravityrecode.clientbase.impl.property.NumberSetting;
 import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
-import team.gravityrecode.clientbase.impl.util.util.player.InventoryUtils;
+import team.gravityrecode.clientbase.impl.util.player.InventoryUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

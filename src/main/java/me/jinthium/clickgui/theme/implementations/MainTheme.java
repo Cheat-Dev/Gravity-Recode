@@ -1,7 +1,6 @@
 package me.jinthium.clickgui.theme.implementations;
 
 import me.jinthium.clickgui.component.implementations.*;
-import me.jinthium.clickgui.panel.Panel;
 import me.jinthium.clickgui.panel.implementations.CategoryPanel;
 import me.jinthium.clickgui.panel.implementations.ModulePanel;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
@@ -16,11 +15,11 @@ import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.property.ColorSetting;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RoundedUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.StencilUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Animation;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RoundedUtil;
+import team.gravityrecode.clientbase.impl.util.render.StencilUtil;
+import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
 
 import java.awt.*;
 import java.util.Collections;

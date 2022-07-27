@@ -3,8 +3,8 @@ import me.jinthium.clickgui.component.SettingComponent;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.MathHelper;
 import team.gravityrecode.clientbase.impl.property.ColorSetting;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RoundedUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RoundedUtil;
 
 import java.awt.*;
 

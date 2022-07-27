@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
 import java.util.Objects;
 
@@ -42,12 +41,10 @@ public abstract class Mode {
 
     public void onEnable() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
-        Logger.print("e");
     }
 
     public void onDisable() {
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
-        Logger.print("d");
     }
 
 }

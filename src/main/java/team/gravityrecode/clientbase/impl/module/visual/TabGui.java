@@ -1,7 +1,5 @@
 package team.gravityrecode.clientbase.impl.module.visual;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.Client;
@@ -10,11 +8,10 @@ import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.keyboard.KeyboardPressEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.foint.MCFontRenderer;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.foint.MCFontRenderer;
 
 import java.awt.*;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 

@@ -4,7 +4,7 @@ import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.player.MovementUtil;
+import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
 
 public class OldNCPSpeed extends Mode {
 

@@ -3,9 +3,8 @@ package me.jinthium.clickgui.component.implementations;
 import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.component.SettingComponent;
-import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.impl.property.BooleanSetting;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 import java.awt.*;
 

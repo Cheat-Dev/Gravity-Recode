@@ -32,7 +32,7 @@ import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
-import team.gravityrecode.clientbase.impl.util.util.network.BalanceUtil;
+import team.gravityrecode.clientbase.impl.util.network.BalanceUtil;
 import viamcp.ViaMCP;
 import viamcp.handler.CommonTransformer;
 import viamcp.handler.MCPDecodeHandler;

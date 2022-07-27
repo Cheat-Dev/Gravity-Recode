@@ -1,10 +1,8 @@
 package team.gravityrecode.clientbase.impl.property;
 import lombok.Getter;
-import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
 
 import java.util.Arrays;
 import java.util.List;

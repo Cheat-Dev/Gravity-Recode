@@ -7,11 +7,10 @@ import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.network.BalanceUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.Draggable;
-import team.gravityrecode.clientbase.impl.util.util.render.DraggablesManager;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.network.BalanceUtil;
+import team.gravityrecode.clientbase.impl.util.render.Draggable;
+import team.gravityrecode.clientbase.impl.util.render.TranslationUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -36,13 +35,24 @@ public class Hud extends Module {
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);
         for (Module module : modules) {
-
             int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
+            TranslationUtils translate = module.getTranslate();
+            float translationFactor = 14.4F / Minecraft.getDebugFPS();
+            float translateX = stringWidth - stringWidth - 2.0F;
+            double translateY = translate.getY();
+            /*
+            Jinthium i need you to fix blur before i finish adding animations, as it flickers rn
+             */
+            if (module.isEnabled()) {
+                translate.interpolate(translateX, y, translationFactor);
+            } else {
+                translate.interpolate(stringWidth, -11 - 1, translationFactor);
+            }
             if (module.isEnabled()) {
                 int xVal = event.getScaledResolution().getScaledWidth() - stringWidth - 4;
-                Client.INSTANCE.getBlurrer().bloom(xVal - 8, y -  Fonts.INSTANCE.getSourceSansPro().getHeight() + 11, stringWidth + 12, 16,
+                Client.INSTANCE.getBlurrer().bloom(xVal - 8, (int) (y - Fonts.INSTANCE.getSourceSansPro().getHeight() + 11), stringWidth + 12, 16,
                         10, 95);
-                Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 6, -1);
+                Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 9, -1);
                 y += 11;
             }
         }

@@ -6,7 +6,7 @@ import me.jinthium.clickgui.component.SettingComponent;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
 import me.jinthium.clickgui.theme.Theme;
 import me.jinthium.clickgui.theme.implementations.MainTheme;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 import java.util.ArrayList;
 import java.util.List;

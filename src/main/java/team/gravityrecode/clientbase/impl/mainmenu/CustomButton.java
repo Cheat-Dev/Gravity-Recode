@@ -1,19 +1,17 @@
 package team.gravityrecode.clientbase.impl.mainmenu;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.Client;
-import team.gravityrecode.clientbase.impl.util.util.client.Logger;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.RoundedUtil;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Animation;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.Direction;
-import team.gravityrecode.clientbase.impl.util.util.render.animations.SmoothStep;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RoundedUtil;
+import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
+import team.gravityrecode.clientbase.impl.util.render.animations.Direction;
+import team.gravityrecode.clientbase.impl.util.render.animations.SmoothStep;
 
 import java.awt.*;
 

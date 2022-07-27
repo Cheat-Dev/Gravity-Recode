@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.theme.Theme;
 import me.jinthium.clickgui.theme.implementations.MainTheme;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 @Getter
 @Setter

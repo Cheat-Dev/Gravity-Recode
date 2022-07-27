@@ -1,6 +1,5 @@
 package team.gravityrecode.clientbase.impl.module.combat;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.optifine.util.MathUtils;
 import org.apache.commons.lang3.RandomUtils;
@@ -8,7 +7,7 @@ import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
-import team.gravityrecode.clientbase.impl.util.util.client.TimerUtil;
+import team.gravityrecode.clientbase.impl.util.client.TimerUtil;
 
 @ModuleInfo(moduleName = "Killsults", moduleCategory = Module.ModuleCategory.COMBAT)
 public class Killsults extends Module {

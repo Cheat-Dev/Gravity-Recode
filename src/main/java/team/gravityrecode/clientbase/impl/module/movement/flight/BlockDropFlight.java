@@ -11,7 +11,7 @@ import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
-import team.gravityrecode.clientbase.impl.util.util.network.PacketUtil;
+import team.gravityrecode.clientbase.impl.util.network.PacketUtil;
 
 public class BlockDropFlight extends Mode {
 

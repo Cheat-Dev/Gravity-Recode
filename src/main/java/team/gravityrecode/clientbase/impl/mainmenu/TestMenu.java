@@ -4,19 +4,16 @@ import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Session;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.mainmenu.changelog.Changelog;
-import team.gravityrecode.clientbase.impl.util.util.foint.Fonts;
-import team.gravityrecode.clientbase.impl.util.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestMenu extends GuiScreen {
 
