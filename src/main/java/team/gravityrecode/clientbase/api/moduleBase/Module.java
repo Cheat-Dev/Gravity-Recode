@@ -10,7 +10,6 @@ import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.property.ModeSetting;
 import team.gravityrecode.clientbase.impl.util.render.TranslationUtils;
 
-import java.awt.*;
 
 @Getter@Setter
 public class Module implements MinecraftUtil {
@@ -37,8 +36,7 @@ public class Module implements MinecraftUtil {
 
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         if (Client.INSTANCE.getModuleManager().getModule("Notifications").isEnabled())
-            Client.INSTANCE.getNotificationManager().addNotification(new Notification("Module Toggled!", "Enabled " + getModuleName() + "!",
-                    Notification.NotificationType.ALERT, Color.green.getRGB()));
+            Client.INSTANCE.getNotificationManager().addNotification(team.gravityrecode.clientbase.api.notification.Notification.Type.NOTIFY, "Module " + moduleInfo.moduleName() + " enabled!", 2000L);
         stopState = false;
     }
 
@@ -49,9 +47,9 @@ public class Module implements MinecraftUtil {
 
         Client.INSTANCE.getPubSubEventBus().unsubscribe(this);
         if (Client.INSTANCE.getModuleManager().getModule("Notifications").isEnabled())
-            Client.INSTANCE.getNotificationManager().addNotification(new Notification("Module Toggled!", "Disabled " + getModuleName() + "!",
-                    Notification.NotificationType.ALERT, Color.red.getRGB()));
+            Client.INSTANCE.getNotificationManager().addNotification(team.gravityrecode.clientbase.api.notification.Notification.Type.NOTIFY, "Module " + moduleInfo.moduleName() + " disabled!", 2000L);
         stopState = false;
+        mc.timer.timerSpeed = 1.0f;
     }
 
     public void setExpanded(boolean expanded) {

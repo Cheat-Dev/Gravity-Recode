@@ -22,6 +22,11 @@ public final class MathUtil {
         return MathHelper.sqrt_double(xDiff * xDiff + zDiff * zDiff);
     }
 
+    public static double roundToDecimal(double number, double places) {
+        return Math.round(number * Math.pow(10, places)) / Math.pow(10, places);
+    }
+
+
     public static float calculateGaussianValue(float x, float sigma) {
         double PI = ApacheMath.PI;
         double output = 1.0 / ApacheMath.sqrt(2.0 * PI * (sigma * sigma));

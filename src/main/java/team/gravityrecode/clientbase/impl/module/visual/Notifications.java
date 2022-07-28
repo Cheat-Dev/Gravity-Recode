@@ -23,36 +23,37 @@ public class Notifications extends Module {
 
     @EventHandler
     public void onRender2D(Render2DEvent event) {
-        ScaledResolution scaledResolution = event.getScaledResolution();
-        float height = 27.5f;
-        AtomicReference<Float> y = new AtomicReference<>((float) 0);
-        Client.INSTANCE.getNotificationManager().getNotificationList().forEach(notification -> {
-            if (notification.getTimer().hasElapsed(4000)) {
-                Client.INSTANCE.getNotificationManager().removeNotification(0);
-                notification.getTimer().reset();
-            }
-            if (notification.getClosing().hasElapsed(3750)) {
-                notification.setActive(false);
-                notification.getClosing().reset();
-            }
-            float yMax = 27;
-            TranslationUtils translate = notification.getTranslate();
-            float translationFactor = 14.4F / mc.getDebugFPS();
-            double translateX = translate.getX();
-            float xMax = 110;
-            if (notification.isActive())
-                translate.interpolate(xMax, y.get(), translationFactor);
-            if (!notification.isActive())
-                translate.interpolate(-xMax, y.get(), translationFactor);
-            Gui.drawRect(0, 0, 0, 0, 0);
-            RenderUtils.drawBorderedRect((float) (scaledResolution.getScaledWidth() - translateX), (y.get() + (scaledResolution.getScaledHeight() - yMax)) - 13,
-                    scaledResolution.getScaledWidth() + 1, ((y.get()) + (scaledResolution.getScaledHeight() + yMax - height)) - 13,
-                    1, new Color(10, 10, 10, 155).getRGB(), notification.getColor());
-            Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getTitle(), scaledResolution.getScaledWidth() - translateX + 2,
-                    y.get() + (scaledResolution.getScaledHeight() - yMax + 4.5) - 13, notification.getColor());
-            Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getText(), scaledResolution.getScaledWidth() - translateX + 2,
-                    y.get() + (scaledResolution.getScaledHeight() - yMax + 16.5) - 13, -1);
-            y.updateAndGet(v -> new Float((float) (v - height)));
-        });
+//        ScaledResolution scaledResolution = event.getScaledResolution();
+//        float height = 27.5f;
+//        AtomicReference<Float> y = new AtomicReference<>((float) 0);
+//        Client.INSTANCE.getNotificationManager().getNotificationList().forEach(notification -> {
+//            if (notification.getTimer().hasElapsed(4000)) {
+//                Client.INSTANCE.getNotificationManager().removeNotification(0);
+//                notification.getTimer().reset();
+//            }
+//            if (notification.getClosing().hasElapsed(3750)) {
+//                notification.setActive(false);
+//                notification.getClosing().reset();
+//            }
+//            float yMax = 27;
+//            TranslationUtils translate = notification.getTranslate();
+//            float translationFactor = 14.4F / mc.getDebugFPS();
+//            double translateX = translate.getX();
+//            float xMax = 110;
+//            if (notification.isActive())
+//                translate.interpolate(xMax, y.get(), translationFactor);
+//            if (!notification.isActive())
+//                translate.interpolate(-xMax, y.get(), translationFactor);
+//            Gui.drawRect(0, 0, 0, 0, 0);
+//            RenderUtils.drawBorderedRect((float) (scaledResolution.getScaledWidth() - translateX), (y.get() + (scaledResolution.getScaledHeight() - yMax)) - 13,
+//                    scaledResolution.getScaledWidth() + 1, ((y.get()) + (scaledResolution.getScaledHeight() + yMax - height)) - 13,
+//                    1, new Color(10, 10, 10, 155).getRGB(), notification.getColor());
+//            Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getTitle(), scaledResolution.getScaledWidth() - translateX + 2,
+//                    y.get() + (scaledResolution.getScaledHeight() - yMax + 4.5) - 13, notification.getColor());
+//            Fonts.INSTANCE.getUbuntu_light_small().drawString(notification.getText(), scaledResolution.getScaledWidth() - translateX + 2,
+//                    y.get() + (scaledResolution.getScaledHeight() - yMax + 16.5) - 13, -1);
+//            y.updateAndGet(v -> new Float((float) (v - height)));
+//        });
+        Client.INSTANCE.getNotificationManager().renderNotifications(event.getScaledResolution());
     }
 }
