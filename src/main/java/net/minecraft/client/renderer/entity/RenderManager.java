@@ -52,7 +52,7 @@ public class RenderManager {
     public World worldObj;
     public Entity livingPlayer;
     public Entity pointedEntity;
-    public float playerViewY;
+    public static float playerViewY;
     public float playerViewX;
     public GameSettings options;
     public double viewerPosX;

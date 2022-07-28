@@ -21,10 +21,7 @@ import team.gravityrecode.clientbase.impl.module.movement.Sprint;
 import team.gravityrecode.clientbase.impl.module.movement.Timer;
 import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
 import team.gravityrecode.clientbase.impl.module.player.Scaffold;
-import team.gravityrecode.clientbase.impl.module.visual.Benchmark;
-import team.gravityrecode.clientbase.impl.module.visual.Hud;
-import team.gravityrecode.clientbase.impl.module.visual.Notifications;
-import team.gravityrecode.clientbase.impl.module.visual.TabGui;
+import team.gravityrecode.clientbase.impl.module.visual.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ public class ModuleManager extends Manager<Module> {
     public void init() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         Stream.of(new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(), new Hud(), new Criticals(),
-                new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new AntiFailedConnnection(), new Killsults(), new Notifications()).sorted((o1, o2) -> {
+                new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new AntiFailedConnnection(), new Killsults(), new Notifications(), new PlayerESP()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
             ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);
