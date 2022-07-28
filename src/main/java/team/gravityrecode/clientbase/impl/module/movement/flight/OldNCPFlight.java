@@ -33,12 +33,12 @@ public class OldNCPFlight extends Mode {
                         event.setY(mc.thePlayer.motionY = mc.thePlayer.ticksExisted % 2 == 0 ? 0.0001 : -0.0001);
                         if (doFly) {
                             moveSpeed = 1f + (10 / 10.5F);
-                            double timer1 = 9F;
+//                            double timer1 = 9F;
                             mc.timer.timerSpeed = (float) 1;
                             doFly = false;
                         } else {
-                            mc.timer.timerSpeed = Math.max(4f, mc.timer.timerSpeed - (mc.timer.timerSpeed / 1000));
-                            moveSpeed *= 0.985;
+                            mc.timer.timerSpeed = Math.max(6f, mc.timer.timerSpeed - (mc.timer.timerSpeed / 1000));
+                            moveSpeed *= 0.95;
                         }
                         if (mc.thePlayer.isCollidedHorizontally || !mc.thePlayer.isMoving()) {
                             moveSpeed = MovementUtil.getBaseMoveSpeed();
