@@ -13,6 +13,9 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
+import team.gravityrecode.clientbase.impl.util.render.animations.SmoothStep;
 
 import java.io.IOException;
 
@@ -20,6 +23,7 @@ public class GuiInventory extends InventoryEffectRenderer
 {
     private float oldMouseX;
     private float oldMouseY;
+    private Animation animation = new SmoothStep(250, 1);
 
     public GuiInventory(EntityPlayer p_i1094_1_)
     {
@@ -39,6 +43,7 @@ public class GuiInventory extends InventoryEffectRenderer
 
     public void initGui()
     {
+
         this.buttonList.clear();
 
         if (this.mc.playerController.isInCreativeMode())
@@ -49,6 +54,12 @@ public class GuiInventory extends InventoryEffectRenderer
         {
             super.initGui();
         }
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        animation.reset();
     }
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)

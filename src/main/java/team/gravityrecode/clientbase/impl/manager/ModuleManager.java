@@ -19,6 +19,7 @@ import team.gravityrecode.clientbase.impl.module.movement.Flight;
 import team.gravityrecode.clientbase.impl.module.movement.Speed;
 import team.gravityrecode.clientbase.impl.module.movement.Sprint;
 import team.gravityrecode.clientbase.impl.module.movement.Timer;
+import team.gravityrecode.clientbase.impl.module.player.AutoArmor;
 import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
 import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
 import team.gravityrecode.clientbase.impl.module.player.Scaffold;
@@ -33,7 +34,7 @@ public class ModuleManager extends Manager<Module> {
 
     public void init() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
-        Stream.of(new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(), new Hud(), new Criticals(),
+        Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(), new Hud(), new Criticals(),
                 new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new AntiFailedConnnection(), new Killsults(), new Notifications(),
                 new PlayerESP(), new ChetStaler()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();

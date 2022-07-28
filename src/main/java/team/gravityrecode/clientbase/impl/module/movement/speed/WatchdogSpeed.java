@@ -1,6 +1,7 @@
 package team.gravityrecode.clientbase.impl.module.movement.speed;
 
 import me.jinthium.optimization.ApacheMath;
+import net.minecraft.potion.Potion;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
@@ -45,7 +46,7 @@ public class WatchdogSpeed extends Mode {
                 this.shouldBoost = false;
             } else {
                 this.moveSpeed = this.lastDistance * 0.91f;
-              //  this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.045f : 0.038f;
+                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.034F : 0.03F;
                 if (mc.thePlayer.moveStrafing > 0) {
                     double multi = (MovementUtil.getSpeed() - this.lastDistance) * MovementUtil.getBaseMoveSpeed();
 

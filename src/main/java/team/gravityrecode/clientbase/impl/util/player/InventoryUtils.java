@@ -51,14 +51,6 @@ public class InventoryUtils implements MinecraftUtil {
 
     private static InventoryManager inventoryManager;
 
-    public static void queueClickRequest(final WindowClickRequest request) {
-        if (inventoryManager == null) {
-            inventoryManager = Client.INSTANCE.getModuleManager().getModule(InventoryManager.class);
-        }
-
-        inventoryManager.getClickRequests().add(request);
-    }
-
     public static boolean isValidStack(final EntityPlayerSP player,
                                        final ItemStack stack) {
         if (stack == null) return false;

@@ -6,11 +6,23 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BlockUtils {
+
+    public static final List<Block> INVALID_BLOCKS = Arrays.asList(
+            Blocks.enchanting_table, Blocks.chest, Blocks.ender_chest, Blocks.trapped_chest, Blocks.anvil, Blocks.web,
+            Blocks.torch, Blocks.crafting_table, Blocks.furnace, Blocks.waterlily, Blocks.dispenser,
+            Blocks.stone_pressure_plate, Blocks.wooden_pressure_plate, Blocks.noteblock, Blocks.dropper, Blocks.tnt,
+            Blocks.standing_banner, Blocks.cactus, Blocks.wall_banner, Blocks.redstone_torch, Blocks.air, Blocks.beacon,
+            Blocks.red_flower, Blocks.yellow_flower, Blocks.double_plant, Blocks.carpet, Blocks.tripwire_hook
+    );
         private static final Minecraft mc = Minecraft.getMinecraft();
 
         public static boolean canBeClicked(BlockPos pos) {

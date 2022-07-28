@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.culling.ClippingHelper;
@@ -77,6 +78,7 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
+import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -160,6 +162,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private float avgServerTickDiff = 0.0F;
     private final ShaderGroup[] fxaaShaders = new ShaderGroup[10];
     private boolean loadVisibleChunks = false;
+
 
     public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn)
     {
@@ -1148,6 +1151,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
         return i > 200 ? 1.0F : 0.7F + MathHelper.sin(((float)i - partialTicks) * (float)Math.PI * 0.2F) * 0.3F;
     }
 
+    private boolean grabbed;
+
     public void updateCameraAndRender(float partialTicks, long nanoTime)
     {
         Config.renderPartialTicks = partialTicks;
@@ -1174,10 +1179,38 @@ public class EntityRenderer implements IResourceManagerReloadListener
             Mouse.setCursorPosition(Display.getWidth() / 2, Display.getHeight() / 2);
             Mouse.setGrabbed(true);
         }
+        boolean isInInventory = (mc.currentScreen instanceof GuiChest);
 
-        if (this.mc.inGameHasFocus && flag)
+        ChetStaler chestStealer = Client.INSTANCE.getModuleManager().getModule(ChetStaler.class);
+
+        boolean focus = chestStealer != null && (chestStealer.getAim().getValue() || chestStealer.getSilent().getValue()) && chestStealer.isEnabled();
+
+        if (mc.currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+
+            if (chestStealer.getChestCheck().getValue() && !chestStealer.isInvalidChest(chest)) {
+                focus = false;
+            }
+        }
+
+        if (focus && !isInInventory && !this.grabbed && mc.currentScreen != null) {
+            Mouse.setGrabbed(false);
+            this.grabbed = true;
+        }
+
+        if (isInInventory) {
+            this.grabbed = false;
+        }
+
+
+        if (this.mc.inGameHasFocus && flag || focus && isInInventory)
         {
             this.mc.mouseHelper.mouseXYChange();
+
+            if (focus && isInInventory) {
+                Mouse.setGrabbed(true);
+            }
+
             float f = this.mc.gameSettings.mouseSensitivity * 0.6F + 0.2F;
             float f1 = f * f * f * 8.0F;
 

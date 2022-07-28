@@ -145,6 +145,7 @@ public class Notification implements MinecraftUtil{
         double bar = ((width) * (1 - reduction));
 
 
+        RenderUtil.scaleStart((float) ((this.rectPosition + width) / 2), (float) ((rectY + height) / 2), (float) xAnimation);
         GL11.glPushMatrix();
         RoundedUtil.drawSmoothRoundedRect((float) this.rectPosition, (float) rectY, (float) (this.rectPosition + width), (float) (rectY + height - 1), 0, new Color(16, 14, 8, alpha).getRGB());
         RoundedUtil.drawSmoothRoundedRect((float) (this.rectPosition + width), (float) (rectY + height - 1), (float) rectPosition, (float) (rectY + height), 0, typeColor.darker().darker().getRGB());
@@ -160,6 +161,7 @@ public class Notification implements MinecraftUtil{
         //RENDER TEXTS
         font.drawString(text, (float) this.rectPosition + spacing + 20, (float) (rectY) + height - 4 - font.getHeight(), -1);
         GL11.glPopMatrix();
+        RenderUtil.scaleEnd();
     }
 
     //GETS ICON FROM PICKED CATEGORY

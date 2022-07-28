@@ -3,6 +3,7 @@ package net.minecraft.client.gui.inventory;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -17,6 +18,11 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
+import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
+import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
+import team.gravityrecode.clientbase.impl.util.render.animations.SmoothStep;
 
 import java.io.IOException;
 import java.util.Set;
@@ -32,6 +38,7 @@ public abstract class GuiContainer extends GuiScreen
     private Slot theSlot;
     private Slot clickedSlot;
     private boolean isRightMouseClick;
+    private final Animation animation = new SmoothStep(250, 1);
     private ItemStack draggedStack;
     private int touchUpX;
     private int touchUpY;
@@ -68,6 +75,7 @@ public abstract class GuiContainer extends GuiScreen
 
     public void onGuiClosed()
     {
+        animation.reset();
         if (this.mc.thePlayer != null)
         {
             this.inventorySlots.onContainerClosed(this.mc.thePlayer);
@@ -85,9 +93,40 @@ public abstract class GuiContainer extends GuiScreen
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
+        ChetStaler chestStealer = Client.INSTANCE.getModuleManager().getModule(ChetStaler.class);
+
+        boolean focus = chestStealer.isEnabled() && mc.currentScreen instanceof GuiChest && chestStealer.getSilent().getValue();
+
+        if (mc.currentScreen instanceof GuiChest) {
+            GuiChest chest = (GuiChest) mc.currentScreen;
+
+            if (chestStealer.getChestCheck().getValue() && !chestStealer.isInvalidChest(chest)) {
+                focus = false;
+            }
+        }
+
+        if (focus) {
+            ScaledResolution scaledResolution = new ScaledResolution(mc);
+
+            String text = "Stealing chest...";
+            mc.fontRendererObj.drawStringWithShadow(text, (scaledResolution.getScaledWidth() / 2f) - (mc.fontRendererObj.getStringWidth(text) / 2f),
+                    (scaledResolution.getScaledHeight() / 2f) - 20, -1);
+            return;
+        }
+
+        boolean shouldDraw = !chestStealer.isEnabled() || (!chestStealer.getAim().getValue() ||
+                chestStealer.getChestCheck().getValue() && (mc.currentScreen instanceof GuiChest && !chestStealer.isInvalidChest(mc.currentScreen)));
+
+        if (mc.currentScreen instanceof GuiChest) {
+            if (shouldDraw) {
+                this.drawDefaultBackground();
+            }
+        } else {
+            this.drawDefaultBackground();
+        }
         int i = this.guiLeft;
         int j = this.guiTop;
+        RenderUtil.scaleStart((float) (this.width / 2), (float) (this.height / 2), (float) animation.getOutput());
         this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 
         boolean synchronizedTransactions = inventorySlots.getTransactionID() >= serverTransactionId;
@@ -190,6 +229,7 @@ public abstract class GuiContainer extends GuiScreen
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableStandardItemLighting();
+        RenderUtil.scaleEnd();
     }
 
     private void drawItemStack(ItemStack stack, int x, int y, String altText)

@@ -26,6 +26,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.RandomUtils;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
@@ -299,9 +300,9 @@ public class Scaffold extends Module {
                 lastDist = ApacheMath.sqrt(xDist * xDist + zDist * zDist);
             }
 
-            if(MovementUtil.isMoving() && !noSprintProperty.getValue() && mc.thePlayer.isPotionActive(Potion.moveSpeed)){
-                mc.thePlayer.motionX *= 0.8;
-                mc.thePlayer.motionZ *= 0.8;
+            if(MovementUtil.isMoving() && mc.thePlayer.isPotionActive(Potion.moveSpeed)){
+                mc.thePlayer.motionX *= 0.85;
+                mc.thePlayer.motionZ *= 0.85;
             }
 
             // Increment tick counters
@@ -322,7 +323,6 @@ public class Scaffold extends Module {
             bestBlockStack = getBestBlockStack(InventoryUtils.ONLY_HOT_BAR_BEGIN, InventoryUtils.END);
 
             calculateTotalBlockCount();
-            moveBlocksIntoHotBar();
 
 //            if(Keyboard.isKeyDown(Keyboard.KEY_SPACE) && eventPlaceInEnumSetting.getValue() == EventPlaceIn.Pre && mc.thePlayer.onGround) {
 //                PacketUtil.sendPacketNoEvent(new C02PacketUseEntity(-1, C02PacketUseEntity.Action.ATTACK));
@@ -593,6 +593,7 @@ public class Scaffold extends Module {
 
         // Block counter
         if (bestBlockStack != -1) {
+            //GL11.glPushMatrix();
             // Get the "best" block itemStack from the inventory (computed every tick)
             final ItemStack stack = player.inventoryContainer.getSlot(bestBlockStack).getStack();
             // Check the stack in slot has not changed since last update
@@ -610,7 +611,6 @@ public class Scaffold extends Module {
                 final double top = my + 20 + 10; // middle + arrow spacing + size
 
                 // Background
-                glPushMatrix();
                 //RoundedUtil.drawRound((float) left, (float) top, (float) width, (float) height, 8, true, new Color(30, 30, 30, 120));
 
 
@@ -623,27 +623,23 @@ public class Scaffold extends Module {
                 final int iconRenderPosY = (int) (top + (height - itemStackSize) / 2);
 
                 // Setup for item render with proper lighting
-                RenderUtil.scaleStart((float) (left + width / 2), (float) (top + height / 2), (float) animation.getOutput());
+
                 final boolean restore = RenderUtil.glEnableBlend();
                 GlStateManager.enableRescaleNormal();
                 RenderHelper.enableGUIStandardItemLighting();
+                RenderUtil.scaleStart((float) (left + width / 2), (float) (top + height / 2), (float) animation.getOutput());
                 RoundedUtil.drawRoundedRect((float) iconRenderPosX, (float) top + (float)(height / 3), (float) ((float) iconRenderPosX + width), (float) (top + height), 8, new Color(0,0,0, 100).getRGB());
 
-                // Draw block icon
-                glPushMatrix();
                 mc.getRenderItem().renderItemAndEffectIntoGUI(stack, (float) (iconRenderPosX + width / 2 - 8), iconRenderPosY + 3);
-                glPopMatrix();
                 Fonts.INSTANCE.getSourceSansPro().drawCenteredString(blockCount, (float) (iconRenderPosX + width / 2) - 1,
                         (float) (top + height - Fonts.INSTANCE.getSourceSansPro().getHeight() - 5),
-                        0xFFFFFFFF);
+                        -1);
+                RenderUtil.scaleEnd();
                 // Restore after item render
                 RenderHelper.disableStandardItemLighting();
                 GlStateManager.disableRescaleNormal();
                 glEnable(GL_ALPHA_TEST);
                 RenderUtil.glRestoreBlend(restore);
-                RenderUtil.scaleEnd();
-                glPopMatrix();
-
             }
         }
     };
@@ -768,52 +764,52 @@ public class Scaffold extends Module {
             return new BlockPos(air1 ? mc.thePlayer.posX : expand2[0], mc.thePlayer.posY - 1, air1 ? mc.thePlayer.posZ : expand2[1]);
         }
     }
-    private void moveBlocksIntoHotBar() {
-        // If no blocks in hot bar
-        if (ticksSinceWindowClick > 3) {
-            // Look for best block stack in inventory
-            final int bestStackInInv = getBestBlockStack(InventoryUtils.EXCLUDE_ARMOR_BEGIN, InventoryUtils.ONLY_HOT_BAR_BEGIN);
-            // If you have no blocks return
-            if (bestStackInInv == -1) return;
-
-            boolean foundEmptySlot = false;
-
-            for (int i = InventoryUtils.END - 1; i >= InventoryUtils.ONLY_HOT_BAR_BEGIN; i--) {
-                final ItemStack stack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
-
-                if (stack == null) {
-                    if (lastRequest == null || lastRequest.isCompleted()) {
-                        final int slotID = i;
-                        InventoryUtils.queueClickRequest(lastRequest = new WindowClickRequest() {
-                            @Override
-                            public void performRequest() {
-                                // Move blocks from inventory into free slot
-                                InventoryUtils.windowClick(mc, bestStackInInv,
-                                        slotID - InventoryUtils.ONLY_HOT_BAR_BEGIN,
-                                        InventoryUtils.ClickType.SWAP_WITH_HOT_BAR_SLOT);
-                            }
-                        });
-                    }
-
-                    foundEmptySlot = true;
-                }
-            }
-
-            if (!foundEmptySlot) {
-                if (lastRequest == null || lastRequest.isCompleted()) {
-                    InventoryUtils.queueClickRequest(lastRequest = new WindowClickRequest() {
-                        @Override
-                        public void performRequest() {
-                            final int overrideSlot = 9;
-                            // Swap with item in last slot of hot bar
-                            InventoryUtils.windowClick(mc, bestStackInInv, overrideSlot,
-                                    InventoryUtils.ClickType.SWAP_WITH_HOT_BAR_SLOT);
-                        }
-                    });
-                }
-            }
-        }
-    }
+//    private void moveBlocksIntoHotBar() {
+//        // If no blocks in hot bar
+//        if (ticksSinceWindowClick > 3) {
+//            // Look for best block stack in inventory
+//            final int bestStackInInv = getBestBlockStack(InventoryUtils.EXCLUDE_ARMOR_BEGIN, InventoryUtils.ONLY_HOT_BAR_BEGIN);
+//            // If you have no blocks return
+//            if (bestStackInInv == -1) return;
+//
+//            boolean foundEmptySlot = false;
+//
+//            for (int i = InventoryUtils.END - 1; i >= InventoryUtils.ONLY_HOT_BAR_BEGIN; i--) {
+//                final ItemStack stack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
+//
+//                if (stack == null) {
+//                    if (lastRequest == null || lastRequest.isCompleted()) {
+//                        final int slotID = i;
+//                        InventoryUtils.queueClickRequest(lastRequest = new WindowClickRequest() {
+//                            @Override
+//                            public void performRequest() {
+//                                // Move blocks from inventory into free slot
+//                                InventoryUtils.windowClick(mc, bestStackInInv,
+//                                        slotID - InventoryUtils.ONLY_HOT_BAR_BEGIN,
+//                                        InventoryUtils.ClickType.SWAP_WITH_HOT_BAR_SLOT);
+//                            }
+//                        });
+//                    }
+//
+//                    foundEmptySlot = true;
+//                }
+//            }
+//
+//            if (!foundEmptySlot) {
+//                if (lastRequest == null || lastRequest.isCompleted()) {
+//                    InventoryUtils.queueClickRequest(lastRequest = new WindowClickRequest() {
+//                        @Override
+//                        public void performRequest() {
+//                            final int overrideSlot = 9;
+//                            // Swap with item in last slot of hot bar
+//                            InventoryUtils.windowClick(mc, bestStackInInv, overrideSlot,
+//                                    InventoryUtils.ClickType.SWAP_WITH_HOT_BAR_SLOT);
+//                        }
+//                    });
+//                }
+//            }
+//        }
+//    }
 
     private int getBestBlockStack(final int start, final int end) {
         int bestSlot = -1, bestSlotStackSize = 0;

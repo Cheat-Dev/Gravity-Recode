@@ -32,7 +32,7 @@ public class NotificationManagers extends Container<Notification> {
 
                 notification.render(scaledResolution, yPosition, this);
 
-                yPosition -= 25 * notification.getYAnimator().getValue();
+                yPosition -= 30 * notification.getYAnimator().getValue();
             }
         }
     }

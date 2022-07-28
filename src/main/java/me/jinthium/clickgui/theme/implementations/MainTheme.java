@@ -16,6 +16,7 @@ import team.gravityrecode.clientbase.api.property.Property;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.property.ColorSetting;
 import team.gravityrecode.clientbase.impl.util.foint.Fonts;
+import team.gravityrecode.clientbase.impl.util.math.MathUtil;
 import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 import team.gravityrecode.clientbase.impl.util.render.RoundedUtil;
 import team.gravityrecode.clientbase.impl.util.render.StencilUtil;
@@ -298,7 +299,7 @@ public class MainTheme implements Theme, MinecraftUtil {
         //1RenderUtil.drawCGuiCircle(x + length+ 5, y + height + 1 - 5.5f + 1.5f, 3.5f, -1);
         RenderUtil.drawCGuiCircle(x + length+ 5, y + height + 1 - 5.5f + 1.5f, 3f, -1);
         String rep = "";
-        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName() + ": " + component.getSetting().getValue() + rep, x + 4, y + height / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 2, new Color(230,230,230,255).getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName() + ": " + MathUtil.round(component.getSetting().getValue(), component.getSetting().getIncrement()) + rep, x + 4, y + height / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 2, new Color(230,230,230,255).getRGB());
         GlStateManager.popMatrix();
     }
 

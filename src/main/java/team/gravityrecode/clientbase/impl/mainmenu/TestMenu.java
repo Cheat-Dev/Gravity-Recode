@@ -67,9 +67,9 @@ public class TestMenu extends GuiScreen {
                 mc.displayGuiScreen(new GuiMultiplayer(this));
                 break;
             case 2:
-                MicrosoftAuthenticator authenticator = new MicrosoftAuthenticator();
+                MicrosoftAuthenticator authenticator;
                 try {
-
+                    authenticator = new MicrosoftAuthenticator();
                     MicrosoftAuthResult result = authenticator.loginWithWebview();
                     MinecraftProfile profile = result.getProfile();
                     mc.session = new Session(profile.getName(), profile.getId(), result.getAccessToken(), "microsoft");
