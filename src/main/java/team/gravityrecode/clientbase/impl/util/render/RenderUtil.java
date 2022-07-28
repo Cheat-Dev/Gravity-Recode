@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.util.render.secondary.RenderUtils;
 import me.jinthium.optimization.ApacheMath;
@@ -39,6 +40,11 @@ public class RenderUtil implements MinecraftUtil {
     public static enum ColorMode{
         Sync,
         Custom
+    }
+
+
+    public static double fpsMultiplier() {
+        return (Client.INSTANCE.getRenderDeltaTime() / 60.0) * 3;
     }
 
     public static void scissor(double x, double y, double width, double height) {
@@ -606,6 +612,7 @@ public class RenderUtil implements MinecraftUtil {
         glDisable(GL_BLEND);
         glDisable(GL_LINE_SMOOTH);
         glPopMatrix();
+        RenderUtil.color(-1);
     }
 
     public static void color(int color) {
