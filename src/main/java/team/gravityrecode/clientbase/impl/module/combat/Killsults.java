@@ -18,16 +18,16 @@ public class Killsults extends Module {
     public void onPacket(PacketEvent eventPacket) {
         if ((mc.thePlayer != null) && (mc.thePlayer.ticksExisted >= 0)
                 && ((eventPacket.getPacket() instanceof S02PacketChat))) {
-            String look = "killed by ";
+            String look = "killed by " + mc.thePlayer.getName();
             String look7 = "void by " + mc.thePlayer.getName();
-            String look2 = "slain by ";
+            String look2 = "slain by " + mc.thePlayer.getName();
             String look3 = "void while escaping " + mc.thePlayer.getName();
             String look4 = "was killed with magic while fighting " + mc.thePlayer.getName();
             String look5 = "couldn't fly while escaping " + mc.thePlayer.getName();
             String look6 = "fell to their death while escaping " + mc.thePlayer.getName();
             String look8 = "thrown off a cliff " + mc.thePlayer.getName();
-            String look9 = "backstabbed by";
-            String look10 = "hit the ground too hard thanks";
+            String look9 = "backstabbed by" + mc.thePlayer.getName();
+            String look10 = "hit the ground too hard thanks" + mc.thePlayer.getName();
             S02PacketChat cp = eventPacket.getPacket();
             String cp21 = cp.getChatComponent().getUnformattedText();
             if (((cp21.startsWith(mc.thePlayer.getName() + "(")) && (cp21.contains("asesino ha")))
