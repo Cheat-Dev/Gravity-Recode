@@ -12,13 +12,9 @@ import team.gravityrecode.clientbase.impl.module.combat.Criticals;
 import team.gravityrecode.clientbase.impl.module.combat.Killaura;
 import team.gravityrecode.clientbase.impl.module.combat.Killsults;
 import team.gravityrecode.clientbase.impl.module.combat.Volecity;
-import team.gravityrecode.clientbase.impl.module.exploit.AntiFailedConnnection;
 import team.gravityrecode.clientbase.impl.module.exploit.Disabler;
 import team.gravityrecode.clientbase.impl.module.exploit.PacketModifier;
-import team.gravityrecode.clientbase.impl.module.movement.Flight;
-import team.gravityrecode.clientbase.impl.module.movement.Speed;
-import team.gravityrecode.clientbase.impl.module.movement.Sprint;
-import team.gravityrecode.clientbase.impl.module.movement.Timer;
+import team.gravityrecode.clientbase.impl.module.movement.*;
 import team.gravityrecode.clientbase.impl.module.player.AutoArmor;
 import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
 import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
@@ -34,9 +30,9 @@ public class ModuleManager extends Manager<Module> {
 
     public void init() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
-        Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(), new Hud(), new Criticals(),
-                new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new AntiFailedConnnection(), new Killsults(), new Notifications(),
-                new PlayerESP(), new ChetStaler()).sorted((o1, o2) -> {
+        Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(),
+                new Hud(), new Criticals(), new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new Killsults(), new Notifications(),
+                new PlayerESP(), new ChetStaler(), new DamageParticles(), new NoHurtCam(), new ItemPhysics(), new NoSlow()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
             ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);

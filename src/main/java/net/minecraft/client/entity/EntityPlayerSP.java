@@ -28,6 +28,7 @@ import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.event.player.SendSprintStateEvent;
+import team.gravityrecode.clientbase.impl.module.movement.NoSlow;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
@@ -565,7 +566,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         boolean flag2 = this.movementInput.moveForward >= f;
         this.movementInput.updatePlayerMoveState();
 
-        if (this.isUsingItem() && !this.isRiding()) {
+        NoSlow noSlow = Client.INSTANCE.getModuleManager().getModule("NoSlow");
+        if (this.isUsingItem() && !this.isRiding() && !noSlow.isEnabled()) {
             this.movementInput.moveStrafe *= 0.2F;
             this.movementInput.moveForward *= 0.2F;
             this.sprintToggleTimer = 0;

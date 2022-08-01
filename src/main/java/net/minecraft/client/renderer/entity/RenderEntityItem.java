@@ -12,11 +12,15 @@ import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL33;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.module.visual.ItemPhysics;
+import team.gravityrecode.clientbase.impl.module.visual.NoHurtCam;
 
 import static net.minecraft.client.renderer.RenderGlobal.drawSelectionBoundingBox;
 
@@ -35,33 +39,86 @@ public class RenderEntityItem extends Render<EntityItem> {
     }
 
     private int func_177077_a(EntityItem itemIn, double p_177077_2_, double p_177077_4_, double p_177077_6_, float p_177077_8_, IBakedModel p_177077_9_) {
-        ItemStack itemstack = itemIn.getEntityItem();
-        Item item = itemstack.getItem();
+        ItemPhysics itemPhysics = Client.INSTANCE.getModuleManager().getModule("ItemPhysics");
+        if (itemPhysics.isEnabled()) {
+            ItemStack itemstack = itemIn.getEntityItem();
+            Item item = itemstack.getItem();
 
-        if (item == null) {
-            return 0;
+            if (item == null) {
+                return 0;
+            } else {
+                boolean flag = p_177077_9_.isGui3d();
+                int i = this.func_177078_a(itemstack);
+                float f = 0.25F;
+                float f1 = (float) -(0.13);
+                float f2 = p_177077_9_.getItemCameraTransforms()
+                        .getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
+                GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2,
+                        (float) p_177077_6_);
+                if (!(item instanceof ItemBlock && !((ItemBlock) item).getBlock().isPassable(Minecraft.getMinecraft().theWorld,
+                        Minecraft.getMinecraft().thePlayer.getPosition()))) {
+                    f1 -= 0.1;
+                }
+                if (flag || this.renderManager.options != null) {
+                    float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart)
+                            * (180F / (float) Math.PI);
+                    if (itemIn.onGround) {
+                        double var = ((itemIn.posX + (itemIn.motionX * Minecraft.getMinecraft().timer.renderPartialTicks)) * 200)
+                                + ((itemIn.posZ + (itemIn.motionZ * Minecraft.getMinecraft().timer.renderPartialTicks)) * 200);
+                        GlStateManager.rotate((float) var, 0f, 1f, 0f);
+                        if (!(item instanceof ItemBlock && !((ItemBlock) item).getBlock()
+                                .isPassable(Minecraft.getMinecraft().theWorld, Minecraft.getMinecraft().thePlayer.getPosition()))) {
+                            GlStateManager.rotate(90, 1f, 0f, 0f);
+                        }
+                    } else {
+                        double x = (itemIn.posX + (itemIn.motionX * Minecraft.getMinecraft().timer.renderPartialTicks)) * 200;
+                        double y = (itemIn.posY + (itemIn.motionY * Minecraft.getMinecraft().timer.renderPartialTicks)) * 200;
+                        double z = (itemIn.posZ + (itemIn.motionZ * Minecraft.getMinecraft().timer.renderPartialTicks)) * 200;
+                        GlStateManager.rotate((float) x, 1f, 0f, 0f);
+                        GlStateManager.rotate((float) y, 0f, 1f, 0f);
+                        GlStateManager.rotate((float) z, 0f, 0f, 1f);
+                    }
+                }
+
+                if (!flag) {
+                    float f6 = -0.0F * (float) (i - 1) * 0.5F;
+                    float f4 = -0.0F * (float) (i - 1) * 0.5F;
+                    float f5 = -0.046875F * (float) (i - 1) * 0.5F;
+                    GlStateManager.translate(f6, f4, f5);
+                }
+
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                return i;
+            }
         } else {
-            boolean flag = p_177077_9_.isGui3d();
-            int i = 1;
-            float f = 0.25F;
-            float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
-            float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
-            GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
+            ItemStack itemstack = itemIn.getEntityItem();
+            Item item = itemstack.getItem();
 
-            if (flag || this.renderManager.options != null) {
-                float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
-                GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
+            if (item == null) {
+                return 0;
+            } else {
+                boolean flag = p_177077_9_.isGui3d();
+                int i = 1;
+                float f = 0.25F;
+                float f1 = MathHelper.sin(((float) itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
+                float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
+                GlStateManager.translate((float) p_177077_2_, (float) p_177077_4_ + f1 + 0.25F * f2, (float) p_177077_6_);
+
+                if (flag || this.renderManager.options != null) {
+                    float f3 = (((float) itemIn.getAge() + p_177077_8_) / 20.0F + itemIn.hoverStart) * (180F / (float) Math.PI);
+                    GlStateManager.rotate(f3, 0.0F, 1.0F, 0.0F);
+                }
+
+                if (!flag) {
+                    float f6 = -0.0F * (float) (i - 1) * 0.5F;
+                    float f4 = -0.0F * (float) (i - 1) * 0.5F;
+                    float f5 = -0.046875F * (float) (i - 1) * 0.5F;
+                    GlStateManager.translate(f6, f4, f5);
+                }
+
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+                return i;
             }
-
-            if (!flag) {
-                float f6 = -0.0F * (float) (i - 1) * 0.5F;
-                float f4 = -0.0F * (float) (i - 1) * 0.5F;
-                float f5 = -0.046875F * (float) (i - 1) * 0.5F;
-                GlStateManager.translate(f6, f4, f5);
-            }
-
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            return i;
         }
     }
 

@@ -79,6 +79,7 @@ import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
 import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
+import team.gravityrecode.clientbase.impl.module.visual.NoHurtCam;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -590,7 +591,10 @@ public class EntityRenderer implements IResourceManagerReloadListener
     }
 
     private void hurtCameraEffect(float partialTicks) {
-            if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
+        NoHurtCam noHurtCam = Client.INSTANCE.getModuleManager().getModule("NoHurtCam");
+        if (noHurtCam.isEnabled())
+            return;
+        if (this.mc.getRenderViewEntity() instanceof EntityLivingBase) {
             EntityLivingBase entitylivingbase = (EntityLivingBase) this.mc.getRenderViewEntity();
             float f = (float) entitylivingbase.hurtTime - partialTicks;
 

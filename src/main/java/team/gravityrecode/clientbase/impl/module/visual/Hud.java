@@ -61,6 +61,6 @@ public class Hud extends Module {
     private final Comparator<Object> SORT_METHOD = Comparator.comparingDouble(m -> {
         Module module = (Module) m;
         String name = module.getModuleName();
-        return Minecraft.getMinecraft().fontRendererObj.getStringWidth(name);
+        return Fonts.INSTANCE.getSourceSansPro().getStringWidth(name);
     }).reversed();
 }
