@@ -5,7 +5,10 @@ import me.jinthium.clickgui.component.Component;
 import me.jinthium.clickgui.component.SettingComponent;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
 import me.jinthium.clickgui.theme.Theme;
-import me.jinthium.clickgui.theme.implementations.MainTheme;
+import me.jinthium.clickgui.theme.implementations.NewTheme;
+import me.jinthium.clickgui.theme.implementations.OldTheme;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.module.visual.ClickGui;
 import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 import java.util.ArrayList;
@@ -19,11 +22,13 @@ public abstract class Panel extends Component {
     protected final List<Component> components = new ArrayList<>();
 
     public Panel(float x, float y, float width, float height) {
-        this(x, y, width, height, new MainTheme());
+        this(x, y, width, height, Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode")
+                .getValue().equals(ClickGui.ClickGuiMode.NEW) ? new NewTheme() : new OldTheme());
     }
 
     public Panel(float x, float y, float width, float height, boolean visible) {
-        this(x, y, width, height, visible, new MainTheme());
+        this(x, y, width, height, visible, Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode")
+                .getValue().equals(ClickGui.ClickGuiMode.NEW) ? new NewTheme() : new OldTheme());
     }
 
     public Panel(float x, float y, float width, float height, boolean visible, Theme theme) {

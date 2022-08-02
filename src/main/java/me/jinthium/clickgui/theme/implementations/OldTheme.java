@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MainTheme implements Theme, MinecraftUtil {
+public class OldTheme implements Theme, MinecraftUtil {
     @Override
     public void drawCategory(CategoryPanel panel, float x, float y, float width, float height) {
         panel.updateComponents();
@@ -324,13 +324,13 @@ public class MainTheme implements Theme, MinecraftUtil {
             StencilUtil.uninitStencilBuffer();
             RoundedUtil.drawRoundedOutline(x, y, x + width, y + height, 8, 3, 0xFF404040);
             //mc.fontRendererObj.drawCenteredString(component.getSetting().getLabel(), x + width / 2, y - 6, new Color(240,240,240,250).getRGB());
-           // Fonts.icons315.drawCenteredString("CD", x + width - 10, y + 4, new Color(240,240,240,250).getRGB());
+            // Fonts.icons315.drawCenteredString("CD", x + width - 10, y + 4, new Color(240,240,240,250).getRGB());
         } else {
             RenderUtil.color(-1);
             RoundedUtil.drawSmoothRoundedRect(x + 3, y, x + width - 3, y + height - 3, 8, 0x702D2D2D);
             RoundedUtil.drawRoundedOutline(x + 3, y, x + width - 3, y + height - 3, 8, 1.5f, 0xFF404040);
             //Fonts.icons4.drawString("A", x + 9, y + height / 2 - 3, -1);
-           // Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
+            // Fonts.icons4.drawString("C", x + width - 14, y + 5, -1);
 
             Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName(), x + 8 + 13, y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2, -1);
             RoundedUtil.drawSmoothRoundedRect(x + 8 + 13,  y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3, x + 8 + 13 + mc.fontRendererObj.getStringWidth(component.getSetting().getName()), y + component.getHeight() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 0.5f - 1 - 2 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 3 + 2,  2, component.getSetting().getValue().getRGB());

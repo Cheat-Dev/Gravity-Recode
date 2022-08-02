@@ -624,22 +624,15 @@ public class Scaffold extends Module {
 
                 // Setup for item render with proper lighting
 
-                final boolean restore = RenderUtil.glEnableBlend();
                 GlStateManager.enableRescaleNormal();
                 RenderHelper.enableGUIStandardItemLighting();
-                RenderUtil.scaleStart((float) (left + width / 2), (float) (top + height / 2), (float) animation.getOutput());
                 RoundedUtil.drawRoundedRect((float) iconRenderPosX, (float) top + (float)(height / 3), (float) ((float) iconRenderPosX + width), (float) (top + height), 8, new Color(0,0,0, 100).getRGB());
-
                 mc.getRenderItem().renderItemAndEffectIntoGUI(stack, (float) (iconRenderPosX + width / 2 - 8), iconRenderPosY + 3);
                 Fonts.INSTANCE.getSourceSansPro().drawCenteredString(blockCount, (float) (iconRenderPosX + width / 2) - 1,
                         (float) (top + height - Fonts.INSTANCE.getSourceSansPro().getHeight() - 5),
                         -1);
-                RenderUtil.scaleEnd();
-                // Restore after item render
                 RenderHelper.disableStandardItemLighting();
                 GlStateManager.disableRescaleNormal();
-                glEnable(GL_ALPHA_TEST);
-                RenderUtil.glRestoreBlend(restore);
             }
         }
     };

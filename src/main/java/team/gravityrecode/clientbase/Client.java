@@ -12,6 +12,7 @@ import team.gravityrecode.clientbase.api.client.ClientInfo;
 import team.gravityrecode.clientbase.api.client.Event;
 import team.gravityrecode.clientbase.api.eventBus.PubSub;
 import team.gravityrecode.clientbase.api.notifications.NotificationManager;
+import team.gravityrecode.clientbase.api.tabgui.TabGui;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
 import team.gravityrecode.clientbase.impl.manager.ChangelogManager;
 import team.gravityrecode.clientbase.impl.manager.ModuleManager;
@@ -40,9 +41,12 @@ public enum Client implements MinecraftUtil {
     public final Path clientDirConfigs = Paths.get(String.valueOf(clientDir), "configs");
     private final ChangelogManager changelogManager = new ChangelogManager();
 
+    private final TabGui tabGui = new TabGui();
+
     @Setter
     private float renderDeltaTime;
     private Blurrer blurrer;
+    @Setter
     private MainCGUI mainCGUI;
     private BlurUtil blurUtil;
     private final ShaderManager shaderManager = new ShaderManager();

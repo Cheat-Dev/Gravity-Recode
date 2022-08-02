@@ -75,7 +75,7 @@ public class Module implements MinecraftUtil {
     }
 
     @AllArgsConstructor
-    public static enum ModuleCategory {
+    public enum ModuleCategory {
         COMBAT(1, "Combat"),
         MOVEMENT(2, "Movement"),
         PLAYER(3, "Player"),

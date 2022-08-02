@@ -6,7 +6,8 @@ import me.jinthium.clickgui.panel.implementations.CategoryPanel;
 import me.jinthium.clickgui.panel.implementations.ModulePanel;
 import me.jinthium.clickgui.panel.implementations.MultiSelectPanel;
 import me.jinthium.clickgui.theme.Theme;
-import me.jinthium.clickgui.theme.implementations.MainTheme;
+import me.jinthium.clickgui.theme.implementations.NewTheme;
+import me.jinthium.clickgui.theme.implementations.OldTheme;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -16,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.property.Property;
+import team.gravityrecode.clientbase.impl.module.visual.ClickGui;
 import team.gravityrecode.clientbase.impl.property.*;
 import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
@@ -25,7 +27,7 @@ import java.util.*;
 @Getter
 public class MainCGUI extends GuiScreen {
 
-    private final Theme currentTheme;
+//    private final Theme currentTheme;
 
     private final List<Component> objects = new ArrayList<>();
 
@@ -39,7 +41,7 @@ public class MainCGUI extends GuiScreen {
 
     public MainCGUI() {
 
-        currentTheme = new MainTheme();
+//        currentTheme = Client.INSTANCE.getPropertyManager().get(new ClickGui(), "Mode").getValue().equals("New") ? new NewTheme() : new OldTheme();
 
         //blurShader = new BlurShader(clickGUIModule.blurIntensityProperty().getValue().intValue());
         float posX = 6;

@@ -1,5 +1,6 @@
 package team.gravityrecode.clientbase.impl.manager;
 
+import me.jinthium.clickgui.MainCGUI;
 import me.jinthium.scripting.Script;
 import org.lwjgl.input.Keyboard;
 import team.gravityrecode.clientbase.Client;
@@ -20,6 +21,7 @@ import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
 import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
 import team.gravityrecode.clientbase.impl.module.player.Scaffold;
 import team.gravityrecode.clientbase.impl.module.visual.*;
+import team.gravityrecode.clientbase.impl.util.client.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class ModuleManager extends Manager<Module> {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(),
                 new Hud(), new Criticals(), new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new Killsults(), new Notifications(),
-                new PlayerESP(), new ChetStaler(), new DamageParticles(), new NoHurtCam(), new ItemPhysics(), new NoSlow()).sorted((o1, o2) -> {
+                new PlayerESP(), new ChetStaler(), new DamageParticles(), new NoHurtCam(), new ItemPhysics(), new NoSlow(), new ClickGui()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
             ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);
@@ -52,6 +54,8 @@ public class ModuleManager extends Manager<Module> {
     @EventHandler
     public void onKeyboardPress(KeyboardPressEvent event) {
         if(event.getKeyCode() == Keyboard.KEY_RSHIFT){
+            Client.INSTANCE.setMainCGUI(new MainCGUI());
+            Logger.print(Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode"));
             mc.displayGuiScreen(Client.INSTANCE.getMainCGUI());
         }
 

@@ -4,7 +4,10 @@ package me.jinthium.clickgui.component;
 import lombok.Getter;
 import lombok.Setter;
 import me.jinthium.clickgui.theme.Theme;
-import me.jinthium.clickgui.theme.implementations.MainTheme;
+import me.jinthium.clickgui.theme.implementations.NewTheme;
+import me.jinthium.clickgui.theme.implementations.OldTheme;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.module.visual.ClickGui;
 import team.gravityrecode.clientbase.impl.util.render.RenderUtil;
 
 @Getter
@@ -21,7 +24,8 @@ public abstract class Component {
     }
 
     public Component(float x, float y, float width, float height, boolean visible) {
-        this(x, y, width, height, visible, new MainTheme());
+        this(x, y, width, height, visible, Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode")
+                .getValue().equals(ClickGui.ClickGuiMode.NEW) ? new NewTheme() : new OldTheme());
     }
 
     public Component(float x, float y, float width, float height, Theme theme) {

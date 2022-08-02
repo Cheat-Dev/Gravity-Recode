@@ -23,61 +23,77 @@ public class TabGui extends Module {
 
     @EventHandler
     public void onRender2D(Render2DEvent event){
-    drawTabGui(3, 22, event.getScaledResolution());
+//    drawTabGui(3, 22, event.getScaledResolution());
+        Client.INSTANCE.getTabGui().renderTabGui(4, 40, 60, 0, 14);
+        Client.INSTANCE.getTabGui().renderTabGuiModuleTabs(66, 40, 75, 0, 14);
     }
 
     @EventHandler
     public void onKeyPressed(KeyboardPressEvent event){
-        int code = event.getKeyCode();
-        ModuleCategory category = ModuleCategory.values()[tab];
-        List<Module> moduleList = Client.INSTANCE.getModuleManager().getModulesInCategory(category);
+        Client.INSTANCE.getTabGui().getKeyPresses(event, 14);
+//        int code = event.getKeyCode();
+//        ModuleCategory category = ModuleCategory.values()[tab];
+//        List<Module> moduleList = Client.INSTANCE.getModuleManager().getModulesInCategory(category);
+//
+//        if (code == Keyboard.KEY_UP) {
+//            if (!expanded) {
+//                if (tab <= 0) {
+//                    tab = ModuleCategory.values().length - 1;
+//                } else
+//                    tab--;
+//            } else {
+//                if (category.elementIndex <= 0) {
+//                    category.elementIndex = moduleList.size() - 1;
+//                } else
+//                    category.elementIndex--;
+//            }
+//        }
+//
+//        if (code == Keyboard.KEY_DOWN) {
+//            if (!expanded) {
+//                if (tab > ModuleCategory.values().length - 2) {
+//                    tab = 0;
+//                } else
+//                    tab++;
+//            } else {
+//                if (category.elementIndex >= moduleList.size() - 1) {
+//                    category.elementIndex = 0;
+//                } else
+//                    category.elementIndex++;
+//            }
+//        }
+//        if (code == Keyboard.KEY_RIGHT) {
+//            if (expanded && moduleList.size() != 0) {
+//                Module module = moduleList.get(category.elementIndex);
+//                if (moduleList.get(category.elementIndex).isExpanded()) {
+//
+//                } else {
+//                    module.toggle();
+//                }
+//            } else {
+//                expanded = true;
+//            }
+//        }
+//        if (code == Keyboard.KEY_LEFT) {
+//            if (expanded && !moduleList.isEmpty() && moduleList.get(category.elementIndex).isExpanded()) {
+//                moduleList.get(category.elementIndex).setExpanded(false);
+//            } else {
+//                expanded = false;
+//            }
+//        }
 
-        if (code == Keyboard.KEY_UP) {
-            if (!expanded) {
-                if (tab <= 0) {
-                    tab = ModuleCategory.values().length - 1;
-                } else
-                    tab--;
-            } else {
-                if (category.elementIndex <= 0) {
-                    category.elementIndex = moduleList.size() - 1;
-                } else
-                    category.elementIndex--;
-            }
-        }
+    }
 
-        if (code == Keyboard.KEY_DOWN) {
-            if (!expanded) {
-                if (tab > ModuleCategory.values().length - 2) {
-                    tab = 0;
-                } else
-                    tab++;
-            } else {
-                if (category.elementIndex >= moduleList.size() - 1) {
-                    category.elementIndex = 0;
-                } else
-                    category.elementIndex++;
-            }
-        }
-        if (code == Keyboard.KEY_RIGHT) {
-            if (expanded && moduleList.size() != 0) {
-                Module module = moduleList.get(category.elementIndex);
-                if (moduleList.get(category.elementIndex).isExpanded()) {
+    @Override
+    public void onEnable() {
+        super.onEnable();
+        Client.INSTANCE.getTabGui().init();
+    }
 
-                } else {
-                    module.toggle();
-                }
-            } else {
-                expanded = true;
-            }
-        }
-        if (code == Keyboard.KEY_LEFT) {
-            if (expanded && !moduleList.isEmpty() && moduleList.get(category.elementIndex).isExpanded()) {
-                moduleList.get(category.elementIndex).setExpanded(false);
-            } else {
-                expanded = false;
-            }
-        }
+    @Override
+    public void onDisable() {
+        Client.INSTANCE.getTabGui().unInit();
+        super.onDisable();
     }
 
     public void drawTabGui(float x, float y, ScaledResolution scaledResolution){

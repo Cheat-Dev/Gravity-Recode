@@ -41,7 +41,7 @@ public class BooleanComponent extends SettingComponent<BooleanSetting> {
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (!visible) return;
-        if (RenderUtil.inBounds(x + width - 9 - 1, y, x + width - 1, y + height, mouseX, mouseY)) {
+        if (RenderUtil.inBounds(x + width - 17, y, x + width - 5, y + height, mouseX, mouseY)) {
             setting.setValue(!setting.getValue());
         }
     }
