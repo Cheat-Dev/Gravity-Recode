@@ -21,7 +21,11 @@ public class ChangelogManager {
                 new Changelog("Client optimizations", Changelog.ChangeType.FIXED),
                 new Changelog("New Watchdog Bhop", Changelog.ChangeType.ADDED),
                 new Changelog("New Main Menu", Changelog.ChangeType.ADDED),
-                new Changelog("Discord RPC", Changelog.ChangeType.ADDED)
+                new Changelog("Discord RPC", Changelog.ChangeType.ADDED),
+                new Changelog("Hud color changing", Changelog.ChangeType.ADDED),
+                new Changelog("Flat hud mode", Changelog.ChangeType.ADDED),
+                new Changelog("New tabgui", Changelog.ChangeType.ADDED),
+                new Changelog("Herobrine", Changelog.ChangeType.REMOVED)
                 ).collect(Collectors.toList()));
     }
 
