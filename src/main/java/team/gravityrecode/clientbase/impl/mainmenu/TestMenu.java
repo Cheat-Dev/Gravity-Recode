@@ -25,11 +25,16 @@ public class TestMenu extends GuiScreen {
     public void initGui() {
         initTime = System.currentTimeMillis();
         buttonList.clear();
-        this.buttonList.add(new CustomButton(0, 5, 4, 94, 96, "Singleplayer", new ResourceLocation("pulsabo/images/singleplayer.png")));
-        this.buttonList.add(new CustomButton(1, 5,106, 94, 96, "Multiplayer", new ResourceLocation("pulsabo/images/multiplayer.png")));
-        this.buttonList.add(new CustomButton(2, 5, 208, 94, 96, "Alt Manager", new ResourceLocation("pulsabo/images/altmanager.png")));
-        this.buttonList.add(new CustomButton(3, 5, 310, 94, 97, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
-        this.buttonList.add(new CustomButton(4, 5, 413, 94, 97, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
+//        this.buttonList.add(new CustomButton(0, 5, 4, 94, 96, "Singleplayer", new ResourceLocation("pulsabo/images/singleplayer.png")));
+//        this.buttonList.add(new CustomButton(1, 5,106, 94, 96, "Multiplayer", new ResourceLocation("pulsabo/images/multiplayer.png")));
+//        this.buttonList.add(new CustomButton(2, 5, 208, 94, 96, "Alt Manager", new ResourceLocation("pulsabo/images/altmanager.png")));
+//        this.buttonList.add(new CustomButton(3, 5, 310, 94, 97, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
+//        this.buttonList.add(new CustomButton(4, 5, 413, 94, 97, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
+        this.buttonList.add(new TestButton(0, 15, 15, 95, 26, "Singleplayer", new ResourceLocation("pulsabo/images/singleplayer.png")));
+        this.buttonList.add(new TestButton(1, 15,56, 95, 26, "Multiplayer", new ResourceLocation("pulsabo/images/multiplayer.png")));
+        this.buttonList.add(new TestButton(2, 15, 97, 95, 26, "Alt Manager", new ResourceLocation("pulsabo/images/altmanager.png")));
+        this.buttonList.add(new TestButton(3, 15, 138, 95, 26, "Settings", new ResourceLocation("pulsabo/images/settings.png")));
+        this.buttonList.add(new TestButton(4, 15, 179, 95, 26, "Rage Quit", new ResourceLocation("pulsabo/images/exit.png")));
         super.initGui();
     }
 
