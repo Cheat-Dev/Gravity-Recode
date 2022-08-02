@@ -9,7 +9,7 @@ import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 @ModuleInfo(moduleName = "ClickGui", moduleCategory = Module.ModuleCategory.VISUAL)
 public class ClickGui extends Module {
 
-    private EnumSetting<ClickGuiMode> mode = new EnumSetting<>(this, "Mode", ClickGuiMode.values());
+    public EnumSetting<ClickGuiMode> mode = new EnumSetting<>(this, "Mode", ClickGuiMode.values());
 
     @AllArgsConstructor
     public enum ClickGuiMode implements INameable {

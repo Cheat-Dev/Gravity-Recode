@@ -80,30 +80,31 @@ public class Hud extends Module {
         int y = 0;
         modules = Client.INSTANCE.getModuleManager().getModules();
         modules.sort(SORT_METHOD);
-        getEnabledModules().sort(SORT_METHOD);
-        for (int i = 0; i < getEnabledModules().size(); i++) {
-            Module module = getEnabledModules().get(i);
-            int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(getEnabledModules().get(i).getModuleName());
+        for (Module module : modules) {
+            if(!module.isEnabled())
+                continue;
+            
+            int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             TranslationUtils translate = module.getTranslate();
             Gui.drawRect(event.getScaledResolution().getScaledWidth() - 6, y + 6, event.getScaledResolution().getScaledWidth() - stringWidth - 10,
                     y + 18, new Color(10, 10, 10, 102).getRGB());
-            GuiButton.drawRect(event.getScaledResolution().getScaledWidth() - 5, y + 5, event.getScaledResolution().getScaledWidth() - 6, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            GuiButton.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 10, y + 5, event.getScaledResolution().getScaledWidth()
+            Gui.drawRect(event.getScaledResolution().getScaledWidth() - 5, y + 5, event.getScaledResolution().getScaledWidth() - 6, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
+            Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 10, y + 5, event.getScaledResolution().getScaledWidth()
                     - stringWidth - 11, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            if (i != getEnabledModules().size() - 1) {
+            if (modules.indexOf(module) != modules.size() - 1) {
                 Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11f, y + 17,
                         event.getScaledResolution().getScaledWidth() -
-                                Fonts.INSTANCE.getSourceSansPro().getStringWidth(getEnabledModules().get(i + 1).getModuleName()) - 10f,
+                                Fonts.INSTANCE.getSourceSansPro().getStringWidth(modules.get(modules.indexOf(module) + 1).getModuleName()) - 10f,
                         y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             } else {
                 Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y + 17,
                         event.getScaledResolution().getScaledWidth() - 6, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             }
-            if (i == 0) {
+            if (modules.indexOf(module) == 0) {
                 Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y + 5,
                         event.getScaledResolution().getScaledWidth() - 6, y + 6, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             }
-            Fonts.INSTANCE.getSourceSansPro().drawString(getEnabledModules().get(i).getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 8.25, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
+            Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 8.25, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             y += 12;
         }
     }
@@ -164,14 +165,4 @@ public class Hud extends Module {
         String name = module.getModuleName();
         return Fonts.INSTANCE.getSourceSansPro().getStringWidth(name);
     }).reversed();
-
-    public List<Module> getEnabledModules() {
-        List<Module> enabledModules = new ArrayList<>();
-        for (Module mod : Client.INSTANCE.getModuleManager().getModules()) {
-            if (mod.isEnabled()) {
-                enabledModules.add(mod);
-            }
-        }
-        return enabledModules;
-    }
 }

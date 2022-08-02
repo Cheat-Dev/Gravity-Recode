@@ -32,6 +32,7 @@ import net.minecraft.src.Config;
 import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
+import net.optifine.util.MathUtils;
 import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.render.Render2DEvent;
@@ -289,8 +290,13 @@ public class GuiIngame extends Gui {
             this.overlayPlayerList.updatePlayerList(false);
         }
         Gui.drawRect(0,0,0,0,0);
+
 //        Client.INSTANCE.getPubSubEventBus().publish(new Render2);
         Client.INSTANCE.getPubSubEventBus().publish(new Render2DEvent(scaledresolution, partialTicks));
+        double x = MathUtils.getDifference(mc.thePlayer.lastTickPosX, mc.thePlayer.posX);
+        double z = MathUtils.getDifference(mc.thePlayer.lastTickPosZ, mc.thePlayer.posZ);
+        double bps2 = (Math.sqrt(x * x + z * z) * 20) * mc.timer.timerSpeed;
+        mc.fontRendererObj.drawStringWithShadow((float) Math.floor(bps2 * 100) / 100 + " bp/s", 2, scaledresolution.getScaledHeight() - 14, -1);
         GL11.glPushMatrix();
 
 

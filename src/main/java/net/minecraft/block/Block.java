@@ -21,6 +21,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.PlayerCollideEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -476,6 +478,16 @@ public class Block
 
     public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List<AxisAlignedBB> list, Entity collidingEntity) {
         AxisAlignedBB axisalignedbb = getCollisionBoundingBox(worldIn, pos, state);
+
+        PlayerCollideEvent eventCollide = new PlayerCollideEvent(axisalignedbb, this, collidingEntity, pos);
+
+        if(collidingEntity instanceof EntityPlayerSP)
+            Client.INSTANCE.getPubSubEventBus().publish(eventCollide);
+
+        axisalignedbb = eventCollide.getAxisAlignedBB();
+
+        if (eventCollide.isCancelled())
+            return;
 
         if (axisalignedbb != null && mask.intersectsWith(axisalignedbb)) {
             list.add(axisalignedbb);
