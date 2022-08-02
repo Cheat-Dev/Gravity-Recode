@@ -87,6 +87,7 @@ public enum Client implements MinecraftUtil {
 //        if (!draggablesManager.getDraggables().values().isEmpty())
 //            draggablesManager.loadDraggableData();
         draggablesManager.loadDraggableData();
+        tabGui.init();
     };
 
     private final Runnable stopGame = () -> {

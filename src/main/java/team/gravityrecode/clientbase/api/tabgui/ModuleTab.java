@@ -19,6 +19,6 @@ public class ModuleTab {
 
     public void drawTab(float x, float y, float width, float height, int offset) {
         Gui.drawRect(x, y, x + width, y + offset, new Color(10, 10, 10, 100).getRGB());
-        Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), x + 2, (y - height / offset) + 7, -1);
+        Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), x + 2, y + 4, -1);
     }
 }

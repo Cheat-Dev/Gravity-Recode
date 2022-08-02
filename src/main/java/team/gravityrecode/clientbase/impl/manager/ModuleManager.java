@@ -22,8 +22,10 @@ import team.gravityrecode.clientbase.impl.module.player.InventoryManager;
 import team.gravityrecode.clientbase.impl.module.player.Scaffold;
 import team.gravityrecode.clientbase.impl.module.visual.*;
 import team.gravityrecode.clientbase.impl.util.client.Logger;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +35,7 @@ public class ModuleManager extends Manager<Module> {
     public void init() {
         Client.INSTANCE.getPubSubEventBus().subscribe(this);
         Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(),
-                new Hud(), new Criticals(), new TabGui(), new Speed(), new Flight(), new Timer(), new Killaura(), new Killsults(), new Notifications(),
+                new Hud(), new Criticals(), new Speed(), new Flight(), new Timer(), new Killaura(), new Killsults(), new Notifications(),
                 new PlayerESP(), new ChetStaler(), new DamageParticles(), new NoHurtCam(), new ItemPhysics(), new NoSlow(), new ClickGui()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
@@ -41,7 +43,14 @@ public class ModuleManager extends Manager<Module> {
             ModuleInfo a2 = c2.getDeclaredAnnotation(ModuleInfo.class);
             return a1.moduleName().compareTo(a2.moduleName());
         }).forEach(this::add);
+        getModules().sort(SORT_METHOD);
     }
+
+    private final Comparator<Object> SORT_METHOD = Comparator.comparingDouble(m -> {
+        Module module = (Module) m;
+        String name = module.getModuleName();
+        return Fonts.INSTANCE.getSourceSansPro().getStringWidth(name);
+    }).reversed();
 
     public void addScript(Script script) {
         this.add(script);

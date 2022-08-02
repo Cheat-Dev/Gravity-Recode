@@ -1,6 +1,5 @@
 package team.gravityrecode.clientbase.api.tabgui;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.Getter;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
@@ -8,10 +7,6 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.Module.ModuleCategory;
 import team.gravityrecode.clientbase.impl.event.keyboard.KeyboardPressEvent;
-import team.gravityrecode.clientbase.impl.util.client.Logger;
-import team.gravityrecode.clientbase.impl.util.render.AnimationUtils;
-import team.gravityrecode.clientbase.impl.util.render.animations.Animation;
-import team.gravityrecode.clientbase.impl.util.render.animations.SmoothStep;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +15,7 @@ import java.util.List;
 @Getter
 public class TabGui {
 
-    private List<Tab> tabList = new ArrayList<>();
+    private List<CategoryTab> tabList = new ArrayList<>();
     private List<ModuleTab> moduleTabList = new ArrayList<>();
     private int tab;
     private int tabOffset, yOffset, moduleOffset;
@@ -29,7 +24,7 @@ public class TabGui {
     public void init() {
         for (ModuleCategory category : ModuleCategory.values()) {
             if (!Client.INSTANCE.getModuleManager().getModulesInCategory(category).isEmpty())
-                tabList.add(new Tab(category.categoryName, category));
+                tabList.add(new CategoryTab(category.categoryName, category));
         }
         tab = 0;
         tabOffset = 0;
@@ -45,7 +40,7 @@ public class TabGui {
     }
 
     public void renderTabGui(float x, float y, float width, float height, int offset) {
-        for (Tab tab : tabList) {
+        for (CategoryTab tab : tabList) {
             height += offset;
             Gui.drawRect(x, y + offset + yOffset, x + width, y + offset * 2 + yOffset, new Color(10, 10, 10, 5).getRGB());
             tab.drawTab(x, y + height, width, y, offset);
