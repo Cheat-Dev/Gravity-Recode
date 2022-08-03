@@ -6,6 +6,7 @@ import team.gravityrecode.clientbase.api.eventBus.EventHandler;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
+import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 import team.gravityrecode.clientbase.impl.property.mode.Mode;
 import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
 
@@ -35,10 +36,10 @@ public class WatchdogSpeed extends Mode {
     }
 
     @EventHandler
-    public void yayayyayayayayayayayayayayayaya(PlayerMoveEvent event){
+    public void yayayyayayayayayayayayayayayaya(PlayerStrafeEvent event){
         if (MovementUtil.isMoving()) {
             if (mc.thePlayer.onGround) {
-                event.setY(mc.thePlayer.motionY = MovementUtil.getJumpHeight(0.42F));
+                mc.thePlayer.motionY = MovementUtil.getJumpHeight(0.42F);
                 this.moveSpeed = (MovementUtil.getBaseMoveSpeed() * 1.95);
                 this.shouldBoost = true;
             } else if (this.shouldBoost) {
@@ -46,16 +47,16 @@ public class WatchdogSpeed extends Mode {
                 this.shouldBoost = false;
             } else {
                 this.moveSpeed = this.lastDistance * 0.91f;
-                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.034F : 0.03F;
-                if (mc.thePlayer.moveStrafing > 0) {
+                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.034F : 0.036F;
+                if (mc.thePlayer.moveStrafing != 0) {
                     double multi = (MovementUtil.getSpeed() - this.lastDistance) * MovementUtil.getBaseMoveSpeed();
 
                     this.moveSpeed += multi;
-                    this.moveSpeed -= 0.015f;
+                    this.moveSpeed -= 0.004;
                 }
             }
 
-            MovementUtil.setSpeed(event, (float) Math.max(this.moveSpeed, MovementUtil.getBaseMoveSpeed()));
+            event.setMotion((float) (moveSpeed = Math.max(moveSpeed, MovementUtil.getBaseMoveSpeed())));
         }
     }
 }
