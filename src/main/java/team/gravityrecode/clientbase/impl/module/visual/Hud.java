@@ -78,7 +78,7 @@ public class Hud extends Module {
     public void renderFlatArraylist(Render2DEvent event) {
         int y = 0;
         modules = getEnabledModules();
-        for (Module module : getEnabledModules()) {
+        for (Module module : modules) {
             int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             TranslationUtils translate = module.getTranslate();
 
@@ -160,6 +160,6 @@ public class Hud extends Module {
     }).reversed();
 
     public List<Module> getEnabledModules() {
-        return modules.stream().filter(Module::isEnabled).sorted(SORT_METHOD).collect(Collectors.toList());
+        return Client.INSTANCE.getModuleManager().getModules().stream().filter(Module::isEnabled).sorted(SORT_METHOD).collect(Collectors.toList());
     }
 }
