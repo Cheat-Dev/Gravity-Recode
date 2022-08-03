@@ -85,17 +85,22 @@ public class Hud extends Module {
 
             int height = Fonts.INSTANCE.getSourceSansPro().getHeight();
             float posX = event.getScaledResolution().getScaledWidth() - stringWidth - 11;
-            Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y * height, event.getScaledResolution().getScaledWidth(), y * height + height, new Color(0, 0, 0, 190 / 255).getRGB());
-            Gui.drawRect(posX, y + 5, posX + 1.2f, y + 18, color.getColor());
+            Gui.drawRect(posX, y + 5, event.getScaledResolution().getScaledWidth() - 6.2f, y + 17, new Color(10, 10, 10, 103).getRGB());
+            Gui.drawRect(posX, y + 5, posX + 1.2f, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             if (modules.indexOf(module) == modules.size() - 1)
-                Gui.drawRect(posX, y + 18, posX + stringWidth + 6, y + 17, color.getColor());
+                Gui.drawRect(posX, y + 18, posX + stringWidth + 6, y + 17, rainbow.getValue() ? ColorUtil.rainbow(y * 8) :
+                        color.getValue().getRGB());
             else {
                 final Module nextModule = modules.get(modules.indexOf(module) + 1);
                 final float dist = (stringWidth - Fonts.INSTANCE.getSourceSansPro().getStringWidth(nextModule.getModuleName()));
-                Gui.drawRect(posX, y + 18, posX + 1.2f + dist, y + 17, color.getColor());
+                Gui.drawRect(posX, y + 18, posX + 1.2f + dist, y + 17, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             }
-
-
+            if(modules.indexOf(module) == 0){
+                Gui.drawRect(posX, y + 5, posX + stringWidth + 6, y + 6, rainbow.getValue() ? ColorUtil.rainbow(y * 8) :
+                        color.getValue().getRGB());
+            }
+            Gui.drawRect(event.getScaledResolution().getScaledWidth() - 6.2f, y + 5, event.getScaledResolution().getScaledWidth() - 5.2f,
+                    y + 17, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
 
             Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 8, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             y += 12;
