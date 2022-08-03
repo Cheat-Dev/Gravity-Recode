@@ -7,6 +7,8 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.Module.ModuleCategory;
 import team.gravityrecode.clientbase.impl.event.keyboard.KeyboardPressEvent;
+import team.gravityrecode.clientbase.impl.module.visual.Hud;
+import team.gravityrecode.clientbase.impl.util.render.ColorUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,19 +42,24 @@ public class TabGui {
     }
 
     public void renderTabGui(float x, float y, float width, float height, int offset) {
+        Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
         for (CategoryTab tab : tabList) {
             height += offset;
             Gui.drawRect(x, y + offset + yOffset, x + width, y + offset * 2 + yOffset, new Color(10, 10, 10, 5).getRGB());
-            tab.drawTab(x, y + height, width, y, offset);
+            tab.drawTab(x, y + height, width, y, offset, tabList.get(this.tab) == tab ? 4 : 0, tabList.get(this.tab) == tab ? (hud.rainbow.getValue() ? ColorUtil.rainbow(8) :
+                    hud.color.getValue().getRGB()) : -1);
         }
     }
 
     public void renderTabGuiModuleTabs(float x, float y, float width, float height, int offset) {
+        Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
         if (expanded) {
             for (ModuleTab moduleTab : moduleTabList) {
                 height += offset;
                 Gui.drawRect(x, y + offset + moduleOffset + yOffset, x + width + 4, y + offset * 2 + moduleOffset + yOffset, new Color(10, 10, 10, 5).getRGB());
-                moduleTab.drawTab(x, y + height + yOffset, width + 4, y, offset);
+                moduleTab.drawTab(x, y + height + yOffset, width + 4, y, offset, moduleTabList.get(ModuleCategory.values()[tab].elementIndex) == moduleTab ? 4 : 0,
+                        moduleTabList.get(ModuleCategory.values()[tab].elementIndex) == moduleTab ? (hud.rainbow.getValue() ? ColorUtil.rainbow(8) :
+                                hud.color.getValue().getRGB()) : -1);
             }
         }
     }

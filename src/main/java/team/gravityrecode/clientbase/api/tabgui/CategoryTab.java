@@ -20,9 +20,8 @@ public class CategoryTab {
     private String tabName;
     private ModuleCategory category;
 
-    public void drawTab(float x, float y, float width, float height, int offset) {
-        Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
+    public void drawTab(float x, float y, float width, float height, int offset, int textOffset, int selectColour) {
         Gui.drawRect(x, y, x + width, y + offset, new Color(10, 10, 10, 100).getRGB());
-        Fonts.INSTANCE.getSourceSansPro().drawString(category.categoryName, x + 2, y + 4, hud.rainbow.getValue() ? ColorUtil.rainbow(8) : hud.color.getValue().getRGB());
+        Fonts.INSTANCE.getSourceSansPro().drawString(category.categoryName, x + 2 + textOffset, y + 4, selectColour);
     }
 }

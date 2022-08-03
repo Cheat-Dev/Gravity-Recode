@@ -22,7 +22,7 @@ public class PlayerESP extends Module {
     public void onRender3D(Render3DEvent event){
         if (mc.thePlayer.ticksExisted <= 5) return;
         for (Entity entityLivingBase : mc.theWorld.getLoadedEntityList()) {
-            if (entityLivingBase instanceof EntityPlayer && !entityLivingBase.isInvisible() && (entityLivingBase != mc.thePlayer || mc.gameSettings.thirdPersonView != 0)) {
+            if (entityLivingBase instanceof EntityPlayer && (entityLivingBase != mc.thePlayer || mc.gameSettings.thirdPersonView != 0)) {
             drawESP(entityLivingBase, new Color(0, 255, 255).getRGB());
             }
         }

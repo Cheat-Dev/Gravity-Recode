@@ -48,7 +48,8 @@ public class Hud extends Module {
             case FLAT:
                 renderFlatWatermark(event);
                 renderFlatArraylist(event);
-                drawFlatTabgui();
+                if (tabGui.getValue())
+                    drawFlatTabgui();
                 break;
             case BLOOM:
                 renderBloomWatermark(event);
@@ -95,7 +96,7 @@ public class Hud extends Module {
                 final float dist = (stringWidth - Fonts.INSTANCE.getSourceSansPro().getStringWidth(nextModule.getModuleName()));
                 Gui.drawRect(posX, y + 18, posX + 1.2f + dist, y + 17, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             }
-            if(modules.indexOf(module) == 0){
+            if (modules.indexOf(module) == 0) {
                 Gui.drawRect(posX, y + 5, posX + stringWidth + 6, y + 6, rainbow.getValue() ? ColorUtil.rainbow(y * 8) :
                         color.getValue().getRGB());
             }
