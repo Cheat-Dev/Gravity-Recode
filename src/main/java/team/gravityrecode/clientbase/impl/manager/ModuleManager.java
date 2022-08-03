@@ -63,8 +63,7 @@ public class ModuleManager extends Manager<Module> {
     @EventHandler
     public void onKeyboardPress(KeyboardPressEvent event) {
         if(event.getKeyCode() == Keyboard.KEY_RSHIFT){
-            Client.INSTANCE.setMainCGUI(new MainCGUI());
-            Logger.print(Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode"));
+//            Logger.print(Client.INSTANCE.getPropertyManager().get(Client.INSTANCE.getModuleManager().getModule(ClickGui.class), "Mode"));
             mc.displayGuiScreen(Client.INSTANCE.getMainCGUI());
         }
 

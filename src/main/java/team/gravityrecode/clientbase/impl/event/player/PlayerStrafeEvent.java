@@ -16,7 +16,6 @@ public class PlayerStrafeEvent extends Event {
     public void setMotion(double speed) {
         mc.thePlayer.motionX = 0;
         mc.thePlayer.motionZ = 0;
-        speed *= strafe != 0 && forward != 0 ? 0.975 : 1;
         setFriction((float) speed);
     }
 
@@ -35,8 +34,6 @@ public class PlayerStrafeEvent extends Event {
      */
     public void setMotionPartialStrafe(float friction, float strafeComponent) {
         float remainder = 1F - strafeComponent;
-        if (forward != 0 && strafe != 0)
-            friction *= 0.98;
         if (mc.thePlayer.onGround) {
             setMotion(friction);
         } else {

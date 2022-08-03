@@ -117,9 +117,6 @@ public class Killaura extends Module {
 
         updateTargets();
         if (event.isPre()) {
-            if (target != null) {
-                PacketUtil.sendPacketNoEvent(new C0CPacketInput());
-            }
             if (target == null) {
                 if (block)
                     unblock();
@@ -422,25 +419,14 @@ public class Killaura extends Module {
                     ticks++;
                 });
             } else {
-                // mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY - 0.0001, mc.thePlayer.posZ);
-                if (ViaMCP.getInstance().getVersion() <= ProtocolCollection.getProtocolById(47).getVersion()) {
                     if (noSwingProperty.getValue()) {
                         PacketUtil.sendPacketNoEvent(new C0APacketAnimation());
                     } else mc.thePlayer.swingItem();
-                }
 
-
-                if (keepSprintProperty.getValue()) {
+                    if (keepSprintProperty.getValue()) {
                     PacketUtil.sendPacket(new C02PacketUseEntity(entity, C02PacketUseEntity.Action.ATTACK));
                 } else {
                     mc.playerController.attackEntity(mc.thePlayer, entity);
-                }
-
-
-                if (ViaMCP.getInstance().getVersion() > ProtocolCollection.getProtocolById(47).getVersion()) {
-                    if (noSwingProperty.getValue()) {
-                        PacketUtil.sendPacketNoEvent(new C0APacketAnimation());
-                    } else mc.thePlayer.swingItem();
                 }
                 attackTimer.reset();
                 // blockTimer.reset();
