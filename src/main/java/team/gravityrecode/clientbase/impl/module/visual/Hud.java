@@ -22,14 +22,13 @@ import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 import team.gravityrecode.clientbase.impl.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.network.BalanceUtil;
-import team.gravityrecode.clientbase.impl.util.render.ColorUtil;
-import team.gravityrecode.clientbase.impl.util.render.Draggable;
-import team.gravityrecode.clientbase.impl.util.render.TranslationUtils;
+import team.gravityrecode.clientbase.impl.util.render.*;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ModuleInfo(moduleName = "Hud", moduleCategory = Module.ModuleCategory.VISUAL, moduleKeyBind = Keyboard.KEY_U)
 public class Hud extends Module {
@@ -78,33 +77,27 @@ public class Hud extends Module {
 
     public void renderFlatArraylist(Render2DEvent event) {
         int y = 0;
-        modules = Client.INSTANCE.getModuleManager().getModules();
-        modules.sort(SORT_METHOD);
-        for (Module module : modules) {
-            if(!module.isEnabled())
-                continue;
-            
+        modules = getEnabledModules();
+        for (Module module : getEnabledModules()) {
             int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
             TranslationUtils translate = module.getTranslate();
-            Gui.drawRect(event.getScaledResolution().getScaledWidth() - 6, y + 6, event.getScaledResolution().getScaledWidth() - stringWidth - 10,
-                    y + 18, new Color(10, 10, 10, 102).getRGB());
-            Gui.drawRect(event.getScaledResolution().getScaledWidth() - 5, y + 5, event.getScaledResolution().getScaledWidth() - 6, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 10, y + 5, event.getScaledResolution().getScaledWidth()
-                    - stringWidth - 11, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            if (modules.indexOf(module) != modules.size() - 1) {
-                Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11f, y + 17,
-                        event.getScaledResolution().getScaledWidth() -
-                                Fonts.INSTANCE.getSourceSansPro().getStringWidth(modules.get(modules.indexOf(module) + 1).getModuleName()) - 10f,
-                        y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            } else {
-                Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y + 17,
-                        event.getScaledResolution().getScaledWidth() - 6, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
+
+
+            int height = Fonts.INSTANCE.getSourceSansPro().getHeight();
+            float posX = event.getScaledResolution().getScaledWidth() - stringWidth - 11;
+            Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y * height, event.getScaledResolution().getScaledWidth(), y * height + height, new Color(0, 0, 0, 190 / 255).getRGB());
+            Gui.drawRect(posX, y + 5, posX + 1.2f, y + 18, color.getColor());
+            if (modules.indexOf(module) == modules.size() - 1)
+                Gui.drawRect(posX, y + 18, posX + stringWidth + 6, y + 17, color.getColor());
+            else {
+                final Module nextModule = modules.get(modules.indexOf(module) + 1);
+                final float dist = (stringWidth - Fonts.INSTANCE.getSourceSansPro().getStringWidth(nextModule.getModuleName()));
+                Gui.drawRect(posX, y + 18, posX + 1.2f + dist, y + 17, color.getColor());
             }
-            if (modules.indexOf(module) == 0) {
-                Gui.drawRect(event.getScaledResolution().getScaledWidth() - stringWidth - 11, y + 5,
-                        event.getScaledResolution().getScaledWidth() - 6, y + 6, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
-            }
-            Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 8.25, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
+
+
+
+            Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() - stringWidth - 8, y + 8, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
             y += 12;
         }
     }
@@ -165,4 +158,8 @@ public class Hud extends Module {
         String name = module.getModuleName();
         return Fonts.INSTANCE.getSourceSansPro().getStringWidth(name);
     }).reversed();
+
+    public List<Module> getEnabledModules() {
+        return modules.stream().filter(Module::isEnabled).sorted(SORT_METHOD).collect(Collectors.toList());
+    }
 }
