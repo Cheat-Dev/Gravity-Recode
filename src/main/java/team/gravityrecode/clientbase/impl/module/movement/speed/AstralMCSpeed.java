@@ -23,6 +23,8 @@ public class AstralMCSpeed extends Mode {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
+        if(!isEnabled())
+            return;
 //        double baseSpeed = 0.2873D;
 //        int amp = 0;
 //        if (mc.thePlayer.isPotionActive(Potion.moveSpeed)) {

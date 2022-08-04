@@ -30,6 +30,8 @@ public class WatchdogSpeed extends Mode {
 
     @EventHandler
     public void e(PlayerMotionEvent event){
+        if(!isEnabled())
+            return;
         if (event.isPre() || event.isUpdate()) {
             this.lastDistance = ApacheMath.hypot(mc.thePlayer.posX - mc.thePlayer.prevPosX, mc.thePlayer.posZ - mc.thePlayer.prevPosZ);
         }
@@ -37,6 +39,8 @@ public class WatchdogSpeed extends Mode {
 
     @EventHandler
     public void yayayyayayayayayayayayayayayaya(PlayerStrafeEvent event){
+        if(!isEnabled())
+            return;
         if (MovementUtil.isMoving()) {
             if (mc.thePlayer.onGround) {
                 mc.thePlayer.motionY = MovementUtil.getJumpHeight(0.42F);

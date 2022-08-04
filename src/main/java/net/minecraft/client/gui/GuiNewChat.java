@@ -82,7 +82,6 @@ public class GuiNewChat extends Gui
                                 int height = -i1 * 9;
                                 drawRect(0, height - 9, width + 4, height, color / 2 << 24);
                                 String text = chatline.getChatComponent().getFormattedText();
-                                GlStateManager.enableBlend();
 //                                if(text.contains(mc.thePlayer.getGameProfile().getName())){
 //                                    text = text.replace(mc.thePlayer.getGameProfile().getName(), mc.thePlayer.getName());
 //                                }
