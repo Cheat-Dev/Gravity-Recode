@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMoveEvent;
 import team.gravityrecode.clientbase.impl.event.player.SendSprintStateEvent;
 import team.gravityrecode.clientbase.impl.module.movement.NoSlow;
+import team.gravityrecode.clientbase.impl.util.player.PlayerUtil;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
@@ -229,6 +230,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
             playerMotionEvent.setState(PlayerMotionEvent.EventState.POST);
             Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
+
+            if(playerMotionEvent.isPost() && mc.thePlayer.ticksExisted == 1)
+                PlayerUtil.worldChanges++;
         }
     }
 

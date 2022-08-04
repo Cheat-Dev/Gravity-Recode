@@ -63,7 +63,11 @@ import net.minecraft.world.storage.MapData;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.player.PlayerTeleportEvent;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
+import team.gravityrecode.clientbase.impl.util.Position;
+import team.gravityrecode.clientbase.impl.util.Rotation;
 
 import java.io.File;
 import java.io.IOException;
@@ -534,6 +538,8 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     {
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
         EntityPlayer entityplayer = this.gameController.thePlayer;
+        PlayerTeleportEvent playerTeleportEvent = new PlayerTeleportEvent(new Position(packetIn.getX(), packetIn.getY(), packetIn.getZ()), new Rotation(packetIn.getYaw(), packetIn.getPitch()), packetIn.func_179834_f());
+        Client.INSTANCE.getPubSubEventBus().publish(playerTeleportEvent);
         if (!this.doneLoadingTerrain) {
             this.gameController.thePlayer.prevPosX = this.gameController.thePlayer.posX;
             this.gameController.thePlayer.prevPosY = this.gameController.thePlayer.posY;
@@ -541,12 +547,16 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.doneLoadingTerrain = true;
             this.gameController.displayGuiScreen(null);
         }
-        Set<?> flags = packetIn.func_179834_f();
-        double x = packetIn.getX();
-        double y = packetIn.getY();
-        double z = packetIn.getZ();
-        float yaw = packetIn.getYaw();
-        float pitch = packetIn.getPitch();
+        if (playerTeleportEvent.isCancelled())
+            return;
+        Position position = playerTeleportEvent.getPosition();
+        Rotation rotation = playerTeleportEvent.getRotation();
+        Set<?> flags = playerTeleportEvent.getFlags();
+        double x = position.getPosX();
+        double y = position.getPosY();
+        double z = position.getPosZ();
+        float yaw = rotation.getRotationYaw();
+        float pitch = rotation.getRotationPitch();
         if (flags.contains(S08PacketPlayerPosLook.EnumFlags.X))
             x += entityplayer.posX;
         else
@@ -564,7 +574,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         if (flags.contains(S08PacketPlayerPosLook.EnumFlags.Y_ROT))
             yaw += entityplayer.rotationYaw;
         entityplayer.setPositionAndRotation(x, y, z, yaw, pitch);
-            this.netManager.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(entityplayer.posX, entityplayer.getEntityBoundingBox().minY , entityplayer.posZ, entityplayer.rotationYaw, entityplayer.rotationPitch, false));
+        this.netManager.sendPacket(new C03PacketPlayer.C06PacketPlayerPosLook(entityplayer.posX, entityplayer.getEntityBoundingBox().minY , entityplayer.posZ, entityplayer.rotationYaw, entityplayer.rotationPitch, false));
     }
 
     /**

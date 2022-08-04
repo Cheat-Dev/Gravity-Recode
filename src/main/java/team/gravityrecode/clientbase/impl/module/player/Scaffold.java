@@ -677,7 +677,7 @@ public class Scaffold extends Module {
         angles = null;
         breadcrumbs.clear();
         EntityPlayer.enableCameraYOffset = false;
-//        PacketUtil.sendPacketNoEvent(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
+      PacketUtil.sendPacketNoEvent(new C0BPacketEntityAction(mc.thePlayer, C0BPacketEntityAction.Action.STOP_SNEAKING));
         towering = false;
         EntityPlayer.cameraYPosition = mc.thePlayer.posY;
         super.onDisable();

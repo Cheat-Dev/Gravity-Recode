@@ -23,6 +23,7 @@ import java.util.Map;
 public class PlayerUtil implements MinecraftUtil {
 
     public final Map<String, Boolean> serverResponses = new HashMap<>();
+    public int worldChanges;
 
 
     @AllArgsConstructor
@@ -38,6 +39,10 @@ public class PlayerUtil implements MinecraftUtil {
 
         @Override
         public String toString() {return addonName;}
+    }
+
+    public boolean funny() {
+        return worldChanges > 1;
     }
 
     public Block getBlockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {
