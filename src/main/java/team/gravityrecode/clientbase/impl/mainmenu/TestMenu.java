@@ -1,9 +1,11 @@
 package team.gravityrecode.clientbase.impl.mainmenu;
 
+import com.viaversion.viabackwards.protocol.protocol1_12_2to1_13.packets.PlayerPacket1_13;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticationException;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
 import fr.litarvan.openauth.microsoft.model.response.MinecraftProfile;
+import javazoom.jl.player.Player;
 import net.minecraft.client.gui.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Session;
@@ -14,15 +16,29 @@ import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class TestMenu extends GuiScreen {
 
     MainMenuShader mainMenuShader = new MainMenuShader();
+    private Player player = null;
 
     long initTime;
 
     @Override
     public void initGui() {
+        if(player == null){
+            new Thread(() -> {
+                try {
+                    player = new Player(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/pulsabo/funny.mp3")));
+                    player.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+
         initTime = System.currentTimeMillis();
         buttonList.clear();
 //        this.buttonList.add(new CustomButton(0, 5, 4, 94, 96, "Singleplayer", new ResourceLocation("pulsabo/images/singleplayer.png")));
@@ -95,4 +111,13 @@ public class TestMenu extends GuiScreen {
         Changelog changelog = (Changelog) m;
         return Fonts.INSTANCE.getSourceSansPro().getStringWidth(changelog.getChangeType() + changelog.getChange());
     }).reversed();
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+        if(player != null){
+            player.close();
+            player = null;
+        }
+    }
 }
