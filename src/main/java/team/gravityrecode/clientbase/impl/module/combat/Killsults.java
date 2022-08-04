@@ -28,13 +28,17 @@ public class Killsults extends Module {
             String look8 = "thrown off a cliff " + mc.thePlayer.getName();
             String look9 = "backstabbed by" + mc.thePlayer.getName();
             String look10 = "hit the ground too hard thanks" + mc.thePlayer.getName();
+            String look11 = "slain by [";
+            String name = mc.thePlayer.getName();
             S02PacketChat cp = eventPacket.getPacket();
             String cp21 = cp.getChatComponent().getUnformattedText();
             if (((cp21.startsWith(mc.thePlayer.getName() + "(")) && (cp21.contains("asesino ha")))
                     || (cp21.contains(look)) || (cp21.contains(look2)) || (cp21.contains(look3))
                     || (cp21.contains(look4)) || (cp21.contains(look5)) || (cp21.contains(look6))
-                    || (cp21.contains(look7)) || (cp21.contains(look8)) || (cp21.contains(look9)) || (cp21.contains(look10)) || (cp21.contains("You have been rewarded $50 and 2 point(s)!"))
-                    && timeUtility.hasElapsed(50)) {
+                    || (cp21.contains(look7)) || (cp21.contains(look8)) || (cp21.contains(look9)) ||
+                    (cp21.contains(look10)) || ((cp21.contains(look11)) && cp21.contains(name)) ||
+                    (cp21.contains("You have been rewarded $50 and 2 point(s)!"))
+                            && timeUtility.hasElapsed(50)) {
                 mc.thePlayer.sendChatMessage("" + randomMessage() + " [" + RandomUtils.nextLong(4444L, 100000000L) + "]");
                 timeUtility.reset();
             }
