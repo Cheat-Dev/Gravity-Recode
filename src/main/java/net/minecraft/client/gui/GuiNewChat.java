@@ -9,6 +9,7 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 
 import java.util.Iterator;
 import java.util.List;
@@ -85,7 +86,7 @@ public class GuiNewChat extends Gui
 //                                if(text.contains(mc.thePlayer.getGameProfile().getName())){
 //                                    text = text.replace(mc.thePlayer.getGameProfile().getName(), mc.thePlayer.getName());
 //                                }
-                                this.mc.fontRendererObj.drawStringWithShadow(text, 0, height - 8, 16777215 + (color << 24));
+                                Fonts.INSTANCE.getSourceSansPro().drawString(text, 0, height - 8, 16777215 + (color << 24));
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
@@ -95,7 +96,7 @@ public class GuiNewChat extends Gui
 
                 if (chatOpen)
                 {
-                    int fontHeight = this.mc.fontRendererObj.FONT_HEIGHT;
+                    int fontHeight = Fonts.INSTANCE.getSourceSansPro().FONT_HEIGHT;
                     GlStateManager.translate(-3.0F, 0.0F, 0.0F);
                     int l2 = size * fontHeight + size;
                     int i3 = j * fontHeight + j;
@@ -239,9 +240,9 @@ public class GuiNewChat extends Gui
             {
                 int l = Math.min(this.getLineCount(), this.drawnChatLines.size());
 
-                if (j <= MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale()) && k < this.mc.fontRendererObj.FONT_HEIGHT * l + l)
+                if (j <= MathHelper.floor_float((float)this.getChatWidth() / this.getChatScale()) && k < Fonts.INSTANCE.getSourceSansPro().FONT_HEIGHT * l + l)
                 {
-                    int i1 = k / this.mc.fontRendererObj.FONT_HEIGHT + this.scrollPos;
+                    int i1 = k / Fonts.INSTANCE.getSourceSansPro().FONT_HEIGHT + this.scrollPos;
 
                     if (i1 >= 0 && i1 < this.drawnChatLines.size())
                     {
@@ -252,7 +253,7 @@ public class GuiNewChat extends Gui
                         {
                             if (ichatcomponent instanceof ChatComponentText)
                             {
-                                j1 += this.mc.fontRendererObj.getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false));
+                                j1 += Fonts.INSTANCE.getSourceSansPro().getStringWidth(GuiUtilRenderComponents.func_178909_a(((ChatComponentText)ichatcomponent).getChatComponentText_TextValue(), false));
 
                                 if (j1 > j)
                                 {
