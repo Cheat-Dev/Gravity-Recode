@@ -26,13 +26,14 @@ public class VulcanFlight extends Mode {
     public void onEnable() {
         super.onEnable();
 //        mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY - 1 + MovementUtil.getLilypadValue());
-        ticksSinceFlag = 0;
+        ticksSinceFlag = 999;
         ticks = 0;
         bool = false;
         offGroundTicks = 0;
         startingLocationX = mc.thePlayer.posX;
         startingLocationZ = mc.thePlayer.posZ;
         startingLocationY = mc.thePlayer.posY;
+        ticksSinceFlag = -99999999;
     }
 
     @EventHandler
@@ -109,7 +110,6 @@ public class VulcanFlight extends Mode {
                     }
                 } else {
                     this.getOwner().toggle();
-                    this.onDisable();
                 }
             }
         }

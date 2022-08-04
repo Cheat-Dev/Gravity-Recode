@@ -140,7 +140,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     public void onUpdateWalkingPlayer() {
         final PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(PlayerMotionEvent.EventState.PRE, lastReportedYaw, lastReportedPitch,
                 lastTickPosX, lastTickPosY, lastTickPosZ,
-                posX, getEntityBoundingBox().minY, posZ,
+                posX, posY, posZ,
                 rotationYaw, rotationPitch, onGround);
 
         Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);

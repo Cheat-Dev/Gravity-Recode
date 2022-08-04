@@ -1079,7 +1079,7 @@ public abstract class EntityLivingBase extends Entity {
         }
 
         if (this.isSprinting()) {
-            float f = this.rotationYaw * 0.017453292F;
+            float f = playerJumpEvent.getYaw() * 0.017453292F;
             this.motionX -= MathHelper.sin(f) * 0.2F;
             this.motionZ += MathHelper.cos(f) * 0.2F;
         }
