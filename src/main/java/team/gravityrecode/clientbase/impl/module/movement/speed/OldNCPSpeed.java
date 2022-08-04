@@ -17,6 +17,8 @@ public class OldNCPSpeed extends Mode {
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
+        if(!isEnabled())
+            return;
         if (MovementUtil.isMovingOnGround()) {
             moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.8;
             event.setY(mc.thePlayer.motionY = 0.42F);
