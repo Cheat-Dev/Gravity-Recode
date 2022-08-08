@@ -44,6 +44,8 @@ public class Hud extends Module {
 
     @EventHandler
     public void onRender2D(Render2DEvent event) {
+        if(mc.gameSettings.showDebugInfo)
+            return;
         switch (mode.getValue()) {
             case FLAT:
                 renderFlatWatermark(event);

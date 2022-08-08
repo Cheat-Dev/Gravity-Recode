@@ -32,8 +32,8 @@ public class TabGui {
 
     public void init() {
         for (ModuleCategory category : ModuleCategory.values()) {
-            if (!Client.INSTANCE.getModuleManager().getModulesInCategory(category).isEmpty())
-                tabList.add(new CategoryTab(category.categoryName, category));
+//            if (!Client.INSTANCE.getModuleManager().getModulesInCategory(category).isEmpty())
+            tabList.add(new CategoryTab(category.categoryName, category));
         }
         tab = 0;
         tabOffset = 0;

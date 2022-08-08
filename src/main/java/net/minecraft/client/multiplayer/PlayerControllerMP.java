@@ -21,6 +21,7 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.BlockPlaceEvent;
 import team.gravityrecode.clientbase.impl.event.player.SpoofItemEvent;
 import team.gravityrecode.clientbase.impl.event.player.WindowClickEvent;
+import team.gravityrecode.clientbase.impl.module.ghost.Reach;
 
 public class PlayerControllerMP
 {
@@ -287,9 +288,9 @@ public class PlayerControllerMP
         }
     }
 
-    public float getBlockReachDistance()
-    {
-        return this.currentGameType.isCreative() ? 5.0F : 4.5F;
+    public float getBlockReachDistance() {
+        Reach reach = Client.INSTANCE.getModuleManager().getModule(Reach.class);
+        return reach.isEnabled() ? reach.reach.getValue().floatValue() : (this.currentGameType.isCreative() ? 5.0F : 4.5F);
     }
 
     public void updateController()
