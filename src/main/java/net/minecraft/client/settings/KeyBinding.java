@@ -103,7 +103,7 @@ public class KeyBinding implements Comparable<KeyBinding>
         }
     }
 
-    private void unpressKey()
+    public void unpressKey()
     {
         this.pressTime = 0;
         this.pressed = false;

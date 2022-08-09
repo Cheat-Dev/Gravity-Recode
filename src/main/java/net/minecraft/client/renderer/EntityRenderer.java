@@ -78,6 +78,7 @@ import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.UpdateLookEvent;
 import team.gravityrecode.clientbase.impl.event.render.Render3DEvent;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
+import team.gravityrecode.clientbase.impl.module.ghost.Reach;
 import team.gravityrecode.clientbase.impl.module.player.ChetStaler;
 import team.gravityrecode.clientbase.impl.module.visual.NoHurtCam;
 
@@ -406,13 +407,13 @@ public class EntityRenderer implements IResourceManagerReloadListener
             Vec3 vec3 = entity.getPositionEyes(partialTicks);
             boolean flag = false;
             int i = 3;
-
+            Reach reach = Client.INSTANCE.getModuleManager().getModule(Reach.class);
             if (this.mc.playerController.extendedReach())
             {
                 d0 = 6.0D;
                 d1 = 6.0D;
             }
-            else if (d0 > 3.0D)
+            else if (d0 > (reach.isEnabled() ? reach.mainReach : 3.0D))
             {
                 flag = true;
             }

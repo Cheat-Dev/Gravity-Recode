@@ -53,6 +53,9 @@ public class Hud extends Module {
                 if (tabGui.getValue())
                     drawFlatTabgui();
                 break;
+            case GHOST:
+                renderGhostHud(event);
+                break;
             case BLOOM:
                 renderBloomWatermark(event);
                 renderBloomArraylist(event);
@@ -76,6 +79,21 @@ public class Hud extends Module {
 
     public void renderFlatWatermark(Render2DEvent event) {
         Fonts.INSTANCE.getUbuntu_light().drawString(Client.INSTANCE.getClientInfo().getClientName(), draggable.getX() + 3, draggable.getY() + 1, rainbow.getValue() ? ColorUtil.rainbow(-8) : color.getValue().getRGB());
+    }
+
+    public void renderGhostHud(Render2DEvent event) {
+        Fonts.INSTANCE.getUbuntu_light().drawString(Client.INSTANCE.getClientInfo().getClientName() + " V3",
+                event.getScaledResolution().getScaledWidth() - Fonts.INSTANCE.getUbuntu_light().getStringWidth
+                        (Client.INSTANCE.getClientInfo().getClientName() + " V3") - 2, 2,
+                rainbow.getValue() ? ColorUtil.rainbow(8) : color.getColor());
+        int y = 0;
+        modules = getEnabledModules();
+        for (Module module : modules) {
+            int stringWidth = Fonts.INSTANCE.getSourceSansPro().getStringWidth(module.getModuleName());
+            Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), event.getScaledResolution().getScaledWidth() -
+                    stringWidth - 2, y + 18, rainbow.getValue() ? ColorUtil.rainbow(y * 8) : color.getValue().getRGB());
+            y += 10;
+        }
     }
 
     public void renderFlatArraylist(Render2DEvent event) {
@@ -145,7 +163,7 @@ public class Hud extends Module {
 
     @AllArgsConstructor
     public enum HudMode implements INameable {
-        FLAT("Flat"), BLOOM("Bloom");
+        FLAT("Flat"), GHOST("Ghost"), BLOOM("Bloom");
 
         private final String modeName;
 

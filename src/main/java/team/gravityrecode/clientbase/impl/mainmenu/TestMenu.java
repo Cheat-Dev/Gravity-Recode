@@ -28,16 +28,16 @@ public class TestMenu extends GuiScreen {
 
     @Override
     public void initGui() {
-        if(player == null){
-            new Thread(() -> {
-                try {
-                    player = new Player(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/pulsabo/funny.mp3")));
-                    player.play();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }).start();
-        }
+//        if(player == null){
+//            new Thread(() -> {
+//                try {
+//                    player = new Player(Objects.requireNonNull(this.getClass().getResourceAsStream("/assets/minecraft/pulsabo/funny.mp3")));
+//                    player.play();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }).start();
+//        }
 
 
         initTime = System.currentTimeMillis();

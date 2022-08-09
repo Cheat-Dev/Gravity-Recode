@@ -94,6 +94,7 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.util.glu.GLU;
 import team.gravityrecode.clientbase.impl.event.player.TickEvnet;
 import team.gravityrecode.clientbase.impl.mainmenu.TestMenu;
+import team.gravityrecode.clientbase.impl.module.ghost.Reach;
 import viamcp.utils.AttackOrder;
 
 import javax.imageio.ImageIO;

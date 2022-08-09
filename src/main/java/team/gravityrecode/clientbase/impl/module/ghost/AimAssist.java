@@ -32,7 +32,7 @@ public class AimAssist extends Module {
     private NumberSetting aggressivity = new NumberSetting(this, "Smoothness", 15, 1, 120, 0.1);
     private NumberSetting range = new NumberSetting(this, "Range", 4.4, 2.8, 7.0, 0.1);
     private BooleanSetting lockView = new BooleanSetting(this, "Lock View", false);
-    private final EnumSetting<RotationUtil.RotationsPoint> rotationsPointProperty = new EnumSetting<>(this, "Rotations Point", RotationUtil.RotationsPoint.values());
+    private final EnumSetting<RotationUtil.RotationsPoint> rotationsPointProperty = new EnumSetting<>(this, "Focus", RotationUtil.RotationsPoint.values());
 
     @EventHandler
     public void onUpdate(PlayerMotionEvent event) {
