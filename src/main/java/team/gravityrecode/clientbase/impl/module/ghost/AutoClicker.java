@@ -23,8 +23,7 @@ public class AutoClicker extends Module {
     public void onUpdate(PlayerMotionEvent event) {
         double min = minCPS.getValue(), max = maxCPS.getValue(), normalCPS = cps.getValue();
         double cps = random.getValue() ? MathUtil.randomDouble(min, max) : normalCPS;
-
-        if (mc.gameSettings.keyBindAttack.isKeyDown() && attackTimer.hasElapsed((long) (1000 / cps))) {
+        if (mc.gameSettings.keyBindAttack.isKeyDown() && attackTimer.hasElapsed((long) (1000 / cps)) && event.isPre()) {
             mc.leftClickCounter = 0;
             mc.clickMouse();
             attackTimer.reset();

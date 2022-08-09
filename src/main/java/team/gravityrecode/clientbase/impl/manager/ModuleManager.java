@@ -15,6 +15,7 @@ import team.gravityrecode.clientbase.impl.module.combat.Killsults;
 import team.gravityrecode.clientbase.impl.module.combat.Volecity;
 import team.gravityrecode.clientbase.impl.module.exploit.Disabler;
 import team.gravityrecode.clientbase.impl.module.exploit.PacketModifier;
+import team.gravityrecode.clientbase.impl.module.ghost.AimAssist;
 import team.gravityrecode.clientbase.impl.module.ghost.AutoClicker;
 import team.gravityrecode.clientbase.impl.module.ghost.Hitbox;
 import team.gravityrecode.clientbase.impl.module.ghost.Reach;
@@ -40,7 +41,7 @@ public class ModuleManager extends Manager<Module> {
         Stream.of(new AutoArmor(), new PacketModifier(), new Disabler(), new InventoryManager(), new Scaffold(), new Volecity(), new Benchmark(), new Sprint(),
                 new Hud(), new Criticals(), new Speed(), new Flight(), new Timer(), new Killaura(), new Killsults(), new Notifications(),
                 new PlayerESP(), new ChetStaler(), new DamageParticles(), new NoHurtCam(), new ItemPhysics(), new NoSlow(), new ClickGui(),
-                new AutoClicker(), new Hitbox(), new Reach()).sorted((o1, o2) -> {
+                new AutoClicker(), new Hitbox(), new Reach(), new AimAssist()).sorted((o1, o2) -> {
             Class<?> c1 = o1.getClass();
             Class<?> c2 = o2.getClass();
             ModuleInfo a1 = c1.getDeclaredAnnotation(ModuleInfo.class);
