@@ -182,7 +182,7 @@ public class Scaffold extends Module {
                             event.setPosY(roundY + jumpY[1]);
                         } else {
                             event.setPosY(roundY);
-                            event.setGround(true);
+                            event.setOnGround(true);
                         }
                     }
                 }
@@ -229,17 +229,17 @@ public class Scaffold extends Module {
                                         case 1:
                                             moveSpeed = 0.42f;
                                             speed = boost ? speed + 0.2 : 0.48;
-                                            event.setGround(true);
+                                            event.setOnGround(true);
                                             break;
                                         case 2:
                                             speed = boost ? speed * 0.71  : 0.19;
                                             moveSpeed -= 0.0784f;
-                                            event.setGround(false);
+                                            event.setOnGround(false);
                                             break;
                                         default:
                                             ticksThing = 0;
                                             speed /= boost ? 0.64 : 0.66;
-                                            event.setGround(true);
+                                            event.setOnGround(true);
                                             break;
                                     }
                                     MovementUtil.setSpeed(speed);
@@ -267,7 +267,7 @@ public class Scaffold extends Module {
                     }
                     case WATCHDOG:{
                         if(MovementUtil.isMoving()){
-                            // event.setGround(true);
+                            // event.setOnGround(true);
                             if(mc.thePlayer.onGround){
                                 mc.thePlayer.motionY = 0.42F;
                                 moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.2;

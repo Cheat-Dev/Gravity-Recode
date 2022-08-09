@@ -22,6 +22,7 @@ public class TestMenu extends GuiScreen {
 
     MainMenuShader mainMenuShader = new MainMenuShader();
     private Player player = null;
+    private MicrosoftAuthenticator microsoftAuthenticator;
 
     long initTime;
 
@@ -88,10 +89,9 @@ public class TestMenu extends GuiScreen {
                 mc.displayGuiScreen(new GuiMultiplayer(this));
                 break;
             case 2:
-                MicrosoftAuthenticator authenticator;
                 try {
-                    authenticator = new MicrosoftAuthenticator();
-                    MicrosoftAuthResult result = authenticator.loginWithWebview();
+                    microsoftAuthenticator = new MicrosoftAuthenticator();
+                    MicrosoftAuthResult result = microsoftAuthenticator.loginWithWebview();
                     MinecraftProfile profile = result.getProfile();
                     mc.session = new Session(profile.getName(), profile.getId(), result.getAccessToken(), "microsoft");
                 } catch (MicrosoftAuthenticationException e) {

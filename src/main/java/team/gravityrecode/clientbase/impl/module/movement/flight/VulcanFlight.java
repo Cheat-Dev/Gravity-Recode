@@ -81,7 +81,7 @@ public class VulcanFlight extends Mode {
                     mc.thePlayer.setPosition(mc.thePlayer.posX, mathGround2, mc.thePlayer.posZ);
 
                     event.setPosY(mathGround2);
-                    event.setGround(true);
+                    event.setOnGround(true);
                     mc.thePlayer.onGround = true;
                 }
             }

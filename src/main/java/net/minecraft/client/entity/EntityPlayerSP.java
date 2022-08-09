@@ -1,5 +1,6 @@
 package net.minecraft.client.entity;
 
+import lombok.Getter;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.PlayerMotionEvent;
 import net.minecraft.client.Minecraft;
@@ -58,6 +59,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     private String clientBrand;
     private int horseJumpPowerCounter;
     private float horseJumpPower;
+    public float renderPitchRotation, prevRenderPitchRotation;
 
     public EntityPlayerSP(Minecraft mcIn, World worldIn, NetHandlerPlayClient netHandler, StatFileWriter statFile) {
         super(worldIn, netHandler.getGameProfile());
@@ -121,16 +123,15 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
-            PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(PlayerMotionEvent.EventState.UPDATE, lastReportedYaw, lastReportedPitch,
-                    lastTickPosX, lastTickPosY, lastTickPosZ,
-                    posX, getEntityBoundingBox().minY, posZ,
-                    rotationYaw, rotationPitch, onGround);
-            Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
 
             if (this.isRiding()) {
                 this.sendQueue.addToSendQueue(new C03PacketPlayer.C05PacketPlayerLook(this.rotationYaw, this.rotationPitch, this.onGround));
                 this.sendQueue.addToSendQueue(new C0CPacketInput(this.moveStrafing, this.moveForward, this.movementInput.jump, this.movementInput.sneak));
             } else {
+                PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(posX, posY, posZ, rotationYaw, rotationPitch, lastReportedYaw, lastReportedPitch,
+                        onGround, PlayerMotionEvent.EventState.UPDATE);
+                Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
+
                 this.onUpdateWalkingPlayer();
             }
         }
@@ -138,10 +139,8 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void onUpdateWalkingPlayer() {
-        final PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(PlayerMotionEvent.EventState.PRE, lastReportedYaw, lastReportedPitch,
-                lastTickPosX, lastTickPosY, lastTickPosZ,
-                posX, posY, posZ,
-                rotationYaw, rotationPitch, onGround);
+        final PlayerMotionEvent playerMotionEvent = new PlayerMotionEvent(posX, posY, posZ, rotationYaw, rotationPitch, lastReportedYaw, lastReportedPitch,
+                onGround, PlayerMotionEvent.EventState.PRE);
 
         Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
         currentEvent = playerMotionEvent;
@@ -191,7 +190,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             final double eventZ = playerMotionEvent.getPosZ();
             final float eventYaw = playerMotionEvent.getYaw();
             final float eventPitch = playerMotionEvent.getPitch();
-            final boolean eventGround = playerMotionEvent.isGround();
+            final boolean eventGround = playerMotionEvent.isOnGround();
             double d0 = eventX - this.lastReportedPosX;
             double d1 = eventY - this.lastReportedPosY;
             double d2 = eventZ - this.lastReportedPosZ;
@@ -225,14 +224,32 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
 
             if (flag3) {
-                this.lastReportedYaw = eventYaw;
-                this.lastReportedPitch = eventPitch;
+                this.lastReportedYaw = playerMotionEvent.getPrevYaw();
+                this.lastReportedPitch = playerMotionEvent.getPrevPitch();
             }
-            playerMotionEvent.setState(PlayerMotionEvent.EventState.POST);
+            playerMotionEvent.setEventState(PlayerMotionEvent.EventState.POST);
             Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
 
             if(playerMotionEvent.isPost() && mc.thePlayer.ticksExisted == 1)
                 PlayerUtil.worldChanges++;
+        }
+    }
+
+    @Getter
+    private boolean isRotationDifferent;
+
+    void setThirdPersonRotations(PlayerMotionEvent event) {
+        if (event.getPitch() != mc.thePlayer.rotationPitch) {
+            this.renderPitchRotation = event.getPitch();
+        }
+
+        if (event.getYaw() != mc.thePlayer.rotationYaw) {
+            this.renderYawOffset = event.getYaw();
+            this.rotationYawHead = event.getYaw();
+
+            this.isRotationDifferent = true;
+        } else {
+            this.isRotationDifferent = false;
         }
     }
 

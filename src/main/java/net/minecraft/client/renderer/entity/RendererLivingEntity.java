@@ -123,15 +123,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             this.mainModel.isChild = entity.isChild();
 
             try {
-                float f, f1;
-                if (mc.thePlayer != null && entity == mc.thePlayer && mc.thePlayer.currentEvent.isRotating()) {
-                    float yaw = this.interpolateRotation(mc.thePlayer.currentEvent.getPrevYaw(), mc.thePlayer.currentEvent.getYaw(), partialTicks);
-                    f = yaw;
-                    f1 = yaw;
-                } else {
-                    f = this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, partialTicks);
-                    f1 = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
-                }
+                float f = this.interpolateRotation(entity.prevRenderYawOffset, entity.renderYawOffset, partialTicks);
+                float f1 = this.interpolateRotation(entity.prevRotationYawHead, entity.rotationYawHead, partialTicks);
                 float f2 = f1 - f;
 
                 if (this.mainModel.isRiding && entity.ridingEntity instanceof EntityLivingBase) {
@@ -158,8 +151,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 }
 
                 float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-                if (mc.thePlayer != null && entity == mc.thePlayer && mc.thePlayer.currentEvent.isRotating())
-                    f7 = this.interpolateRotation(mc.thePlayer.currentEvent.getPrevPitch(), mc.thePlayer.currentEvent.getPitch(), partialTicks);
+                if (mc.thePlayer != null && entity == mc.thePlayer)
+                    f7 = entity.prevRenderPitchRotation + (entity.renderPitchRotation - entity.prevRenderPitchRotation) * partialTicks;
                 float f8 = this.handleRotationFloat(entity, partialTicks);
 
                 this.renderLivingAt(entity, x, y, z);

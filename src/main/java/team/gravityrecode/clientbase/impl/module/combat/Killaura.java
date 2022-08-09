@@ -135,7 +135,7 @@ public class Killaura extends Module {
         //Do mode selecting hsit
         if (modeProperty.getValue() != KillAuraMode.MULTI) {
             target = getTarget();
-            if (event.getState() == PlayerMotionEvent.EventState.PRE) {
+            if (event.getEventState() == PlayerMotionEvent.EventState.PRE) {
                 if (isEntityNearby()) {
                     final Vec3 hitOrigin = RotationUtil.getHitOrigin(mc.thePlayer);
                     final Vec3 attackHitVec = getAttackHitVec(hitOrigin, target);
@@ -205,7 +205,7 @@ public class Killaura extends Module {
                         event.setPosY(event.getPosY() + 0.001);
                         blockTimer.reset();
                     }
-                    event.setGround(false);
+                    event.setOnGround(false);
                 }
 
                 if (isEntityNearbyAttack() && (intercept != null || !onlyAttackWhenLookingAtEntityLongNameMethod.getValue())) {

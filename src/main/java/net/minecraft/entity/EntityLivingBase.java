@@ -51,6 +51,7 @@ public abstract class EntityLivingBase extends Entity {
     public int deathTime;
     public float prevSwingProgress;
     public float swingProgress;
+    public float renderPitchRotation, prevRenderPitchRotation;
     public float prevLimbSwingAmount;
     public float limbSwingAmount;
     public float limbSwing;
@@ -108,6 +109,7 @@ public abstract class EntityLivingBase extends Entity {
         this.randomUnused2 = (float) Math.random() * 12398.0F;
         this.rotationYaw = (float) (Math.random() * Math.PI * 2.0D);
         this.rotationYawHead = this.rotationYaw;
+        this.renderPitchRotation = this.rotationPitch;
         this.stepHeight = 0.6F;
     }
 
@@ -245,6 +247,7 @@ public abstract class EntityLivingBase extends Entity {
         this.prevRenderYawOffset = this.renderYawOffset;
         this.prevRotationYawHead = this.rotationYawHead;
         this.prevRotationYaw = this.rotationYaw;
+        this.prevRenderPitchRotation = this.renderPitchRotation;
         this.prevRotationPitch = this.rotationPitch;
         this.worldObj.theProfiler.endSection();
     }
@@ -1378,6 +1381,7 @@ public abstract class EntityLivingBase extends Entity {
             double d3 = MathHelper.wrapAngleTo180_double(this.newRotationYaw - (double) this.rotationYaw);
             this.rotationYaw = (float) ((double) this.rotationYaw + d3 / (double) this.newPosRotationIncrements);
             this.rotationPitch = (float) ((double) this.rotationPitch + (this.newRotationPitch - (double) this.rotationPitch) / (double) this.newPosRotationIncrements);
+            this.renderPitchRotation = rotationPitch;
             --this.newPosRotationIncrements;
             this.setPosition(d0, d1, d2);
             this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -1495,6 +1499,7 @@ public abstract class EntityLivingBase extends Entity {
         this.newPosZ = z;
         this.newRotationYaw = yaw;
         this.newRotationPitch = pitch;
+        this.renderPitchRotation = pitch;
         this.newPosRotationIncrements = posRotationIncrements;
     }
 

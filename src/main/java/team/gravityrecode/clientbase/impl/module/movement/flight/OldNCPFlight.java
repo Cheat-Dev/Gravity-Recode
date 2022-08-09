@@ -66,7 +66,7 @@ public class OldNCPFlight extends Mode {
             }
             mc.thePlayer.motionY = 0;
 
-            event.setGround(false);
+            event.setOnGround(false);
             //mc.timer.timerSpeed = Math.max(mc.timer.timerSpeed, 1);
             if (stage == 1) {
                 //PacketUtil.sendPacketNoEvent(new C08PacketPlayerBlockPlacement(mc.thePlayer.getPosition().down(), EnumFacing.UP.getIndex(), mc.thePlayer.getHeldItem(), 0, 0.049392F, 0));
