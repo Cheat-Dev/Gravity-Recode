@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
+import team.gravityrecode.clientbase.impl.module.ghost.Hitbox;
 
 import java.util.List;
 import java.util.Random;
@@ -1599,7 +1600,8 @@ public abstract class Entity implements ICommandSender
     }
 
     public float getCollisionBorderSize() {
-        return 0.1F;
+        Hitbox hitbox = Client.INSTANCE.getModuleManager().getModule(Hitbox.class);
+        return hitbox.isEnabled() ? hitbox.hitbox.getValue().floatValue() : 0.1F;
     }
 
     public Vec3 getLookVec()
