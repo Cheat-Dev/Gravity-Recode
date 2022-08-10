@@ -9,7 +9,7 @@ import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
 import team.gravityrecode.clientbase.impl.util.client.TimerUtil;
 
-@ModuleInfo(moduleName = "Killsults", moduleCategory = Module.ModuleCategory.COMBAT)
+@ModuleInfo(moduleName = "Insult_Poeple_when_you_kill_them_so_they_feel_bad_and_kill_themselves", moduleCategory = Module.ModuleCategory.COMBAT)
 public class Killsults extends Module {
 
     TimerUtil timeUtility = new TimerUtil();

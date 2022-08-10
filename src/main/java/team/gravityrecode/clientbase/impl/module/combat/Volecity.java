@@ -7,7 +7,7 @@ import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.moduleBase.ModuleInfo;
 import team.gravityrecode.clientbase.impl.event.networking.PacketEvent;
 
-@ModuleInfo(moduleName = "Volecity", moduleCategory = Module.ModuleCategory.COMBAT)
+@ModuleInfo(moduleName = "Dont_Take_knockback_because_you_are_cancelling_packets_that_cause_knockback", moduleCategory = Module.ModuleCategory.COMBAT)
 public class Volecity extends Module {
 
     @EventHandler

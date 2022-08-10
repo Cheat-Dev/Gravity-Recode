@@ -30,7 +30,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ModuleInfo(moduleName = "Hud", moduleCategory = Module.ModuleCategory.VISUAL, moduleKeyBind = Keyboard.KEY_U)
+@ModuleInfo(moduleName = "Draws_The_FUcking_Hud_To_See_what_bullshit_is_enabled_and_to_know_what_client_youre_on", moduleCategory = Module.ModuleCategory.VISUAL, moduleKeyBind = Keyboard.KEY_U)
 public class Hud extends Module {
 
     private int tab;
