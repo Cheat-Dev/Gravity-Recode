@@ -400,6 +400,7 @@ public class RenderUtils
     }
 
     public static void drawRoundedRect(double x, double y, final double width, final double height, final double radius, final int color) {
+        GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
@@ -415,10 +416,10 @@ public class RenderUtils
         y *= 2.0;
         x2 *= 2.0;
         y2 *= 2.0;
-        GL11.glDisable(3553);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glColor4f(f2, f3, f4, f);
-        GL11.glEnable(2848);
-        GL11.glBegin(9);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glBegin(GL11.GL_POLYGON);
         for (int i = 0; i <= 90; i += 3) {
             GL11.glVertex2d(x + radius + ApacheMath.sin(i * 3.141592653589793 / 180.0) * (radius * -1.0), y + radius + ApacheMath.cos(i * 3.141592653589793 / 180.0) * (radius * -1.0));
         }
@@ -432,14 +433,15 @@ public class RenderUtils
             GL11.glVertex2d(x2 - radius + ApacheMath.sin(i * 3.141592653589793 / 180.0) * radius, y + radius + ApacheMath.cos(i * 3.141592653589793 / 180.0) * radius);
         }
         GL11.glEnd();
-        GL11.glEnable(3553);
-        GL11.glDisable(2848);
-        GL11.glEnable(3553);
-        GL11.glScaled(2.0, 2.0, 2.0);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glScaled(2, 2, 2);
         GL11.glPopAttrib();
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        GL11.glColor4f(1, 1, 1, 1);
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
     }
 
     static {

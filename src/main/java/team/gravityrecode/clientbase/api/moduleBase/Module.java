@@ -82,7 +82,6 @@ public class Module implements MinecraftUtil {
         VISUAL(4, "Render"),
         EXPLOIT(5, "Exploit"),
         MISC(6, "Misc"),
-        GHOST(7, "Ghost"),
         SCRIPT(8, "Script");
 
         public int elementIndex;

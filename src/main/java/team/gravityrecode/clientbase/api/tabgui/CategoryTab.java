@@ -9,6 +9,7 @@ import team.gravityrecode.clientbase.api.moduleBase.Module.ModuleCategory;
 import team.gravityrecode.clientbase.impl.module.visual.Hud;
 import team.gravityrecode.clientbase.impl.util.foint.Fonts;
 import team.gravityrecode.clientbase.impl.util.render.ColorUtil;
+import team.gravityrecode.clientbase.impl.util.render.RoundedUtil;
 
 import java.awt.*;
 
@@ -21,7 +22,6 @@ public class CategoryTab {
     private ModuleCategory category;
 
     public void drawTab(float x, float y, float width, float height, int offset, int textOffset, int selectColour) {
-        Gui.drawRect(x, y, x + width, y + offset, new Color(10, 10, 10, 100).getRGB());
-        Fonts.INSTANCE.getSourceSansPro().drawString(category.categoryName, x + 2 + textOffset, y + 4, selectColour);
+        Fonts.INSTANCE.getSourceSansPro().drawString(category.categoryName, x + 2 + textOffset, y + 5, selectColour);
     }
 }

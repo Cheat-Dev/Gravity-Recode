@@ -14,7 +14,7 @@ import team.gravityrecode.clientbase.impl.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.math.MathUtil;
 import team.gravityrecode.clientbase.impl.util.player.RotationUtil;
 
-@ModuleInfo(moduleName = "Reach", moduleCategory = Module.ModuleCategory.GHOST)
+@ModuleInfo(moduleName = "Reach", moduleCategory = Module.ModuleCategory.COMBAT)
 public class Reach extends Module {
 
     public BooleanSetting randomize = new BooleanSetting(this, "Randomize", true);

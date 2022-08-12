@@ -41,7 +41,7 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
-@ModuleInfo(moduleName = "_Attack_Players_Without_having_To_make_any_EFFORT_BECAUuse_It_Does_EveryThing_For_you_to_ensure_you_win", moduleCategory = Module.ModuleCategory.COMBAT)
+@ModuleInfo(moduleName = "Aura", moduleCategory = Module.ModuleCategory.COMBAT)
 public class Killaura extends Module {
 
     static double[] y1 = {0.104080378093037, 0.105454222033912, 0.102888018147468, 0.099634532004642};

@@ -10,7 +10,7 @@ import team.gravityrecode.clientbase.impl.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.client.TimerUtil;
 import team.gravityrecode.clientbase.impl.util.math.MathUtil;
 
-@ModuleInfo(moduleName = "AutoClicker", moduleCategory = Module.ModuleCategory.GHOST)
+@ModuleInfo(moduleName = "AutoClicker", moduleCategory = Module.ModuleCategory.COMBAT)
 public class AutoClicker extends Module {
 
     private BooleanSetting random = new BooleanSetting(this, "Random", true);

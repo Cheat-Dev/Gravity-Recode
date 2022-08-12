@@ -22,7 +22,6 @@ public class ModuleTab {
 
     public void drawTab(float x, float y, float width, float height, int offset, int textOffset, int selectColour) {
         Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
-        Gui.drawRect(x, y, x + width, y + offset, new Color(10, 10, 10, 100).getRGB());
-        Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), x + 2 + textOffset, y + 4, selectColour);
+        Fonts.INSTANCE.getSourceSansPro().drawString(module.getModuleName(), x + textOffset, y + 5, selectColour);
     }
 }

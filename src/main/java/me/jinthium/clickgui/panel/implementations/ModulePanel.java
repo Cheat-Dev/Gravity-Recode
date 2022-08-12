@@ -17,6 +17,7 @@ public class ModulePanel extends Panel {
     private Animation animation = new EaseInOutRect(600, 1, Direction.BACKWARDS);
     private final TimerUtil timer = new TimerUtil();
     private Module module;
+    private float animHeight;
 
     public ModulePanel(Module module, float x, float y, float width, float height) {
         super(x, y, width, height, false);
@@ -58,6 +59,9 @@ public class ModulePanel extends Panel {
                 animation.reset();
                 module.toggle();
                 timer.reset();
+            }
+            if(mouseButton == 1){
+                animHeight = this.height;
             }
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);

@@ -57,8 +57,9 @@ public class RenderUtil implements MinecraftUtil {
         y *= scale;
         width *= scale;
         height *= scale;
-
-        GL11.glScissor((int) x, (int) (y - height), (int) width, (int) height);
+        glPushMatrix();
+        glEnable(GL_SCISSOR_TEST);
+        glScissor((int) x, (int) (y - height), (int) width, (int) height);
     }
 
     public static void glColor(int hex) {

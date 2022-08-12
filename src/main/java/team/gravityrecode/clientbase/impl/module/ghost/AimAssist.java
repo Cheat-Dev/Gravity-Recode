@@ -26,7 +26,7 @@ import team.gravityrecode.clientbase.impl.util.player.RotationUtil;
 import java.util.List;
 import java.util.function.BiFunction;
 
-@ModuleInfo(moduleName = "AimAssist", moduleCategory = Module.ModuleCategory.GHOST)
+@ModuleInfo(moduleName = "AimAssist", moduleCategory = Module.ModuleCategory.COMBAT)
 public class AimAssist extends Module {
 
     private NumberSetting aggressivity = new NumberSetting(this, "Smoothness", 15, 1, 120, 0.1);

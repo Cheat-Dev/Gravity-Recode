@@ -8,7 +8,7 @@ import team.gravityrecode.clientbase.impl.event.player.SendSprintStateEvent;
 import team.gravityrecode.clientbase.impl.property.BooleanSetting;
 import team.gravityrecode.clientbase.impl.util.player.MovementUtil;
 
-@ModuleInfo(moduleName = "_sprints_for_your_lazy_ass_so_you_dont_have_to_start_manually_breathing", moduleCategory = Module.ModuleCategory.MOVEMENT, moduleKeyBind = Keyboard.KEY_V)
+@ModuleInfo(moduleName = "Sprint", moduleCategory = Module.ModuleCategory.MOVEMENT, moduleKeyBind = Keyboard.KEY_V)
 public class Sprint extends Module {
 
     private final BooleanSetting omniSprint = new BooleanSetting(this, "Omni", true);

@@ -295,8 +295,8 @@ public class GuiIngame extends Gui {
         Client.INSTANCE.getPubSubEventBus().publish(new Render2DEvent(scaledresolution, partialTicks));
         double x = MathUtils.getDifference(mc.thePlayer.lastTickPosX, mc.thePlayer.posX);
         double z = MathUtils.getDifference(mc.thePlayer.lastTickPosZ, mc.thePlayer.posZ);
-        double bps2 = (Math.sqrt(x * x + z * z) * 20) * mc.timer.timerSpeed;
-        mc.fontRendererObj.drawStringWithShadow((float) Math.floor(bps2 * 100) / 100 + " bp/s", 2, scaledresolution.getScaledHeight() - 14, -1);
+//        double bps2 = (Math.sqrt(x * x + z * z) * 20) * mc.timer.timerSpeed;
+//        mc.fontRendererObj.drawStringWithShadow((float) Math.floor(bps2 * 100) / 100 + " bp/s", 2, scaledresolution.getScaledHeight() - 14, -1);
         GL11.glPushMatrix();
 
 

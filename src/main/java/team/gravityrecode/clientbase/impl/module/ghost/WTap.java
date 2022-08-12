@@ -13,7 +13,7 @@ import team.gravityrecode.clientbase.impl.property.NumberSetting;
 import team.gravityrecode.clientbase.impl.util.client.Logger;
 import team.gravityrecode.clientbase.impl.util.math.MathUtil;
 
-@ModuleInfo(moduleName = "WTap", moduleCategory = Module.ModuleCategory.GHOST)
+@ModuleInfo(moduleName = "WTap", moduleCategory = Module.ModuleCategory.COMBAT)
 public class WTap extends Module {
 
     public boolean stop;
