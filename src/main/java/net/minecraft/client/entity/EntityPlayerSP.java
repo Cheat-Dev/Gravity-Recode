@@ -590,7 +590,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         boolean flag2 = this.movementInput.moveForward >= f;
         this.movementInput.updatePlayerMoveState();
 
-        NoSlow noSlow = Client.INSTANCE.getModuleManager().getModule("NoSlow");
+        NoSlow noSlow = Client.INSTANCE.getModuleManager().getModule(NoSlow.class);
         if (this.isUsingItem() && !this.isRiding() && !noSlow.isEnabled()) {
             this.movementInput.moveStrafe *= 0.2F;
             this.movementInput.moveForward *= 0.2F;
