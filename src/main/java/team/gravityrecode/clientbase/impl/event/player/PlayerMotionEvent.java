@@ -3,6 +3,7 @@ package team.gravityrecode.clientbase.impl.event.player;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.Minecraft;
 import team.gravityrecode.clientbase.api.client.Event;
 
 @Getter

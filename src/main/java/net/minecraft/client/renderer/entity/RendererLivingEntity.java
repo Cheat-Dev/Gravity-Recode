@@ -150,9 +150,12 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                     f2 = f1 - f;
                 }
 
-                float f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
-                if (mc.thePlayer != null && entity == mc.thePlayer)
-                    f7 = entity.prevRenderPitchRotation + (entity.renderPitchRotation - entity.prevRenderPitchRotation) * partialTicks;
+                float f7;
+                if (entity == mc.thePlayer && mc.thePlayer.isRotationDifferent()) {
+                    f7 = mc.thePlayer.currentEvent.getPrevPitch() + (mc.thePlayer.currentEvent.getPitch() - mc.thePlayer.currentEvent.getPrevPitch()) * partialTicks;
+                } else {
+                    f7 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+                }
                 float f8 = this.handleRotationFloat(entity, partialTicks);
 
                 this.renderLivingAt(entity, x, y, z);

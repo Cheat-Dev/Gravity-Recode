@@ -224,9 +224,12 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
 
             if (flag3) {
-                this.lastReportedYaw = playerMotionEvent.getPrevYaw();
-                this.lastReportedPitch = playerMotionEvent.getPrevPitch();
+                this.lastReportedYaw = eventYaw;
+                this.lastReportedPitch = eventPitch;
             }
+
+            this.setThirdPersonRotations(playerMotionEvent);
+
             playerMotionEvent.setEventState(PlayerMotionEvent.EventState.POST);
             Client.INSTANCE.getPubSubEventBus().publish(playerMotionEvent);
 
