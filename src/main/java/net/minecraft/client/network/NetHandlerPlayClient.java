@@ -541,9 +541,6 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
         PlayerTeleportEvent playerTeleportEvent = new PlayerTeleportEvent(new Position(packetIn.getX(), packetIn.getY(), packetIn.getZ()), new Rotation(packetIn.getYaw(), packetIn.getPitch()), packetIn.func_179834_f());
         Client.INSTANCE.getPubSubEventBus().publish(playerTeleportEvent);
         if (!this.doneLoadingTerrain) {
-            this.gameController.thePlayer.prevPosX = this.gameController.thePlayer.posX;
-            this.gameController.thePlayer.prevPosY = this.gameController.thePlayer.posY;
-            this.gameController.thePlayer.prevPosZ = this.gameController.thePlayer.posZ;
             this.doneLoadingTerrain = true;
             this.gameController.displayGuiScreen(null);
         }

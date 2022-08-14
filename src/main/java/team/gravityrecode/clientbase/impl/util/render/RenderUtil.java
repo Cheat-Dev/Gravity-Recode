@@ -17,6 +17,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.property.interfaces.INameable;
 import team.gravityrecode.clientbase.impl.util.render.secondary.RenderUtils;
 import me.jinthium.optimization.ApacheMath;
 
@@ -36,10 +37,18 @@ public class RenderUtil implements MinecraftUtil {
     private static final FloatBuffer MODEL_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
     private static final FloatBuffer PROJECTION_MATRIX_BUFFER = GLAllocation.createDirectFloatBuffer(16);
     private static final IntBuffer SCISSOR_BUFFER = GLAllocation.createDirectIntBuffer(16);
-    
-    public static enum ColorMode{
-        Sync,
-        Custom
+
+    @AllArgsConstructor
+    public enum ColorMode implements INameable {
+        SYNC("Sync"),
+        CUSTOM("Custom");
+
+        private final String colorMode;
+
+        @Override
+        public String getName() {
+            return colorMode;
+        }
     }
 
 

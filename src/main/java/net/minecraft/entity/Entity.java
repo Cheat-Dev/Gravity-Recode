@@ -31,6 +31,7 @@ import net.minecraft.world.WorldServer;
 import team.gravityrecode.clientbase.Client;
 import team.gravityrecode.clientbase.impl.event.player.PlayerStrafeEvent;
 import team.gravityrecode.clientbase.impl.module.ghost.Hitbox;
+import team.gravityrecode.clientbase.impl.util.Position;
 
 import java.util.List;
 import java.util.Random;
@@ -1052,6 +1053,13 @@ public abstract class Entity implements ICommandSender
         double d0 = this.posX - x;
         double d1 = this.posY - y;
         double d2 = this.posZ - z;
+        return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
+    }
+
+    public double getDistanceToPos(Position position){
+        double d0 = this.posX - position.getPosX();
+        double d1 = this.posY - position.getPosY();
+        double d2 = this.posZ - position.getPosZ();
         return MathHelper.sqrt_double(d0 * d0 + d1 * d1 + d2 * d2);
     }
 

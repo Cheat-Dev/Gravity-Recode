@@ -1,5 +1,6 @@
 package team.gravityrecode.clientbase.impl.util.player;
 
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.experimental.UtilityClass;
 import net.minecraft.block.Block;
@@ -14,10 +15,14 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import team.gravityrecode.clientbase.api.moduleBase.Module;
 import team.gravityrecode.clientbase.api.util.MinecraftUtil;
+import team.gravityrecode.clientbase.impl.property.MultiBoolean;
+import team.gravityrecode.clientbase.impl.property.MultipleBoolSetting;
+import team.gravityrecode.clientbase.impl.util.world.WorldUtil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @UtilityClass
 public class PlayerUtil implements MinecraftUtil {
@@ -26,23 +31,32 @@ public class PlayerUtil implements MinecraftUtil {
     public int worldChanges;
 
 
-    @AllArgsConstructor
-    public enum TARGETS {
-        PLAYERS("Players"),
-        MOBS("Mobs"),
-        ANIMALS("Animals"),
-        INVISIBLE("Invisibles"),
-        DEAD("Ded XD"),
-        TEAMS("Teams");
-
-        private final String addonName;
-
-        @Override
-        public String toString() {return addonName;}
+    public <T extends MultipleBoolSetting> boolean isValid(EntityLivingBase entityLivingBase, T targetsProperty) {
+        if (entityLivingBase == null) return false;
+        if (entityLivingBase.isInvisible()) return targetsProperty.isSelected("Invis");
+        if (!entityLivingBase.isEntityAlive()) return targetsProperty.isSelected("Dead Father Figure");
+        if (entityLivingBase instanceof EntityOtherPlayerMP) {
+            final EntityPlayer player = (EntityPlayer) entityLivingBase;
+            if (PlayerUtil.isTeammate(player)) return targetsProperty.isSelected("Teams");
+            return WorldUtil.checkPing(player);
+        } else if (entityLivingBase instanceof EntityMob) {
+            return targetsProperty.isSelected("Mobs");
+        } else if (entityLivingBase instanceof EntityAnimal) {
+            return targetsProperty.isSelected("Animals");
+        } else {
+            return false;
+        }
     }
 
-    public boolean funny() {
-        return worldChanges > 1;
+    public ArrayList<MultiBoolean> TARGETS(Module owner) {
+        return Lists.newArrayList(
+                new MultiBoolean(owner, "Players", true),
+                new MultiBoolean(owner, "Mobs", false),
+                new MultiBoolean(owner, "Animals", false),
+                new MultiBoolean(owner, "Invis", false),
+                new MultiBoolean(owner, "Dead Father Figure", false),
+                new MultiBoolean(owner, "Teams", false)
+        );
     }
 
     public Block getBlockRelativeToPlayer(final double offsetX, final double offsetY, final double offsetZ) {

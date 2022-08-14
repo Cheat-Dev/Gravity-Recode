@@ -66,9 +66,7 @@ public class Killaura extends Module {
     private final NumberSetting blockRangeProperty = new NumberSetting(this, "Block Range", 4.2, 1, 10, 0.1);
     private final NumberSetting fovRangeProperty = new NumberSetting(this, "Fov Range", 180, 1, 180, 10);
 
-    private final MultipleBoolSetting targetsProperty = new MultipleBoolSetting(this, "Targets", new MultiBoolean(this, "Players", true),
-            new MultiBoolean(this, "Mobs", false), new MultiBoolean(this, "Animals", false),
-            new MultiBoolean(this, "Invisibles", false), new MultiBoolean(this, "Dead", false), new MultiBoolean(this, "Teams", false));
+    private final MultipleBoolSetting targetsProperty = new MultipleBoolSetting(this, "Targets", PlayerUtil.TARGETS(this));
 
     private final BooleanSetting rayTraceProperty = new BooleanSetting(this, "Ray Trace", false);
     public final BooleanSetting lockViewProperty = new BooleanSetting(this, "Lock View", false);

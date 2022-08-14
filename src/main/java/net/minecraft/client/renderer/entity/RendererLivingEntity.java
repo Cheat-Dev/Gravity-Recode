@@ -29,6 +29,8 @@ import net.optifine.shaders.Shaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
+import team.gravityrecode.clientbase.Client;
+import team.gravityrecode.clientbase.impl.event.render.RenderNametagEvent;
 
 import java.awt.*;
 import java.nio.FloatBuffer;
@@ -537,7 +539,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     public void renderName(T entity, double x, double y, double z) {
         if (!Reflector.RenderLivingEvent_Specials_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Pre_Constructor, entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z))) {
-            if (this.canRenderName(entity)) {
+            RenderNametagEvent renderNametagEvent = new RenderNametagEvent(entity);
+            Client.INSTANCE.getPubSubEventBus().publish(renderNametagEvent);
+            if (this.canRenderName(entity) && !renderNametagEvent.isCancelled()) {
                 double d0 = entity.getDistanceSqToEntity(this.renderManager.livingPlayer);
                 float f = entity.isSneaking() ? NAME_TAG_RANGE_SNEAK : NAME_TAG_RANGE;
 

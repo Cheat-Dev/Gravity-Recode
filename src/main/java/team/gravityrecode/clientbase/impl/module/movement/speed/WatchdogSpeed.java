@@ -51,12 +51,12 @@ public class WatchdogSpeed extends Mode {
                 this.shouldBoost = false;
             } else {
                 this.moveSpeed = this.lastDistance * 0.91f;
-                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.034F : 0.036F;
+                this.moveSpeed += mc.thePlayer.isPotionActive(Potion.moveSpeed) ? 0.036F : 0.035F;
                 if (mc.thePlayer.moveStrafing != 0) {
                     double multi = (MovementUtil.getSpeed() - this.lastDistance) * MovementUtil.getBaseMoveSpeed();
 
                     this.moveSpeed += multi;
-                    this.moveSpeed -= 0.004;
+                    this.moveSpeed -= 0.015F;
                 }
             }
 

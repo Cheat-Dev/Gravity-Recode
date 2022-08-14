@@ -74,21 +74,18 @@ public class VulcanFlight extends Mode {
             }
 
             if ((ticksSinceFlag <= 20 && ticksSinceFlag >= 0 && ticksSinceFlag >= 4) || mc.thePlayer.posY % 0.5 == 0) {
-                if (PlayerUtil.funny()) {
-                    final double mathGround2 = Math.round(event.getPosY() / 0.015625) * 0.015625;
-                    MovementUtil.setSpeed(0.2974 - 0.128);
+                final double mathGround2 = Math.round(event.getPosY() / 0.015625) * 0.015625;
+                MovementUtil.setSpeed(0.2974 - 0.128);
 
-                    mc.thePlayer.setPosition(mc.thePlayer.posX, mathGround2, mc.thePlayer.posZ);
+                mc.thePlayer.setPosition(mc.thePlayer.posX, mathGround2, mc.thePlayer.posZ);
 
-                    event.setPosY(mathGround2);
-                    event.setOnGround(true);
-                    mc.thePlayer.onGround = true;
-                }
+                event.setPosY(mathGround2);
+                event.setOnGround(true);
+                mc.thePlayer.onGround = true;
             }
 
-            if (bool || (!PlayerUtil.funny() && ticks > 15)) {
-                if (PlayerUtil.funny())
-                    PacketUtil.sendPacket(new C03PacketPlayer.C04PacketPlayerPosition((mc.thePlayer.posX + mc.thePlayer.lastTickPosX) / 2, (mc.thePlayer.posY + mc.thePlayer.lastTickPosY) / 2, (mc.thePlayer.posZ + mc.thePlayer.lastTickPosZ) / 2, true));
+            if (bool) {
+                PacketUtil.sendPacket(new C03PacketPlayer.C04PacketPlayerPosition((mc.thePlayer.posX + mc.thePlayer.lastTickPosX) / 2, (mc.thePlayer.posY + mc.thePlayer.lastTickPosY) / 2, (mc.thePlayer.posZ + mc.thePlayer.lastTickPosZ) / 2, true));
                 MovementUtil.setSpeed(MovementUtil.getBaseMoveSpeed() * 1.5 * 2);
                 mc.timer.timerSpeed = 1.2f + mc.thePlayer.hurtTime / 3f;
             } else {
@@ -103,7 +100,7 @@ public class VulcanFlight extends Mode {
             S08PacketPlayerPosLook s08 = event.getPacket();
             if (mc.thePlayer.ticksExisted > 20) {
                 if (Math.abs(s08.getX() - startingLocationX) + Math.abs(s08.getY() - startingLocationY) + Math.abs(s08.getZ() - startingLocationZ) < 4) {
-                    if (PlayerUtil.funny()) event.setCancelled(true);
+                    event.setCancelled(true);
                     if (!bool) {
                         mc.thePlayer.hurtTime = 9;
                         bool = true;
