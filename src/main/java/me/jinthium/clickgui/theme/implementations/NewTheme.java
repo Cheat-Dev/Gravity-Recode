@@ -52,7 +52,7 @@ public class NewTheme implements Theme, MinecraftUtil {
         if (panel.isExtended()) {
             Gui.drawRect(x + 1, y + 17, x + width - 1, y + panel.totalHeight() - 1, new Color(30, 30, 30, 255).getRGB());
         }
-        RoundedUtil.drawRoundedRect(x + 2, y, x + width - 2, y + height - 2, 8, panel.getModule().isEnabled() ? hud.arraylistColour : new Color(0, 0, 0, 0).getRGB());
+        RoundedUtil.drawRoundedRect(x + 2, y, x + width - 2, y + height - 2, 8, panel.getModule().isEnabled() ? hud.tabGuiColour : new Color(0, 0, 0, 0).getRGB());
         RenderUtil.color(panel.getModule().isEnabled() ? -1 : new Color(220, 220, 220, 255).getRGB());
         Fonts.INSTANCE.getSourceSansPro().drawString(panel.getModule().getModuleName(), x + 4, y + panel.height() / 2 - Fonts.INSTANCE.getSourceSansPro().getHeight() / 2 - 1.5, -1);
         int counter = 0;
@@ -80,7 +80,7 @@ public class NewTheme implements Theme, MinecraftUtil {
                 if (component.getSetting().isSelected(component.getSetting().getValue().get(i).getName()))
                     RoundedUtil.drawRoundedRect(x + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1, (x + width) - 4,
                             y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 8,
-                            hud.arraylistColour);
+                            hud.tabGuiColour);
                 Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
                         .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
                 component.count += Fonts.INSTANCE.getSourceSansPro().getHeight() + 7;
@@ -126,7 +126,7 @@ public class NewTheme implements Theme, MinecraftUtil {
                 if (component.getSetting().getValue() == component.getSetting().getModeList().get(i)) {
                     RoundedUtil.drawRoundedRect(x + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1, (x + width) - 4,
                             y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 5,
-                            hud.arraylistColour);
+                            hud.tabGuiColour);
                 }
                 Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
                         .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
@@ -156,7 +156,7 @@ public class NewTheme implements Theme, MinecraftUtil {
                 if (component.getSetting().getValue() == component.getSetting().getEnumList().get(i)) {
                     RoundedUtil.drawRoundedRect(x + 4, y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1, (x + width) - 4,
                             y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 1 + Fonts.INSTANCE.getSourceSansPro().getHeight() + 4, 5,
-                            hud.arraylistColour);
+                            hud.tabGuiColour);
                 }
                 Fonts.INSTANCE.getSourceSansPro().drawString(enumName, (float) (x + width / 2.0 - Fonts.INSTANCE.getSourceSansPro()
                         .getStringWidth(enumName) / 2.0), y + Fonts.INSTANCE.getSourceSansPro().getHeight() * 3 + component.count + 3, -1);
@@ -179,10 +179,10 @@ public class NewTheme implements Theme, MinecraftUtil {
         Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
         GlStateManager.translate(0, -2.5f, 0);
         RoundedUtil.drawRoundedRect(x + 5, y + height - 4, x + width - 5, y + height - 1, 2, new Color(-1).getRGB());
-        RoundedUtil.drawRoundedRect(x + 5, y + height - 4f, x + length + 5, y + height - 1f, 2f, hud.arraylistColour);
+        RoundedUtil.drawRoundedRect(x + 5, y + height - 4f, x + length + 5, y + height - 1f, 2f, hud.tabGuiColour);
         // Draw.drawBorderedCircle(x + length, y+ height - 5, 3, -1,-1);
         //1RenderUtil.drawCGuiCircle(x + length+ 5, y + height + 1 - 5.5f + 1.5f, 3.5f, -1);
-        RenderUtil.drawCGuiCircle(x + length + 5, y + height + 1 - 5.5f + 1.5f, 3f, hud.arraylistColour);
+        RenderUtil.drawCGuiCircle(x + length + 5, y + height + 1 - 5.5f + 1.5f, 3f, hud.tabGuiColour);
         RenderUtil.color(-1);
         DecimalFormat decimalFormat = new DecimalFormat("##.##");
         Fonts.INSTANCE.getSourceSansPro().drawString(component.getSetting().getName() + ": " + decimalFormat.format(component.getSetting().getValue()),

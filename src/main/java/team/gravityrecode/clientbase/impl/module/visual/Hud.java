@@ -45,7 +45,7 @@ public class Hud extends Module {
     public ColorSetting color = new ColorSetting(this, "Color", new Color(255, 255, 255));
     public Draggable draggable = Client.INSTANCE.getDraggablesManager().createNewDraggable(this, "test", 4, 4, Fonts.INSTANCE.getUbuntu_light().getStringWidth("Gravity"), mc.fontRendererObj.FONT_HEIGHT);
     public List<Module> modules;
-    public int hudColour, arraylistColour;
+    public int hudColour, arraylistColour, tabGuiColour;
 
     @EventHandler
     public void onRender2D(Render2DEvent event) {
@@ -54,13 +54,15 @@ public class Hud extends Module {
         float y = 0;
         switch (colourMode.getValue()) {
             case CUSTOM:
-                arraylistColour = hudColour = color.getValue().getRGB();
+                arraylistColour = hudColour = tabGuiColour = color.getValue().getRGB();
+                if(color.getValue().getRed() > 235 && color.getValue().getGreen() > 235 && color.getValue().getBlue() > 235)
+                    tabGuiColour = color.getValue().darker().getRGB();
                 break;
             case RAINBOW:
-                hudColour = ColorUtil.rainbow(8);
+                hudColour = tabGuiColour = ColorUtil.rainbow(8);
                 break;
             case GRADIENT:
-                hudColour = ColorUtil.getGradientOffset(color.getValue(), color.getValue().darker(), ((Math.abs(((System.currentTimeMillis()) / 8)) / 100D)));
+                hudColour = tabGuiColour = ColorUtil.getGradientOffset(color.getValue(), color.getValue().darker(), ((Math.abs(((System.currentTimeMillis()) / 8)) / 100D)));
                 break;
         }
 

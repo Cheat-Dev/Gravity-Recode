@@ -39,7 +39,7 @@ public class TabGui {
     public void init() {
         for (ModuleCategory category : ModuleCategory.values()) {
             if (!(category == ModuleCategory.SCRIPT))
-            tabList.add(new CategoryTab(category.categoryName, category));
+                tabList.add(new CategoryTab(category.categoryName, category));
         }
         tab = 0;
         tabOffset = 0;
@@ -58,11 +58,12 @@ public class TabGui {
         Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
         RoundedUtil.drawRoundedRect(x, y + offset, x + width, y + tabList.size() * offset + offset, 8, new Color(25, 25, 25, 255).getRGB());
         RoundedUtil.drawRoundedRect(x, (float) (y + (offset * upNDownanim.getOutput()) + yOffset), x + width, (float)
-                        (y + (offset * 2 * upNDownanim.getOutput()) + yOffset), 8, hud.arraylistColour);
-        for (CategoryTab tab : tabList) {
-            height += offset;
-            tab.drawTab(x, y + height, width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
-        }
+                (y + (offset * 2 * upNDownanim.getOutput()) + yOffset), 8, hud.tabGuiColour);
+        final float[] finalHeight = {height};
+        tabList.forEach(tab -> {
+            finalHeight[0] += offset;
+            tab.drawTab(x, y + finalHeight[0], width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
+        });
     }
 
     public void renderTabGuiModuleTabs(float x, float y, float width, float height, int offset, int color) {
@@ -76,25 +77,23 @@ public class TabGui {
                 expanded = false;
             }
             RenderUtil.scissor(x, y + offset + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + moduleTabList.size() * offset + offset);
-            for (ModuleTab moduleTab : moduleTabList) {
+            moduleTabList.forEach(mList -> {
                 RoundedUtil.drawRoundedRect(x, y + offset + yOffset, x + width, y + moduleTabList.size() * offset + offset + yOffset, 8, new Color(25, 25, 25, 255).getRGB());
-            }
+            });
             RoundedUtil.drawRoundedRect(x, (float) (y + (offset * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset), (float) (x + ((width) *
                             extendedAnim.getOutput())), (float) (y + (offset * 2 * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset),
-                    8, hud.arraylistColour);
-//            RoundedUtil.drawRoundedRect(x, (float) (y + (offset * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset), (float) (x + (4 *
-//                            extendedAnim.getOutput())), (float) (y + (offset * 2 * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset),
-//                    4, hud.arraylistColour);
+                    8, hud.tabGuiColour);
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             glPopMatrix();
-            for (ModuleTab moduleTab : moduleTabList) {
-                height += offset;
-                RenderUtil.scissor(x, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + height);
-                moduleTab.drawTab(x + 2, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y, offset, moduleTabList.get(ModuleCategory.values()[tab].
-                                elementIndex) == moduleTab ? (int) (4 * extendedUpDownAnim.getOutput()) : 0, -1);
+            final float[] finalHeight = {height};
+            moduleTabList.forEach(moduleTab -> {
+                finalHeight[0] += offset;
+                RenderUtil.scissor(x, y + finalHeight[0] + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + finalHeight[0]);
+                moduleTab.drawTab(x + 2, y + finalHeight[0] + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y, offset, moduleTabList.get(ModuleCategory.values()[tab].
+                        elementIndex) == moduleTab ? (int) (4 * extendedUpDownAnim.getOutput()) : 0, -1);
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
                 glPopMatrix();
-            }
+            });
         }
     }
 
@@ -104,9 +103,7 @@ public class TabGui {
         switch (event.getKeyCode()) {
             case Keyboard.KEY_DOWN:
                 if (!expanded) {
-
-
-                    if(upNDownanim.getDirection() == Direction.BACKWARDS)
+                    if (upNDownanim.getDirection() == Direction.BACKWARDS)
                         upNDownanim.setDirection(Direction.FORWARDS);
                     else
                         upNDownanim.reset();
@@ -131,7 +128,7 @@ public class TabGui {
                 break;
             case Keyboard.KEY_UP:
                 if (!expanded) {
-                    if(upNDownanim.getDirection() == Direction.BACKWARDS)
+                    if (upNDownanim.getDirection() == Direction.BACKWARDS)
                         upNDownanim.setDirection(Direction.FORWARDS);
                     else
                         upNDownanim.reset();
@@ -142,11 +139,20 @@ public class TabGui {
                         tab -= 1;
                         yOffset -= add;
                     }
+                } else {
+                    extendedUpDownAnim.reset();
+                    if (category.elementIndex == 0) {
+                        category.elementIndex = moduleTabList.size() - 1;
+                        moduleOffset = add * (moduleTabList.size() - 1);
+                    } else {
+                        category.elementIndex--;
+                        moduleOffset -= add;
+                    }
                 }
                 break;
             case Keyboard.KEY_RIGHT:
                 if (!expanded) {
-                    if(extendedAnim.getDirection() == Direction.BACKWARDS)
+                    if (extendedAnim.getDirection() == Direction.BACKWARDS)
                         extendedAnim.setDirection(Direction.FORWARDS);
                     else
                         extendedAnim.reset();

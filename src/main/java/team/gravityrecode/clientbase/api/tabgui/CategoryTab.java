@@ -21,7 +21,7 @@ public class CategoryTab {
     private String tabName;
     private ModuleCategory category;
 
-    public void drawTab(float x, float y, float width, float height, int offset, int textOffset, int selectColour) {
+    public void drawTab(float x, float y, float width, final float height, int offset, int textOffset, int selectColour) {
         Fonts.INSTANCE.getSourceSansPro().drawString(category.categoryName, x + 2 + textOffset, y + 5, selectColour);
     }
 }
