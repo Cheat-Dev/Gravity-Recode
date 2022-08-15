@@ -59,13 +59,10 @@ public class TabGui {
         RoundedUtil.drawRoundedRect(x, y + offset, x + width, y + tabList.size() * offset + offset, 8, new Color(25, 25, 25, 255).getRGB());
         RoundedUtil.drawRoundedRect(x, (float) (y + (offset * upNDownanim.getOutput()) + yOffset), x + width, (float)
                 (y + (offset * 2 * upNDownanim.getOutput()) + yOffset), 8, hud.tabGuiColour);
-        final float[] finalHeight = {height};
-        tabList.forEach(tab -> {
-            finalHeight[0] += offset;
-            tab.drawTab(x, y + finalHeight[0], width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
-        });
+        for (CategoryTab tab : tabList) {
+            tab.drawTab(x, y + height, width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
+        }
     }
-
     public void renderTabGuiModuleTabs(float x, float y, float width, float height, int offset, int color) {
         Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
         if (expanded) {
@@ -85,15 +82,14 @@ public class TabGui {
                     8, hud.tabGuiColour);
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             glPopMatrix();
-            final float[] finalHeight = {height};
-            moduleTabList.forEach(moduleTab -> {
-                finalHeight[0] += offset;
-                RenderUtil.scissor(x, y + finalHeight[0] + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + finalHeight[0]);
-                moduleTab.drawTab(x + 2, y + finalHeight[0] + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y, offset, moduleTabList.get(ModuleCategory.values()[tab].
+            for (ModuleTab moduleTab : moduleTabList) {
+                height += offset;
+                RenderUtil.scissor(x, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + height);
+                moduleTab.drawTab(x + 2, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y, offset, moduleTabList.get(ModuleCategory.values()[tab].
                         elementIndex) == moduleTab ? (int) (4 * extendedUpDownAnim.getOutput()) : 0, -1);
                 GL11.glDisable(GL11.GL_SCISSOR_TEST);
                 glPopMatrix();
-            });
+            }
         }
     }
 
