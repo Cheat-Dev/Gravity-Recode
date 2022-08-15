@@ -273,7 +273,7 @@ public class Scaffold extends Module {
                                 moveSpeed = MovementUtil.getBaseMoveSpeed() * 1.2;
                                 mc.timer.timerSpeed = 1.0f;
                             }else{
-                                mc.timer.timerSpeed = 1.28f + MovementUtil.getRandomHypixelValuesFloat();
+                                mc.timer.timerSpeed = 1.4f + MovementUtil.getRandomHypixelValuesFloat();
                             }
                             //MovementUtil.setSpeed(MovementUtil.getBaseMoveSpeed() * 0.538);
                         }
