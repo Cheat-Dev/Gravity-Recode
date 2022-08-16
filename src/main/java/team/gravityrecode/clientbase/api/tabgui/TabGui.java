@@ -60,6 +60,7 @@ public class TabGui {
         RoundedUtil.drawRoundedRect(x, (float) (y + (offset * upNDownanim.getOutput()) + yOffset), x + width, (float)
                 (y + (offset * 2 * upNDownanim.getOutput()) + yOffset), 8, hud.tabGuiColour);
         for (CategoryTab tab : tabList) {
+            height += offset;
             tab.drawTab(x, y + height, width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
         }
     }
