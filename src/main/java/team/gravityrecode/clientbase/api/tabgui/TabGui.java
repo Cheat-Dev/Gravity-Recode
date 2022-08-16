@@ -3,6 +3,7 @@ package team.gravityrecode.clientbase.api.tabgui;
 import com.google.common.io.ByteSource;
 import lombok.Getter;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import team.gravityrecode.clientbase.Client;
@@ -23,8 +24,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.*;
 
 @Getter
 public class TabGui {
@@ -56,9 +56,12 @@ public class TabGui {
 
     public void renderTabGui(float x, float y, float width, float height, int offset, int color) {
         Hud hud = Client.INSTANCE.getModuleManager().getModule("Hud");
+        RenderUtil.scissor(x, y + offset, x + width, y + tabList.size() * offset + offset);
         RoundedUtil.drawRoundedRect(x, y + offset, x + width, y + tabList.size() * offset + offset, 8, new Color(25, 25, 25, 255).getRGB());
         RoundedUtil.drawRoundedRect(x, (float) (y + (offset * upNDownanim.getOutput()) + yOffset), x + width, (float)
                 (y + (offset * 2 * upNDownanim.getOutput()) + yOffset), 8, hud.tabGuiColour);
+        GlStateManager.popMatrix();
+        GL11.glDisable(GL_SCISSOR_TEST);
         for (CategoryTab tab : tabList) {
             height += offset;
             tab.drawTab(x, y + height, width, y, offset, tabList.get(this.tab) == tab ? (int) (2 * upNDownanim.getOutput()) : 0, -1);
@@ -74,22 +77,25 @@ public class TabGui {
                 moduleOffset = 0;
                 expanded = false;
             }
-            RenderUtil.scissor(x, y + offset + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + moduleTabList.size() * offset + offset);
-            moduleTabList.forEach(mList -> {
-                RoundedUtil.drawRoundedRect(x, y + offset + yOffset, x + width, y + moduleTabList.size() * offset + offset + yOffset, 8, new Color(25, 25, 25, 255).getRGB());
-            });
+            /*
+            TOUCH THIS AND YOURE OUT! FOR >>>>>>>>>> FOREACH FFS
+            DO YOU KNOW WHAT MEMORY IS? NO? LEARN WHAT A GARBAGE COLLECTOR IS
+            I already know you'll say "wut"
+             */
+            RenderUtil.scissor(x, y + offset + yOffset, x + width, y + moduleTabList.size() * offset + offset + yOffset);
+            RoundedUtil.drawRoundedRect(x, y + offset + yOffset, x + width, y + moduleTabList.size() * offset + offset + yOffset, 8, new Color(25, 25, 25, 255).getRGB());
             RoundedUtil.drawRoundedRect(x, (float) (y + (offset * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset), (float) (x + ((width) *
                             extendedAnim.getOutput())), (float) (y + (offset * 2 * extendedUpDownAnim.getOutput()) + moduleOffset + yOffset),
                     8, hud.tabGuiColour);
-            GL11.glDisable(GL11.GL_SCISSOR_TEST);
             glPopMatrix();
+            GL11.glDisable(GL11.GL_SCISSOR_TEST);
             for (ModuleTab moduleTab : moduleTabList) {
                 height += offset;
                 RenderUtil.scissor(x, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y + height);
                 moduleTab.drawTab(x + 2, y + height + yOffset, (float) ((width + 4) * extendedAnim.getOutput()), y, offset, moduleTabList.get(ModuleCategory.values()[tab].
                         elementIndex) == moduleTab ? (int) (4 * extendedUpDownAnim.getOutput()) : 0, -1);
-                GL11.glDisable(GL11.GL_SCISSOR_TEST);
                 glPopMatrix();
+                GL11.glDisable(GL11.GL_SCISSOR_TEST);
             }
         }
     }
